@@ -268,6 +268,7 @@ em{font-family:'Instrument Serif',serif;font-style:italic;}
             <input type="hidden" name="_subject" value="Microsite Studio - Start a Project submission">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="selected_engagements" id="selectedEngagements" value="">
             <div class="form-group">
               <div class="form-question">What stage is your business at?</div>
               <div class="radio-group" role="radiogroup" aria-label="Business stage">
@@ -284,13 +285,13 @@ em{font-family:'Instrument Serif',serif;font-style:italic;}
             <div class="form-group">
               <div class="form-question">Which engagement are you considering?</div>
               <div class="checkbox-group" role="group" aria-label="Engagement type">
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="diagnostic"><span class="checkbox-custom"></span><span>Growth Diagnostic — ₹10,000</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="brand"><span class="checkbox-custom"></span><span>Brand Foundation — ₹20,000</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="launch"><span class="checkbox-custom"></span><span>Launch Sprint — ₹40,000</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="advisory"><span class="checkbox-custom"></span><span>GTM Advisory — ₹70,000</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="retainer"><span class="checkbox-custom"></span><span>Growth Retainer — from ₹25,000/mo</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="unsure"><span class="checkbox-custom"></span><span>Not sure yet — I need guidance</span></label>
-                <label class="checkbox-option"><input type="checkbox" name="engagement" value="individual-service"><span class="checkbox-custom"></span><span>Individual Service — website, landing page, logo, UI/UX, custom build</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="Growth Diagnostic — ₹10,000"><span class="checkbox-custom"></span><span>Growth Diagnostic — ₹10,000</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="Brand Foundation — ₹20,000"><span class="checkbox-custom"></span><span>Brand Foundation — ₹20,000</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="Launch Sprint — ₹40,000"><span class="checkbox-custom"></span><span>Launch Sprint — ₹40,000</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="GTM Advisory — ₹70,000"><span class="checkbox-custom"></span><span>GTM Advisory — ₹70,000</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="Growth Retainer — from ₹25,000/mo"><span class="checkbox-custom"></span><span>Growth Retainer — from ₹25,000/mo</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="Not sure yet — I need guidance"><span class="checkbox-custom"></span><span>Not sure yet — I need guidance</span></label>
+                <label class="checkbox-option"><input type="checkbox" name="engagement" value="Individual Service — website, landing page, logo, UI/UX, custom build"><span class="checkbox-custom"></span><span>Individual Service — website, landing page, logo, UI/UX, custom build</span></label>
               </div>
             </div>
             <div class="form-group">
@@ -400,15 +401,18 @@ if(form){
     const checkbox=form.querySelector(`input[value="${service}"]`);
     if(checkbox) checkbox.checked=true;
   }
-  form.addEventListener('submit',async (e)=>{
-    e.preventDefault();
-    const btn=form.querySelector('[type="submit"]');
-    btn.innerHTML='Sending...';
-    btn.disabled=true;
-    try{await fetch(form.action||'#',{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});}catch(err){}
-    form.style.display='none';
-    const success=document.getElementById('formSuccess');
-    if(success){success.style.display='block';setTimeout(()=>success.classList.add('revealed'),50);}
+  const selectedEngagements=document.getElementById('selectedEngagements');
+  const syncSelectedEngagements=()=>{
+    if(!selectedEngagements) return;
+    const selected=[...form.querySelectorAll('input[name="engagement"]:checked')].map(input=>input.value);
+    selectedEngagements.value=selected.join(' | ');
+  };
+  form.querySelectorAll('input[name="engagement"]').forEach(input=>{
+    input.addEventListener('change',syncSelectedEngagements);
+  });
+  syncSelectedEngagements();
+  form.addEventListener('submit',()=>{
+    syncSelectedEngagements();
   });
 }
 </script>
