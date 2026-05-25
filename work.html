@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Microsite Studio</title>
+<meta name="description" content="Real case studies from Microsite Studio. Eleven clients across real estate, pet care, EdTech, sustainable goods, and more. Outcomes over outputs.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Microsite Studio">
+<meta property="og:image" content="/og-image.png">
+<link rel="canonical" href="https://micrositestudio.in/work.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#080808;color:#F0EDE6;font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+em{font-family:'Instrument Serif',serif;font-style:italic;}
+
+:root{
+  --red:#C8281E;--red2:#A8201A;--red-dim:rgba(200,40,30,0.5);
+  --red-faint:rgba(200,40,30,0.07);--red-border:rgba(200,40,30,0.2);
+  --bg:#080808;--bg-card:#111111;--bg-light:#F5F2EB;
+  --border-dark:rgba(255,255,255,0.07);--border-light:#E0DDD8;
+  --text-light:#0A0A0A;--text-muted:#888888;
+  --wrap:1100px;--px:48px;
+}
+@media(max-width:1024px){:root{--px:32px;}}
+@media(max-width:768px){:root{--px:24px;}}
+
+/* GEO SYSTEM */
+.geo{position:absolute;pointer-events:none;}
+.geo-bracket{width:36px;height:36px;}
+.geo-bracket.tl{top:28px;left:36px;border-top:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.tr{top:28px;right:36px;border-top:1.5px solid;border-right:1.5px solid;}
+.geo-bracket.bl{bottom:28px;left:36px;border-bottom:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.br{bottom:28px;right:36px;border-bottom:1.5px solid;border-right:1.5px solid;}
+.dark-geo .geo-bracket.tl,.dark-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.22);}
+.dark-geo .geo-bracket.bl,.dark-geo .geo-bracket.br{border-color:rgba(200,40,30,0.10);}
+.light-geo .geo-bracket.tl,.light-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.28);}
+.light-geo .geo-bracket.bl,.light-geo .geo-bracket.br{border-color:rgba(200,40,30,0.14);}
+.geo-cross{width:12px;height:12px;}
+.geo-cross::before,.geo-cross::after{content:'';position:absolute;}
+.geo-cross::before{width:1.5px;height:100%;left:calc(50% - 0.75px);}
+.geo-cross::after{height:1.5px;width:100%;top:calc(50% - 0.75px);}
+.dark-geo .geo-cross::before,.dark-geo .geo-cross::after{background:rgba(200,40,30,0.35);}
+.geo-ring{border-radius:50%;}
+.dark-geo .geo-ring{border:1.5px solid rgba(200,40,30,0.16);}
+.dark-geo .geo-ring.dashed{border:1.5px dashed rgba(200,40,30,0.09);}
+.geo-dots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.geo-dot{width:3px;height:3px;border-radius:50%;}
+.dark-geo .geo-dot{background:rgba(200,40,30,0.38);}
+.dark-geo .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.28);}
+.geo-stamp{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;position:absolute;white-space:nowrap;}
+.dark-geo .geo-stamp{color:rgba(200,40,30,0.14);}
+.geo-ruler{position:absolute;left:0;right:0;width:100%;pointer-events:none;opacity:0.6;}
+.geo-ruler.top{top:0;height:40px;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background 0.3s,border-color 0.3s;}
+.nav.scrolled{background:rgba(8,8,8,0.93);border-bottom-color:var(--border-dark);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.nav-inner{max-width:var(--wrap);margin:0 auto;padding:0 var(--px);display:flex;justify-content:space-between;align-items:center;height:64px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:rgba(240,237,230,0.4);transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#F0EDE6;}
+.nav-cta{background:var(--red);color:#fff!important;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 20px;border-radius:4px;transition:background 0.2s,transform 0.2s;}
+.nav-cta:hover{background:var(--red2)!important;transform:translateY(-1px);}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#F0EDE6;transition:0.3s;}
+@media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+.mobile-overlay{position:fixed;inset:0;background:#080808;z-index:99;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.menu-open .mobile-overlay{opacity:1;pointer-events:all;}
+.mobile-overlay ul{display:flex;flex-direction:column;align-items:center;gap:40px;}
+.mobile-overlay a{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,8vw,48px);color:#F0EDE6;letter-spacing:0.04em;}
+.mobile-overlay a:hover{color:var(--red);}
+.menu-open .nav-hamburger span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.menu-open .nav-hamburger span:nth-child(2){opacity:0;}
+
+/* HERO */
+.hero{background:var(--bg);padding:148px var(--px) 80px;position:relative;overflow:hidden;min-height:52vh;display:flex;align-items:center;}
+.hero-dotgrid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero .geo-bracket.tl{top:80px;left:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.tr{top:80px;right:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.bl{bottom:40px;left:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero .geo-bracket.br{bottom:40px;right:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero-cross-1{top:108px;left:calc(var(--px) + 56px);}
+.hero-cross-1::before,.hero-cross-1::after{background:rgba(200,40,30,0.22);}
+.hero-ring-1{width:28px;height:28px;top:112px;right:180px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.16);}
+.hero-stamp{top:32px;left:50%;transform:translateX(-50%);color:rgba(200,40,30,0.12);}
+.hero-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;width:100%;}
+.eyebrow-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.6);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.eyebrow-label::before{content:'';width:20px;height:1px;background:var(--red);flex-shrink:0;}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9vw,120px);line-height:0.93;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:20px;}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(240,237,230,0.42);line-height:1.8;max-width:540px;}
+
+/* WORK INDEX STRIP */
+.work-index{background:#0c0c0c;border-bottom:1px solid var(--border-dark);padding:0 var(--px);} 
+.work-index-inner{display:flex;gap:0;overflow:hidden;width:max-content;min-width:100%;margin:0;animation:workscroll 28s linear infinite;will-change:transform;}
+.work-index-inner:hover{animation-play-state:paused;}
+.work-index-inner::-webkit-scrollbar{display:none;}
+.wi-item{flex-shrink:0;padding:20px 28px;border-right:1px solid var(--border-dark);cursor:pointer;transition:background 0.2s;text-decoration:none;}
+.wi-item:hover{background:rgba(255,255,255,0.02);} 
+.wi-item:first-child{padding-left:0;}
+.wi-sector{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,40,30,0.45);margin-bottom:4px;}
+.wi-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:0.03em;color:rgba(240,237,230,0.55);transition:color 0.2s;}
+.wi-item:hover .wi-name{color:#F0EDE6;}
+
+@keyframes workscroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* CASE STUDY SECTIONS */
+.cs-section{padding:80px var(--px);border-bottom:1px solid var(--border-dark);position:relative;overflow:hidden;}
+.cs-section:nth-child(even){background:#0c0c0c;}
+.cs-section:nth-child(odd){background:#080808;}
+.cs-cross-a{top:44px;left:calc(50% - 60px);}
+.cs-cross-a::before,.cs-cross-a::after{background:rgba(200,40,30,0.28);}
+.cs-ring-a{width:24px;height:24px;top:48px;right:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);}
+.cs-dots{bottom:48px;right:80px;}
+.cs-dots .geo-dot{background:rgba(200,40,30,0.32);}
+.cs-dots .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.24);}
+.cs-stamp{top:30px;left:50%;transform:translateX(-50%);}
+
+.cs-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+
+/* Top bar: tags + url */
+.cs-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px;}
+.cs-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.cs-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,40,30,0.55);background:rgba(200,40,30,0.07);border:1px solid rgba(200,40,30,0.18);padding:4px 10px;border-radius:3px;}
+.cs-url{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);transition:color 0.2s;}
+.cs-url:hover{color:rgba(200,40,30,0.6);}
+
+/* Client headline */
+.cs-client-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);line-height:0.95;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:8px;}
+.cs-location{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(240,237,230,0.22);margin-bottom:28px;}
+
+/* Two-col layout */
+.cs-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+@media(max-width:768px){.cs-grid{grid-template-columns:1fr;gap:36px;}}
+
+/* Story side */
+.cs-hook{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(18px,2.5vw,24px);color:#F0EDE6;line-height:1.5;margin-bottom:24px;}
+.cs-section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,40,30,0.45);margin-bottom:10px;}
+.cs-body{font-size:14px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.8;margin-bottom:24px;}
+.cs-built{font-size:13px;font-weight:300;color:rgba(240,237,230,0.35);line-height:1.75;}
+.cs-built-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.cs-built-item::before{content:'—';color:rgba(200,40,30,0.4);flex-shrink:0;}
+
+/* Outcome side */
+.cs-outcome-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,88px);line-height:0.92;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:8px;}
+.cs-outcome-num em{color:var(--red);font-family:'Bebas Neue',sans-serif;font-style:normal;font-size:0.65em;}
+.cs-outcome-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(240,237,230,0.25);margin-bottom:28px;}
+.cs-outcome-body{font-size:14px;font-weight:300;color:rgba(240,237,230,0.38);line-height:1.8;margin-bottom:28px;}
+
+/* Metrics grid */
+.cs-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.05);border-radius:8px;overflow:hidden;margin-bottom:28px;}
+.cs-metric{background:#111;padding:18px 20px;}
+.cs-metric-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,30px);color:#F0EDE6;letter-spacing:0.01em;line-height:1;}
+.cs-metric-val em{color:var(--red);font-family:'Bebas Neue',sans-serif;font-style:normal;font-size:0.65em;}
+.cs-metric-lbl{font-family:'DM Mono',monospace;font-size:8px;color:rgba(240,237,230,0.2);letter-spacing:0.12em;text-transform:uppercase;margin-top:5px;}
+
+/* Quote */
+.cs-quote{border-left:2px solid var(--red);padding-left:16px;margin-bottom:20px;}
+.cs-quote-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:rgba(240,237,230,0.42);line-height:1.65;}
+.cs-quote-attr{font-family:'DM Mono',monospace;font-size:8px;color:rgba(200,40,30,0.4);letter-spacing:0.1em;margin-top:6px;text-transform:uppercase;}
+
+/* Visit link */
+.cs-visit{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,237,230,0.3);transition:color 0.2s,gap 0.2s;}
+.cs-visit:hover{color:var(--red);gap:10px;}
+
+/* SECTOR DIVIDER */
+.sector-divider{padding:40px var(--px);background:#080808;border-bottom:1px solid var(--border-dark);}
+.sd-inner{max-width:var(--wrap);margin:0 auto;display:flex;align-items:center;gap:16px;}
+.sd-label{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.04em;color:rgba(240,237,230,0.12);}
+.sd-line{flex:1;height:1px;background:linear-gradient(to right,rgba(200,40,30,0.15),transparent);}
+.sd-count{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,40,30,0.3);}
+
+/* CLOSING CTA */
+.closing{background:#0c0c0c;border-top:1px solid var(--border-dark);text-align:center;padding:100px var(--px);position:relative;overflow:hidden;}
+.closing .geo-bracket.tl,.closing .geo-bracket.tr{border-color:rgba(200,40,30,0.14);}
+.closing .geo-bracket.bl,.closing .geo-bracket.br{border-color:rgba(200,40,30,0.07);}
+.cta-ring-1{width:70px;height:70px;top:36px;right:80px;border-radius:50%;border:1px solid rgba(200,40,30,0.08);}
+.cta-ring-2{width:110px;height:110px;bottom:36px;left:60px;border-radius:50%;border:1px dashed rgba(200,40,30,0.06);}
+.cta-cross{top:52px;left:calc(50% + 20px);}
+.cta-cross::before,.cta-cross::after{background:rgba(200,40,30,0.2);}
+.cta-stamp{bottom:28px;left:50%;transform:translateX(-50%);}
+.cta-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.cta-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,96px);line-height:0.93;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:20px;}
+.cta-h em{color:var(--red);}
+.cta-sub{font-size:16px;font-weight:300;color:rgba(240,237,230,0.35);max-width:440px;margin:0 auto 36px;line-height:1.8;}
+.cta-note{font-size:11px;color:rgba(240,237,230,0.2);margin-top:14px;letter-spacing:0.04em;font-family:'DM Mono',monospace;}
+.btn-primary{background:var(--red);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:14px 28px;border-radius:4px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.2s;text-decoration:none;}
+.btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
+
+/* FOOTER */
+.footer{background:#0a0a0a;border-top:1px solid var(--border-dark);padding:64px var(--px) 48px;position:relative;overflow:hidden;}
+.footer-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;flex-wrap:wrap;gap:20px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.footer-nav{display:flex;gap:28px;flex-wrap:wrap;}
+.footer-nav a{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:rgba(240,237,230,0.35);transition:color 0.15s;}
+.footer-nav a:hover{color:#F0EDE6;}
+.footer-mid{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:14px;font-weight:300;color:rgba(240,237,230,0.28);}
+.footer-social a{font-size:13px;font-weight:400;color:rgba(240,237,230,0.28);transition:color 0.15s;}
+.footer-social a:hover{color:#F0EDE6;}
+.footer-rule{border:none;border-top:1px solid var(--border-dark);margin-bottom:24px;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-copy{font-size:11px;color:rgba(240,237,230,0.18);font-family:'DM Mono',monospace;}
+.footer-built{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,237,230,0.15);}
+</style>
+<link rel="stylesheet" href="brand-shell.css">
+<script src="brand-shell.js" defer></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Microsite Studio</a>
+    <ul class="nav-links">
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Start a Project</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Start a Project</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero dark-geo">
+  <svg class="hero-dotgrid" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="dg" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.03)"/></pattern></defs>
+    <rect width="100%" height="100%" fill="url(#dg)"/>
+  </svg>
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross hero-cross-1"></div>
+  <div class="geo geo-ring hero-ring-1"></div>
+  <div class="geo geo-stamp hero-stamp">WORK · OUTCOMES NOT OUTPUTS</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow-label reveal">Work</div>
+    <h1 class="hero-h1 reveal">Outcomes,<br>not <em>outputs.</em></h1>
+    <p class="hero-sub reveal delay-1">Eleven clients. Real problems. Measurable results. Every engagement here ends with one question: did the business move forward?</p>
+  </div>
+</section>
+
+<!-- WORK INDEX STRIP -->
+<div class="work-index">
+  <div class="work-index-inner">
+    <a href="#apex" class="wi-item"><div class="wi-sector">EdTech</div><div class="wi-name">APEX Exam Centre</div></a>
+    <a href="#bridgekeys-msn" class="wi-item"><div class="wi-sector">Real Estate</div><div class="wi-name">BridgeKeys × MSN Realty</div></a>
+    <a href="#bridgekeys-sobha" class="wi-item"><div class="wi-sector">Real Estate</div><div class="wi-name">BridgeKeys × Sobha</div></a>
+    <a href="#bridgekeys-lodha" class="wi-item"><div class="wi-sector">Real Estate</div><div class="wi-name">BridgeKeys × Lodha</div></a>
+    <a href="#nabhas" class="wi-item"><div class="wi-sector">Sustainable Goods</div><div class="wi-name">Nabhas</div></a>
+    <a href="#starone" class="wi-item"><div class="wi-sector">Business Consultancy</div><div class="wi-name">StarOne</div></a>
+    <a href="#laviedavie" class="wi-item"><div class="wi-sector">Pet Care</div><div class="wi-name">Lavie Davie Petcare</div></a>
+    <a href="#fourpaws" class="wi-item"><div class="wi-sector">Pet Care</div><div class="wi-name">Four Paws Cat Boarding</div></a>
+    <a href="#msrajasthan" class="wi-item"><div class="wi-sector">Home & Interiors</div><div class="wi-name">MS Rajasthan Marbles</div></a>
+
+    <!-- duplicate set for seamless marquee -->
+    <a href="#apex" class="wi-item"><div class="wi-sector">EdTech</div><div class="wi-name">APEX Exam Centre</div></a>
+    <a href="#bridgekeys-msn" class="wi-item"><div class="wi-sector">Real Estate</div><div class="wi-name">BridgeKeys × MSN Realty</div></a>
+    <a href="#bridgekeys-sobha" class="wi-item"><div class="wi-sector">Real Estate</div><div class="wi-name">BridgeKeys × Sobha</div></a>
+    <a href="#bridgekeys-lodha" class="wi-item"><div class="wi-sector">Real Estate</div><div class="wi-name">BridgeKeys × Lodha</div></a>
+    <a href="#nabhas" class="wi-item"><div class="wi-sector">Sustainable Goods</div><div class="wi-name">Nabhas</div></a>
+    <a href="#starone" class="wi-item"><div class="wi-sector">Business Consultancy</div><div class="wi-name">StarOne</div></a>
+    <a href="#laviedavie" class="wi-item"><div class="wi-sector">Pet Care</div><div class="wi-name">Lavie Davie Petcare</div></a>
+    <a href="#fourpaws" class="wi-item"><div class="wi-sector">Pet Care</div><div class="wi-name">Four Paws Cat Boarding</div></a>
+    <a href="#msrajasthan" class="wi-item"><div class="wi-sector">Home & Interiors</div><div class="wi-name">MS Rajasthan Marbles</div></a>
+  </div>
+</div>
+
+<!-- ═══ SECTOR: REAL ESTATE ═══ -->
+<div class="sector-divider"><div class="sd-inner"><div class="sd-label">Real Estate</div><div class="sd-line"></div><div class="sd-count">4 engagements · Bangalore, Bangalore, Bangalore, Delhi</div></div></div>
+
+<!-- CS 1: APEX -->
+<section class="cs-section dark-geo" id="apex">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;left:calc(50% - 60px);"></div>
+  <div class="geo geo-ring cs-ring-a" style="width:26px;height:26px;top:48px;right:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);"></div>
+  <div class="geo geo-dots cs-dots" style="bottom:48px;right:80px;">
+    <div class="geo-dot"></div><div class="geo-dot empty"></div><div class="geo-dot empty"></div><div class="geo-dot"></div>
+    <div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot empty"></div><div class="geo-dot"></div>
+  </div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 01 · EDTECH · DELHI</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.15)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.24)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.24)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">EdTech</span><span class="cs-tag">B2B Credibility</span><span class="cs-tag">Website Sprint</span><span class="cs-tag">Delhi</span></div>
+      <a href="https://www.apexexamcentre.in/" target="_blank" rel="noopener" class="cs-url">apexexamcentre.in ↗</a>
+    </div>
+    <div class="cs-client-name reveal">APEX Exam Centre</div>
+    <div class="cs-location reveal delay-1">Professional Examination Facility · Delhi, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"In B2B markets, trust isn't a plus — it is the primary currency."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">APEX had a high-integrity physical facility and the operational quality to serve global exam bodies. But their digital presence didn't match. When procurement officers at ACCA, CFA Institute, IFoA, and BITS Pilani conducted vendor due diligence online, the website failed to signal institutional-grade professionalism. The pipeline had stalled at 3–4 assignments — not for lack of service quality, but because the digital front door was a silent deal-killer.</p>
+        <div class="cs-section-label">The Diagnosis</div>
+        <p class="cs-body">Most agencies build websites for marketing — "look at us." APEX needed a site built for validation — "trust us." Before writing a line of code, we conducted a Digital Credibility Audit, mapping the vendor-selection criteria of professional bodies. We found three pillars evaluators prioritised: Compliance, Infrastructure Security, and Institutional Integrity. Our entire technical and content roadmap was built around these three pillars.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Brand-aligned website engineered to signal institutional-grade professionalism</div>
+          <div class="cs-built-item">Frictionless Procurement Path — facility specs, security protocols, certifications visible within two clicks</div>
+          <div class="cs-built-item">Visual hierarchy calibrated to withstand scrutiny from global professional bodies</div>
+          <div class="cs-built-item">B2B value proposition content synthesised from complex operational data</div>
+          <div class="cs-built-item">Full build delivered in a 7-day sprint</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">4<em>→</em>9<em>+</em></div>
+        <div class="cs-outcome-lbl">Exam assignments: before → after</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">7<em>d</em></div><div class="cs-metric-lbl">Build sprint</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">4</div><div class="cs-metric-lbl">Global bodies secured</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">9<em>+</em></div><div class="cs-metric-lbl">Sessions delivered / confirmed</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">55<em>%</em></div><div class="cs-metric-lbl">Cost saving vs agency</div></div>
+        </div>
+        <p class="cs-outcome-body">Contract velocity changed immediately. ACCA (×2), CFA (×2), IFoA (×2), BITS Pilani WILP (×2) — all secured and delivered. The website became a vital reference point in every outreach conversation. Five sessions completed, four more confirmed through May 2026.</p>
+        <div class="cs-quote">
+          <p class="cs-quote-text">"The website truly reflects our vision and represents our brand exactly the way we had hoped."</p>
+          <p class="cs-quote-attr">— Team APEX · Delhi · Verified Client</p>
+        </div>
+        <a href="https://www.apexexamcentre.in/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTOR: REAL ESTATE ═══ -->
+<div class="sector-divider"><div class="sd-inner"><div class="sd-label">Real Estate</div><div class="sd-line"></div><div class="sd-count">3 engagements · anchor client BridgeKeys</div></div></div>
+
+<!-- CS 2: BRIDGEKEYS MSN -->
+<section class="cs-section dark-geo" id="bridgekeys-msn">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;right:calc(50% - 80px);"></div>
+  <div class="geo geo-ring" style="width:30px;height:30px;top:50px;left:160px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 02 · REAL ESTATE · BANGALORE</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="360" y1="1" x2="360" y2="9" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+    <line x1="1080" y1="1" x2="1080" y2="9" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">PropTech</span><span class="cs-tag">Lead Generation</span><span class="cs-tag">SEO</span><span class="cs-tag">Bangalore</span></div>
+      <a href="https://msnbridgekeys.vercel.app/" target="_blank" rel="noopener" class="cs-url">msnbridgekeys.vercel.app ↗</a>
+    </div>
+    <div class="cs-client-name reveal">BridgeKeys × MSN Realty<br><span style="font-size:0.5em;color:rgba(240,237,230,0.35);letter-spacing:0.06em;">Neopolis</span></div>
+    <div class="cs-location reveal delay-1">Property Microsite · Bangalore, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"A leaking lead funnel with zero digital presence. Every interested buyer who searched online hit a dead end."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">BridgeKeys, a growing property consultancy, needed a dedicated microsite for MSN Realty's Neopolis project in Bangalore. Buyers were discovering the property through word-of-mouth and offline channels, but there was no digital infrastructure to capture them. Inbound interest was evaporating.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">End-to-end lead capture microsite with zero-leak form infrastructure</div>
+          <div class="cs-built-item">SEO-optimised for Bangalore property search keywords</div>
+          <div class="cs-built-item">Integrated WhatsApp and call-to-action flows for high-intent visitors</div>
+          <div class="cs-built-item">Top 10 organic ranking achieved for target property keywords</div>
+          <div class="cs-built-item">Full build delivered in under 7 days</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">100<em>+</em></div>
+        <div class="cs-outcome-lbl">Leads captured post-launch</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">7<em>d</em></div><div class="cs-metric-lbl">Build sprint</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Top<em>10</em></div><div class="cs-metric-lbl">SEO ranking</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">100<em>+</em></div><div class="cs-metric-lbl">Leads captured</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">80<em>%</em></div><div class="cs-metric-lbl">Cost saving vs agency</div></div>
+        </div>
+        <p class="cs-outcome-body">Site-visit conversion approached near 100%. BridgeKeys became an anchor client — this engagement led directly to two further projects for Sobha and Lodha properties in Bangalore.</p>
+        <a href="https://msnbridgekeys.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CS 3: BRIDGEKEYS SOBHA -->
+<section class="cs-section dark-geo" id="bridgekeys-sobha">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;left:calc(50% - 60px);"></div>
+  <div class="geo geo-ring" style="width:22px;height:22px;top:50px;right:180px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.13);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 03 · REAL ESTATE · BANGALORE</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.18)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.18)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">PropTech</span><span class="cs-tag">Lead Generation</span><span class="cs-tag">SEO</span><span class="cs-tag">Bangalore</span></div>
+      <a href="https://sobha-ruby.vercel.app/" target="_blank" rel="noopener" class="cs-url">sobha-ruby.vercel.app ↗</a>
+    </div>
+    <div class="cs-client-name reveal">BridgeKeys × Sobha<br><span style="font-size:0.5em;color:rgba(240,237,230,0.35);letter-spacing:0.06em;">Hoskote</span></div>
+    <div class="cs-location reveal delay-1">Property Microsite · Bangalore, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"The second engagement in the BridgeKeys relationship — same problem, different project, same urgency."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">Following the success of the MSN Realty microsite, BridgeKeys returned to build a dedicated lead capture presence for Sobha's Hoskote project. The model was proven. The need was identical: a fast, conversion-focused digital presence for a property that buyers couldn't find online.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Full lead capture microsite for Sobha Hoskote</div>
+          <div class="cs-built-item">SEO-optimised for Bangalore East / Hoskote property searches</div>
+          <div class="cs-built-item">Zero-leak form infrastructure with WhatsApp direct connect</div>
+          <div class="cs-built-item">Top 10 organic ranking for target keywords</div>
+          <div class="cs-built-item">Delivered in under 7 days</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">100<em>+</em></div>
+        <div class="cs-outcome-lbl">Leads captured post-launch</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">7<em>d</em></div><div class="cs-metric-lbl">Build sprint</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Top<em>10</em></div><div class="cs-metric-lbl">SEO ranking</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">100<em>+</em></div><div class="cs-metric-lbl">Leads captured</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">80<em>%</em></div><div class="cs-metric-lbl">Cost saving vs agency</div></div>
+        </div>
+        <p class="cs-outcome-body">Consistent results across the BridgeKeys portfolio. Repeat engagement validates the model: fast microsites, real SEO, measurable leads. Three projects. Three successful outcomes.</p>
+        <a href="https://sobha-ruby.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CS 4: BRIDGEKEYS LODHA -->
+<section class="cs-section dark-geo" id="bridgekeys-lodha">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;right:calc(50% - 80px);"></div>
+  <div class="geo geo-ring" style="width:32px;height:32px;top:48px;left:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 04 · REAL ESTATE · BANGALORE</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">PropTech</span><span class="cs-tag">Lead Generation</span><span class="cs-tag">SEO</span><span class="cs-tag">Bangalore</span></div>
+      <a href="https://lodhaazur.vercel.app/" target="_blank" rel="noopener" class="cs-url">lodhaazur.vercel.app ↗</a>
+    </div>
+    <div class="cs-client-name reveal">BridgeKeys × Lodha<br><span style="font-size:0.5em;color:rgba(240,237,230,0.35);letter-spacing:0.06em;">Azur</span></div>
+    <div class="cs-location reveal delay-1">Property Microsite · Bangalore, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"Lodha Azur — BridgeKeys' third project with us. By now the playbook was refined, the speed was institutional."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">Lodha Azur required the same treatment — a focused lead capture microsite for a premium Bangalore residential project. BridgeKeys had seen the model work twice. The third engagement was built with even greater speed and precision, informed by learnings from the previous two launches.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Full lead capture microsite for Lodha Azur, Bangalore</div>
+          <div class="cs-built-item">SEO-optimised for premium Bangalore residential searches</div>
+          <div class="cs-built-item">High-conversion form infrastructure with zero leak points</div>
+          <div class="cs-built-item">Top 10 organic ranking achieved</div>
+          <div class="cs-built-item">Delivered in under 7 days</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">100<em>+</em></div>
+        <div class="cs-outcome-lbl">Leads captured post-launch</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">7<em>d</em></div><div class="cs-metric-lbl">Build sprint</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Top<em>10</em></div><div class="cs-metric-lbl">SEO ranking</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">100<em>+</em></div><div class="cs-metric-lbl">Leads captured</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">3<em>×</em></div><div class="cs-metric-lbl">Repeat engagements</div></div>
+        </div>
+        <p class="cs-outcome-body">Three projects. Consistent 100+ lead outcomes across all three. BridgeKeys remains an active client. The anchor relationship that defined our real estate playbook.</p>
+        <a href="https://lodhaazur.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTOR: SUSTAINABLE GOODS ═══ -->
+<div class="sector-divider"><div class="sd-inner"><div class="sd-label">Sustainable Goods</div><div class="sd-line"></div><div class="sd-count">1 engagement · Mumbai</div></div></div>
+
+<!-- CS 5: NABHAS -->
+<section class="cs-section dark-geo" id="nabhas">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;left:calc(50% - 70px);"></div>
+  <div class="geo geo-ring" style="width:28px;height:28px;top:52px;right:150px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-ring dashed" style="width:50px;height:50px;bottom:50px;left:80px;border-radius:50%;border:1px dashed rgba(200,40,30,0.09);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 05 · SUSTAINABLE GOODS · MUMBAI</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.16)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.26)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.26)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">Sustainable Consumer Goods</span><span class="cs-tag">Brand Evolution</span><span class="cs-tag">Rebrand</span><span class="cs-tag">Mumbai</span></div>
+      <a href="https://www.nabhas.co.in/" target="_blank" rel="noopener" class="cs-url">nabhas.co.in ↗</a>
+    </div>
+    <div class="cs-client-name reveal">Nabhas</div>
+    <div class="cs-location reveal delay-1">Sustainable Consumer Goods — B2B & B2C Disposables · Mumbai, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"Their brand had grown. Their website hadn't. A legacy digital presence was quietly capping their ambition."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">Nabhas had evolved — expanded service offering, refined positioning, grown ambitions — but their website reflected an earlier version of the business. For a brand in sustainable consumer goods serving both B2B and B2C markets, this mismatch was costing credibility with new prospects while risking alienating established clients.</p>
+        <div class="cs-section-label">The Strategic Challenge</div>
+        <p class="cs-body">The hardest part wasn't the redesign. It was continuity. Nabhas had existing client relationships built on brand familiarity. We needed to signal evolution — not replacement. The design strategy was deliberate: retain brand colours and established tone; introduce geometric precision and sharper visual language that reads as "grown up," not "changed."</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Full website redesign with content overhaul</div>
+          <div class="cs-built-item">Deliberate continuity strategy — brand evolution, not brand disruption</div>
+          <div class="cs-built-item">Geometric precision and sharper visual language introduced</div>
+          <div class="cs-built-item">Hosting migration to modern infrastructure</div>
+          <div class="cs-built-item">E-commerce project commissioned as follow-on work</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">2<em>x</em></div>
+        <div class="cs-outcome-lbl">Brand evolution + e-commerce in pipeline</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">↑</div><div class="cs-metric-lbl">Inbound inquiries post-launch</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Active</div><div class="cs-metric-lbl">E-com project in pipeline</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">0</div><div class="cs-metric-lbl">Existing client churn</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">✓</div><div class="cs-metric-lbl">Continuity preserved</div></div>
+        </div>
+        <p class="cs-outcome-body">The rebrand landed without disrupting existing relationships. Inbound enquiries increased post-launch. Nabhas then commissioned a follow-on e-commerce project — the clearest signal that the work delivered what it promised.</p>
+        <a href="https://www.nabhas.co.in/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTOR: BUSINESS CONSULTANCY ═══ -->
+<div class="sector-divider"><div class="sd-inner"><div class="sd-label">Business Consultancy</div><div class="sd-line"></div><div class="sd-count">1 engagement · UAE, Dubai</div></div></div>
+
+<!-- CS 6: STARONE -->
+<section class="cs-section dark-geo" id="starone">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;right:calc(50% - 60px);"></div>
+  <div class="geo geo-ring" style="width:26px;height:26px;top:50px;left:160px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 06 · BUSINESS CONSULTANCY · UAE</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">Business Consultancy</span><span class="cs-tag">B2B</span><span class="cs-tag">Launch Sprint</span><span class="cs-tag">Dubai, UAE</span></div>
+      <a href="https://starone-one.vercel.app/" target="_blank" rel="noopener" class="cs-url">starone-one.vercel.app ↗</a>
+    </div>
+    <div class="cs-client-name reveal">StarOne Business<br><span style="font-size:0.5em;color:rgba(240,237,230,0.35);letter-spacing:0.06em;">Consultancy</span></div>
+    <div class="cs-location reveal delay-1">Business Consultancy · Dubai, UAE</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"A consultancy operating in Dubai with credibility built offline — and nothing to show for it online."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">StarOne had built its reputation through relationships and referrals in the UAE market. But when prospects did their due diligence online, there was nothing to validate the offline reputation. In B2B consultancy, the gap between what you claim and what prospects find online is a trust problem that compounds over time.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Professional B2B website reflecting consultancy positioning and service offering</div>
+          <div class="cs-built-item">Brand-aligned design calibrated for UAE corporate market expectations</div>
+          <div class="cs-built-item">Lead capture and inquiry flow built for enterprise decision-makers</div>
+          <div class="cs-built-item">Content strategy translating expertise into credibility signals</div>
+          <div class="cs-built-item">Full build delivered under sprint timeline</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">↑</div>
+        <div class="cs-outcome-lbl">Enterprise pipeline activated post-launch</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">UAE</div><div class="cs-metric-lbl">Market served</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">B2B</div><div class="cs-metric-lbl">Segment targeted</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">✓</div><div class="cs-metric-lbl">Online credibility established</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Active</div><div class="cs-metric-lbl">Status</div></div>
+        </div>
+        <p class="cs-outcome-body">Offline reputation finally matched by digital presence. StarOne now has a digital front door that works as hard as the team behind it — converting online discovery into qualified enterprise conversations.</p>
+        <a href="https://starone-one.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTOR: PET CARE ═══ -->
+<div class="sector-divider"><div class="sd-inner"><div class="sd-label">Pet Care</div><div class="sd-line"></div><div class="sd-count">2 engagements · Mumbai & Delhi</div></div></div>
+
+<!-- CS 7: LAVIE DAVIE -->
+<section class="cs-section dark-geo" id="laviedavie">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;left:calc(50% - 60px);"></div>
+  <div class="geo geo-ring" style="width:24px;height:24px;top:52px;right:160px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.13);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 07 · PET CARE · MUMBAI</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">Pet Care</span><span class="cs-tag">Retail</span><span class="cs-tag">Website Sprint</span><span class="cs-tag">Mumbai</span></div>
+      <a href="https://laviedaviepetocare.vercel.app/" target="_blank" rel="noopener" class="cs-url">laviedaviepetocare.vercel.app ↗</a>
+    </div>
+    <div class="cs-client-name reveal">Lavie Davie Petcare</div>
+    <div class="cs-location reveal delay-1">Pet Care Retail · Mumbai, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"A pet care brand with real products and real love for animals — held back by a digital presence that didn't reflect either."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">Lavie Davie Petcare was generating business but losing it too. A weak digital presence meant that every offline recommendation — every happy customer who told a friend — was hitting a dead end when that friend searched online. The brand deserved better than what its website was communicating.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Brand-aligned website designed to convert online visibility into direct calls</div>
+          <div class="cs-built-item">Clear product and service presentation tailored to pet care buyers</div>
+          <div class="cs-built-item">Lead capture flows and contact infrastructure</div>
+          <div class="cs-built-item">Mobile-first design for the primary discovery channel</div>
+          <div class="cs-built-item">Delivered under 7 days</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">~10</div>
+        <div class="cs-outcome-lbl">Inbound calls generated post-launch</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">7<em>d</em></div><div class="cs-metric-lbl">Build sprint</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">~10</div><div class="cs-metric-lbl">Inbound calls</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Mobile</div><div class="cs-metric-lbl">Primary channel</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Active</div><div class="cs-metric-lbl">Status</div></div>
+        </div>
+        <p class="cs-outcome-body">Direct inbound calls began generating post-launch. Offline word-of-mouth now converts online. The digital presence finally matches the quality of the product.</p>
+        <a href="https://laviedaviepetocare.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CS 8: FOUR PAWS -->
+<section class="cs-section dark-geo" id="fourpaws">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;right:calc(50% - 80px);"></div>
+  <div class="geo geo-ring" style="width:30px;height:30px;top:50px;left:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 08 · PET CARE / BOARDING · DELHI</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.21)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.21)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">Pet Care</span><span class="cs-tag">Cat Boarding</span><span class="cs-tag">Website Sprint</span><span class="cs-tag">Delhi</span></div>
+      <a href="https://four-paws-cat-boarding.vercel.app/" target="_blank" rel="noopener" class="cs-url">four-paws-cat-boarding.vercel.app ↗</a>
+    </div>
+    <div class="cs-client-name reveal">Four Paws Cat Boarding</div>
+    <div class="cs-location reveal delay-1">Cat Boarding & Pet Care · Delhi, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"A specialist cat boarding facility in Delhi — niche service, clear demand, but no digital way to reach the people searching for it."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">Four Paws Cat Boarding offered something genuinely specialist — dedicated cat care in Delhi, for an audience that is specific, passionate, and actively searching. The problem was visibility. Without a digital presence that could be found and trusted quickly, bookings were being lost to less capable competitors who simply showed up better online.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Brand-aligned website communicating care quality and specialist expertise</div>
+          <div class="cs-built-item">Trust-building design for a high-consideration niche service</div>
+          <div class="cs-built-item">Inquiry and booking flow for direct conversion</div>
+          <div class="cs-built-item">Mobile-first for the primary discovery journey</div>
+          <div class="cs-built-item">Delivered in under 7 days</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">~10</div>
+        <div class="cs-outcome-lbl">Inbound calls and inquiries post-launch</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">7<em>d</em></div><div class="cs-metric-lbl">Build sprint</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">~10</div><div class="cs-metric-lbl">Inbound calls</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Niche</div><div class="cs-metric-lbl">High-intent segment</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Active</div><div class="cs-metric-lbl">Status</div></div>
+        </div>
+        <p class="cs-outcome-body">Specialist service, specialist audience. Inbound inquiries began post-launch. The right people could now find them — and when they did, the site gave them every reason to book.</p>
+        <a href="https://four-paws-cat-boarding.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTOR: SPORTS / HOME / AGENCY ═══ -->
+<div class="sector-divider"><div class="sd-inner"><div class="sd-label">Sports, Interiors & Agency</div><div class="sd-line"></div><div class="sd-count">1 engagement · UP</div></div></div>
+
+<!-- CS 11: MS RAJASTHAN -->
+<section class="cs-section dark-geo" id="msrajasthan">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross cs-cross-a" style="top:44px;left:calc(50% - 70px);"></div>
+  <div class="geo geo-ring" style="width:24px;height:24px;top:52px;right:160px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.13);position:absolute;pointer-events:none;"></div>
+  <div class="geo geo-dots cs-dots" style="bottom:48px;left:80px;">
+    <div class="geo-dot"></div><div class="geo-dot empty"></div><div class="geo-dot empty"></div><div class="geo-dot"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div><div class="geo-dot"></div><div class="geo-dot empty"></div>
+  </div>
+  <div class="geo geo-stamp cs-stamp">CASE STUDY 11 · HOME & INTERIORS · UP</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="cs-inner">
+    <div class="cs-topbar reveal">
+      <div class="cs-tags"><span class="cs-tag">Home & Interiors</span><span class="cs-tag">Retail</span><span class="cs-tag">Website Sprint</span><span class="cs-tag">Uttar Pradesh</span></div>
+      <a href="https://ms-rajasthan-marbles-sanitary-and-t-two.vercel.app/" target="_blank" rel="noopener" class="cs-url">ms-rajasthan-marbles ↗</a>
+    </div>
+    <div class="cs-client-name reveal">MS Rajasthan<br><span style="font-size:0.5em;color:rgba(240,237,230,0.35);letter-spacing:0.06em;">Marbles, Tiles &amp; Sanitary</span></div>
+    <div class="cs-location reveal delay-1">Marbles, Tiles &amp; Sanitary · Uttar Pradesh, India</div>
+    <div class="cs-grid">
+      <div class="reveal delay-1">
+        <p class="cs-hook">"A trusted local supplier with deep product expertise — held back by a digital presence that didn't let customers find them."</p>
+        <div class="cs-section-label">The Situation</div>
+        <p class="cs-body">MS Rajasthan Marbles had years of trade experience and strong local relationships. But in home interiors, buyers increasingly start their search online — browsing products, comparing suppliers, shortlisting before making a single call. Without a functional digital presence, MS Rajasthan was invisible in that discovery process.</p>
+        <div class="cs-section-label">What We Built</div>
+        <div class="cs-built">
+          <div class="cs-built-item">Product-forward website showcasing the full range of marbles, tiles, and sanitary offerings</div>
+          <div class="cs-built-item">Supplier credibility and trust infrastructure for trade and retail buyers</div>
+          <div class="cs-built-item">Inquiry flow and contact infrastructure for direct business conversion</div>
+          <div class="cs-built-item">Mobile-first for the primary local discovery channel</div>
+          <div class="cs-built-item">Delivered under sprint timeline</div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <div class="cs-outcome-num">&#8593;</div>
+        <div class="cs-outcome-lbl">Online discovery and inbound inquiries activated</div>
+        <div class="cs-metrics">
+          <div class="cs-metric"><div class="cs-metric-val">UP</div><div class="cs-metric-lbl">Market served</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">B2C</div><div class="cs-metric-lbl">Primary segment</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Products</div><div class="cs-metric-lbl">Showcased online</div></div>
+          <div class="cs-metric"><div class="cs-metric-val">Active</div><div class="cs-metric-lbl">Status</div></div>
+        </div>
+        <p class="cs-outcome-body">A business that trades on quality and selection now has a digital front that communicates both. Local buyers searching online can find them, browse what they carry, and make contact directly.</p>
+        <a href="https://ms-rajasthan-marbles-sanitary-and-t-two.vercel.app/" target="_blank" rel="noopener" class="cs-visit">Visit live site &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="closing dark-geo">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-ring cta-ring-1"></div>
+  <div class="geo geo-ring dashed cta-ring-2"></div>
+  <div class="geo geo-cross cta-cross"></div>
+  <div class="geo geo-stamp cta-stamp">WORK · WANT RESULTS LIKE THESE</div>
+  <div class="cta-inner reveal">
+    <div class="cta-h">Want results<br>like <em>these?</em></div>
+    <p class="cta-sub">Tell us about your situation. We'll tell you exactly what we'd build — and what to expect.</p>
+    <a href="contact.html" class="btn-primary" style="font-size:16px;padding:16px 36px;">Start a Project &nbsp;&#8594;</a>
+    <p class="cta-note">We take on a limited number of new clients each month.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer dark-geo">
+  <div class="geo geo-bracket tl" style="border-color:rgba(200,40,30,0.1);"></div>
+  <div class="geo geo-bracket tr" style="border-color:rgba(200,40,30,0.1);"></div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="footer-logo">Microsite Studio</a>
+      <nav class="footer-nav">
+        <a href="work.html">Work</a><a href="services.html">Services</a>
+        <a href="about.html">About</a><a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-mid">
+      <p class="footer-tagline">Launch &amp; Growth Infrastructure for Ambitious Founders.</p>
+      <div class="footer-social"><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn &#8594;</a></div>
+    </div>
+    <hr class="footer-rule">
+    <div class="footer-bottom">
+      <span class="footer-copy">&#169; 2026 Microsite Studio. All rights reserved.</span>
+      <span class="footer-built">Built with intent. Delivered with speed.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+const hamburger=document.getElementById('hamburger');
+const overlay=document.getElementById('mobileOverlay');
+hamburger.addEventListener('click',()=>document.body.classList.toggle('menu-open'));
+overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08});
+reveals.forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Individual Services — Microsite Studio</title>
+<meta name="description" content="Websites, landing pages, UI/UX design, logo work, and custom builds. Fixed prices, fast delivery. No packages required.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Microsite Studio">
+<meta property="og:image" content="/og-image.png">
+<link rel="canonical" href="https://micrositestudio.in/individual-services.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand-shell.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#080808;color:#F0EDE6;font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+em{font-family:'Instrument Serif',serif;font-style:italic;}
+:root{
+  --red:#C8281E;--red2:#A8201A;--red-faint:rgba(200,40,30,0.07);--red-border:rgba(200,40,30,0.2);
+  --bg:#080808;--bg-card:#111111;
+  --border-dark:rgba(255,255,255,0.07);--text-muted:#888888;
+  --wrap:1100px;--px:48px;
+}
+@media(max-width:1024px){:root{--px:32px;}}
+@media(max-width:768px){:root{--px:24px;}}
+
+/* GEO */
+.geo{position:absolute;pointer-events:none;}
+.geo-bracket{width:36px;height:36px;}
+.geo-bracket.tl{top:28px;left:36px;border-top:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.tr{top:28px;right:36px;border-top:1.5px solid;border-right:1.5px solid;}
+.geo-bracket.bl{bottom:28px;left:36px;border-bottom:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.br{bottom:28px;right:36px;border-bottom:1.5px solid;border-right:1.5px solid;}
+.dark-geo .geo-bracket.tl,.dark-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.22);}
+.dark-geo .geo-bracket.bl,.dark-geo .geo-bracket.br{border-color:rgba(200,40,30,0.10);}
+.geo-cross{width:12px;height:12px;}
+.geo-cross::before,.geo-cross::after{content:'';position:absolute;}
+.geo-cross::before{width:1.5px;height:100%;left:calc(50% - 0.75px);}
+.geo-cross::after{height:1.5px;width:100%;top:calc(50% - 0.75px);}
+.dark-geo .geo-cross::before,.dark-geo .geo-cross::after{background:rgba(200,40,30,0.32);}
+.geo-ring{border-radius:50%;}
+.dark-geo .geo-ring{border:1.5px solid rgba(200,40,30,0.14);}
+.dark-geo .geo-ring.dashed{border:1.5px dashed rgba(200,40,30,0.08);}
+.geo-stamp{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;position:absolute;white-space:nowrap;}
+.dark-geo .geo-stamp{color:rgba(200,40,30,0.13);}
+.geo-ruler{position:absolute;left:0;right:0;width:100%;pointer-events:none;opacity:0.6;}
+.geo-ruler.top{top:0;height:40px;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background 0.3s,border-color 0.3s;}
+.nav.scrolled{background:rgba(8,8,8,0.93);border-bottom-color:var(--border-dark);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.nav-inner{max-width:var(--wrap);margin:0 auto;padding:0 var(--px);display:flex;justify-content:space-between;align-items:center;height:64px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:rgba(240,237,230,0.4);transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#F0EDE6;}
+.nav-cta{background:var(--red);color:#fff!important;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 20px;border-radius:4px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--red2)!important;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#F0EDE6;transition:0.3s;}
+@media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+.mobile-overlay{position:fixed;inset:0;background:#080808;z-index:99;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.menu-open .mobile-overlay{opacity:1;pointer-events:all;}
+.mobile-overlay ul{display:flex;flex-direction:column;align-items:center;gap:40px;}
+.mobile-overlay a{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,8vw,48px);color:#F0EDE6;letter-spacing:0.04em;}
+.mobile-overlay a:hover{color:var(--red);}
+.menu-open .nav-hamburger span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.menu-open .nav-hamburger span:nth-child(2){opacity:0;}
+
+/* HERO */
+.hero{background:var(--bg);padding:148px var(--px) 80px;position:relative;overflow:hidden;min-height:50vh;display:flex;align-items:center;}
+.hero-dotgrid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero .geo-bracket.tl{top:80px;left:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.tr{top:80px;right:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.bl{bottom:40px;left:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero .geo-bracket.br{bottom:40px;right:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero-cross{top:108px;left:calc(var(--px) + 56px);}
+.hero-cross::before,.hero-cross::after{background:rgba(200,40,30,0.2);}
+.hero-ring{width:30px;height:30px;top:110px;right:170px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);}
+.hero-stamp{top:32px;left:50%;transform:translateX(-50%);color:rgba(200,40,30,0.12);}
+.hero-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;width:100%;}
+.eyebrow-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.6);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.eyebrow-label::before{content:'';width:20px;height:1px;background:var(--red);flex-shrink:0;}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,108px);line-height:0.93;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:20px;}
+.hero-sub{font-size:16px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.8;max-width:560px;}
+.hero-disclaimer{margin-top:16px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(240,237,230,0.2);text-transform:uppercase;}
+
+/* SECTION */
+.section{padding:80px var(--px);position:relative;overflow:hidden;}
+.section--alt{background:#0c0c0c;}
+.section-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+
+/* SERVICE SECTION HEADER */
+.svc-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,40,30,0.5);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.svc-eyebrow::before{content:'';width:16px;height:1px;background:var(--red);flex-shrink:0;}
+.svc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,72px);letter-spacing:0.01em;color:#F0EDE6;margin-bottom:8px;line-height:1;}
+.svc-intro{font-size:15px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.75;margin-bottom:36px;max-width:620px;}
+
+/* TIER CARDS (website 3-up) */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-dark);border:1px solid var(--border-dark);border-radius:8px;overflow:hidden;}
+@media(max-width:768px){.tier-grid{grid-template-columns:1fr;}}
+.tier-card{background:#111;padding:36px 32px;position:relative;overflow:hidden;transition:background 0.2s;}
+.tier-card:hover{background:#161616;}
+.tier-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
+.tier-card:hover::after{transform:scaleX(1);}
+.tier-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.04em;color:#F0EDE6;margin-bottom:12px;}
+.tier-desc{font-size:13px;font-weight:300;color:rgba(240,237,230,0.38);line-height:1.75;margin-bottom:24px;flex:1;}
+.tier-bottom{margin-top:auto;padding-top:20px;border-top:1px solid var(--border-dark);}
+.tier-price{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:0.02em;color:#F0EDE6;line-height:1;}
+.tier-timeline{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:6px;}
+
+/* SERVICE FULL CARD */
+.svc-card{background:#111;border:1px solid var(--border-dark);border-radius:8px;padding:48px;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.svc-card:hover{border-color:rgba(200,40,30,0.2);}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease;}
+.svc-card:hover::before{transform:scaleX(1);}
+.svc-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+@media(max-width:768px){.svc-card-grid{grid-template-columns:1fr;gap:32px;}}
+.svc-card-desc{font-size:16px;font-weight:300;color:rgba(240,237,230,0.42);line-height:1.8;margin-bottom:28px;}
+.svc-includes-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,40,30,0.45);margin-bottom:14px;}
+.svc-includes-list{display:flex;flex-direction:column;gap:10px;}
+.svc-include-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;font-weight:300;color:rgba(240,237,230,0.38);line-height:1.6;}
+.svc-include-item::before{content:'';width:4px;height:4px;background:var(--red);border-radius:50%;flex-shrink:0;margin-top:6px;opacity:0.7;}
+.svc-right{display:flex;flex-direction:column;justify-content:space-between;}
+.svc-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,72px);letter-spacing:0.01em;color:#F0EDE6;line-height:1;margin-bottom:8px;}
+.svc-timeline{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:28px;}
+.svc-note{font-size:12px;font-weight:300;color:rgba(240,237,230,0.25);line-height:1.65;margin-top:20px;padding-top:16px;border-top:1px solid var(--border-dark);}
+.svc-note a{color:rgba(200,40,30,0.5);transition:color 0.2s;}
+.svc-note a:hover{color:var(--red);}
+
+/* CTA BUTTON */
+.btn-primary{background:var(--red);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:14px 28px;border-radius:4px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.2s;text-decoration:none;}
+.btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
+.btn-ghost{background:rgba(255,255,255,0.04);color:rgba(240,237,230,0.45);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;padding:14px 28px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:border-color 0.2s,color 0.2s;text-decoration:none;}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.22);color:#F0EDE6;}
+
+/* DISCLAIMER */
+.disclaimer{font-size:11px;font-weight:300;color:rgba(240,237,230,0.2);margin-top:16px;font-family:'DM Mono',monospace;letter-spacing:0.08em;}
+
+/* DIVIDER */
+.rule{border:none;border-top:1px solid var(--border-dark);}
+
+/* CLOSING */
+.closing{background:#0c0c0c;border-top:1px solid var(--border-dark);text-align:center;padding:100px var(--px);position:relative;overflow:hidden;}
+.closing .geo-bracket.tl,.closing .geo-bracket.tr{border-color:rgba(200,40,30,0.14);}
+.closing .geo-bracket.bl,.closing .geo-bracket.br{border-color:rgba(200,40,30,0.07);}
+.closing-ring-1{width:70px;height:70px;top:36px;right:80px;border-radius:50%;border:1px solid rgba(200,40,30,0.08);}
+.closing-ring-2{width:100px;height:100px;bottom:36px;left:60px;border-radius:50%;border:1px dashed rgba(200,40,30,0.06);}
+.closing-cross{top:52px;left:calc(50% + 20px);}
+.closing-cross::before,.closing-cross::after{background:rgba(200,40,30,0.2);}
+.closing-stamp{bottom:28px;left:50%;transform:translateX(-50%);color:rgba(200,40,30,0.12);}
+.closing-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.closing-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6.5vw,84px);line-height:0.95;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:20px;}
+.closing-h em{color:var(--red);}
+.closing-sub{font-size:16px;font-weight:300;color:rgba(240,237,230,0.35);max-width:480px;margin:0 auto 36px;line-height:1.8;}
+.closing-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
+
+/* FOOTER */
+.footer{background:#0a0a0a;border-top:1px solid var(--border-dark);padding:64px var(--px) 48px;}
+.footer-inner{max-width:var(--wrap);margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;flex-wrap:wrap;gap:20px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.footer-nav{display:flex;gap:28px;flex-wrap:wrap;}
+.footer-nav a{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,237,230,0.35);transition:color 0.15s;}
+.footer-nav a:hover{color:#F0EDE6;}
+.footer-mid{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:14px;font-weight:300;color:rgba(240,237,230,0.28);}
+.footer-social a{font-size:13px;color:rgba(240,237,230,0.28);transition:color 0.15s;}
+.footer-social a:hover{color:#F0EDE6;}
+.footer-rule{border:none;border-top:1px solid var(--border-dark);margin-bottom:24px;}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.footer-copy{font-size:11px;color:rgba(240,237,230,0.18);font-family:'DM Mono',monospace;}
+.footer-built{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,237,230,0.15);}
+</style>
+<script src="brand-shell.js" defer></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Microsite Studio</a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Start a Project</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Start a Project</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero dark-geo">
+  <svg class="hero-dotgrid" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="dg" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.03)"/></pattern></defs>
+    <rect width="100%" height="100%" fill="url(#dg)"/>
+  </svg>
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross hero-cross"></div>
+  <div class="geo geo-ring hero-ring"></div>
+  <div class="geo geo-stamp hero-stamp">INDIVIDUAL SERVICES · PICK IT · WE BUILD IT</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow-label reveal">Individual Services</div>
+    <h1 class="hero-h1 reveal">Know exactly<br>what you need?<br><em>Pick it, we build it.</em></h1>
+    <p class="hero-sub reveal delay-1">No strategy layer, no retainers, no packages. Just clean, fast execution on the specific thing you need.</p>
+    <p class="hero-disclaimer reveal delay-2">All prices exclude domain, hosting, and third-party charges.</p>
+  </div>
+</section>
+
+<!-- ══ SERVICE 01: WEBSITE ══ -->
+<section class="section dark-geo" id="website">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross" style="top:44px;left:calc(50% - 60px);"></div>
+  <div class="geo geo-ring" style="width:26px;height:26px;top:48px;right:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.13);white-space:nowrap;position:absolute;">01 — WEBSITE · THREE TIERS</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.15)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.24)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.24)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="480" y1="1" x2="480" y2="9" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+    <line x1="960" y1="1" x2="960" y2="9" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="svc-eyebrow reveal">01</div>
+    <div class="svc-title reveal">Website</div>
+    <p class="svc-intro reveal delay-1">A website built to the brief. Three tiers depending on what your business needs.</p>
+    <div class="tier-grid reveal delay-2">
+      <!-- Static -->
+      <div class="tier-card" style="display:flex;flex-direction:column;">
+        <div class="tier-name">Static</div>
+        <p class="tier-desc">Fixed content pages. No backend, no CMS. Fastest to deliver — perfect for portfolios, basic business presence, and focused landing pages.</p>
+        <div class="tier-bottom">
+          <div class="tier-price">from ₹1,500</div>
+          <div class="tier-timeline">1–3 days</div>
+        </div>
+      </div>
+      <!-- Semi-Dynamic -->
+      <div class="tier-card" style="display:flex;flex-direction:column;">
+        <div class="tier-name">Semi-Dynamic</div>
+        <p class="tier-desc">CMS-powered. You or your team can edit content, add blog posts, update pages — no developer needed after handoff.</p>
+        <div class="tier-bottom">
+          <div class="tier-price">from ₹3,000</div>
+          <div class="tier-timeline">3–5 days</div>
+        </div>
+      </div>
+      <!-- Dynamic -->
+      <div class="tier-card" style="display:flex;flex-direction:column;">
+        <div class="tier-name">Dynamic</div>
+        <p class="tier-desc">Full functionality. Forms, databases, user accounts, custom logic, third-party integrations. Built for products that need to do things.</p>
+        <div class="tier-bottom">
+          <div class="tier-price">from ₹8,000</div>
+          <div class="tier-timeline">5–10 days</div>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer reveal">Prices exclude domain registration, hosting, and any third-party service charges.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══ SERVICE 02: LANDING PAGE ══ -->
+<section class="section section--alt dark-geo" id="landing-page">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross" style="top:44px;right:calc(50% - 70px);"></div>
+  <div class="geo geo-ring" style="width:24px;height:24px;top:50px;left:150px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.13);"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.13);white-space:nowrap;position:absolute;">02 — LANDING PAGE FOR ADS · CONVERSION-OPTIMISED</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="svc-eyebrow reveal">02</div>
+    <div class="svc-title reveal">Landing Page for Ads</div>
+    <div class="svc-card reveal delay-1">
+      <div class="svc-card-grid">
+        <div>
+          <p class="svc-card-desc">A conversion-optimised, SEO-ready landing page built specifically to receive paid traffic. One clear offer, one clear action. Structured for Quality Score on Google Ads and relevance scoring on Meta.</p>
+          <div class="svc-includes-label">What's included</div>
+          <div class="svc-includes-list">
+            <div class="svc-include-item">Single-page design, mobile-first</div>
+            <div class="svc-include-item">SEO meta structure and page speed optimisation</div>
+            <div class="svc-include-item">Lead capture form or CTA button integrated</div>
+            <div class="svc-include-item">Basic analytics and tracking setup</div>
+            <div class="svc-include-item">Copy guidance — you provide the brief, we advise on structure</div>
+          </div>
+        </div>
+        <div class="svc-right">
+          <div>
+            <div class="svc-price">₹4,500</div>
+            <div class="svc-timeline">2–3 days</div>
+            <a href="contact.html?service=landing-page" class="btn-primary">Get Started →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══ SERVICE 03: UI/UX ══ -->
+<section class="section dark-geo" id="uiux">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross" style="top:44px;left:calc(50% - 60px);"></div>
+  <div class="geo geo-ring" style="width:28px;height:28px;top:48px;right:160px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);"></div>
+  <div class="geo geo-ring dashed" style="width:44px;height:44px;bottom:48px;left:70px;border-radius:50%;border:1px dashed rgba(200,40,30,0.08);"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.13);white-space:nowrap;position:absolute;">03 — UI/UX DESIGN · FIGMA-READY HANDOFF</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="svc-eyebrow reveal">03</div>
+    <div class="svc-title reveal">UI/UX Design</div>
+    <div class="svc-card reveal delay-1">
+      <div class="svc-card-grid">
+        <div>
+          <p class="svc-card-desc">Design without the build. If you have developers but need the interface designed properly — wireframes, high-fidelity mockups, component systems, user flows.</p>
+          <div class="svc-includes-label">What's included</div>
+          <div class="svc-includes-list">
+            <div class="svc-include-item">Discovery brief and user flow mapping</div>
+            <div class="svc-include-item">Wireframes (low fidelity)</div>
+            <div class="svc-include-item">High-fidelity mockups in Figma</div>
+            <div class="svc-include-item">Up to 5 screens or states</div>
+            <div class="svc-include-item">Handoff-ready file with annotations</div>
+          </div>
+        </div>
+        <div class="svc-right">
+          <div>
+            <div class="svc-price">from ₹6,000</div>
+            <div class="svc-timeline">4–6 days</div>
+            <a href="contact.html?service=uiux" class="btn-primary">Get Started →</a>
+            <p class="svc-note">Additional screens quoted separately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══ SERVICE 04: LOGO & BRAND ══ -->
+<section class="section section--alt dark-geo" id="logo">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross" style="top:44px;right:calc(50% - 60px);"></div>
+  <div class="geo geo-ring" style="width:24px;height:24px;top:50px;left:160px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.13);"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.13);white-space:nowrap;position:absolute;">04 — LOGO & BRAND WORK · A MARK THAT MEANS SOMETHING</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.19)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.19)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="svc-eyebrow reveal">04</div>
+    <div class="svc-title reveal">Logo & Brand Work</div>
+    <div class="svc-card reveal delay-1">
+      <div class="svc-card-grid">
+        <div>
+          <p class="svc-card-desc">A mark that means something. Not clip-art with your name on it — a considered logo with a visual rationale, delivered with everything you need to use it.</p>
+          <div class="svc-includes-label">What's included</div>
+          <div class="svc-includes-list">
+            <div class="svc-include-item">Brand brief and direction session (30 minutes)</div>
+            <div class="svc-include-item">2 logo concepts</div>
+            <div class="svc-include-item">1 round of revisions</div>
+            <div class="svc-include-item">Final files: SVG, PNG (transparent), dark and light versions</div>
+            <div class="svc-include-item">Basic usage guide — colours, clear space, dos and don'ts</div>
+          </div>
+        </div>
+        <div class="svc-right">
+          <div>
+            <div class="svc-price">₹4,000</div>
+            <div class="svc-timeline">4–5 days</div>
+            <a href="contact.html?service=logo" class="btn-primary">Get Started →</a>
+            <p class="svc-note">For full brand identity systems including typography, collateral, and guidelines — see <a href="launch.html">Brand Foundation under Launch</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ══ SERVICE 05: WEB ENGINEERING ══ -->
+<section class="section dark-geo" id="engineering">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross" style="top:44px;left:calc(50% - 70px);"></div>
+  <div class="geo geo-ring" style="width:30px;height:30px;top:48px;right:150px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.15);"></div>
+  <div class="geo geo-ring dashed" style="width:52px;height:52px;bottom:50px;right:80px;border-radius:50%;border:1px dashed rgba(200,40,30,0.09);"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.13);white-space:nowrap;position:absolute;">05 — WEB ENGINEERING · CUSTOM BUILDS · QUOTE-BASED</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.15)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.24)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.24)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="svc-eyebrow reveal">05</div>
+    <div class="svc-title reveal">Web Engineering<br>&amp; Custom Builds</div>
+    <div class="svc-card reveal delay-1">
+      <div class="svc-card-grid">
+        <div>
+          <p class="svc-card-desc">For builds that don't fit a template. Custom web applications, API integrations, automation workflows, CRM implementations, complex interactive systems — scoped and quoted based on your specific requirements.</p>
+          <div class="svc-includes-label">Examples of what this covers</div>
+          <div class="svc-includes-list">
+            <div class="svc-include-item">Custom web applications</div>
+            <div class="svc-include-item">Third-party API integrations</div>
+            <div class="svc-include-item">Automation workflows (n8n, Zapier, Make)</div>
+            <div class="svc-include-item">CRM setup and configuration</div>
+            <div class="svc-include-item">Database architecture and backend logic</div>
+            <div class="svc-include-item">Anything that needs a conversation before a quote</div>
+          </div>
+        </div>
+        <div class="svc-right">
+          <div>
+            <div class="svc-price" style="font-size:clamp(36px,4.5vw,56px);">Quote-based</div>
+            <div class="svc-timeline">Scoped per project</div>
+            <a href="contact.html?service=engineering" class="btn-primary">Tell us what you need →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="closing dark-geo">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-ring closing-ring-1"></div>
+  <div class="geo geo-ring dashed closing-ring-2"></div>
+  <div class="geo geo-cross closing-cross"></div>
+  <div class="geo geo-stamp closing-stamp">INDIVIDUAL SERVICES · NOT SURE WHICH ONE</div>
+  <div class="closing-inner reveal">
+    <div class="closing-h">Not sure which<br>one you <em>need?</em></div>
+    <p class="closing-sub">If you're unsure whether an individual service or a full engagement is the right move, start with the Growth Diagnostic. ₹10,000. 5 days. You'll know exactly what to do next.</p>
+    <div class="closing-btns">
+      <a href="contact.html" class="btn-primary" style="font-size:15px;padding:15px 32px;">Start a Project →</a>
+      <a href="diagnose.html" class="btn-ghost" style="font-size:15px;padding:15px 32px;">See the Growth Diagnostic →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="footer-logo">Microsite Studio</a>
+      <nav class="footer-nav">
+        <a href="work.html">Work</a><a href="services.html">Services</a>
+        <a href="about.html">About</a><a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-mid">
+      <p class="footer-tagline">Launch & Growth Infrastructure for Ambitious Founders.</p>
+      <div class="footer-social"><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn →</a></div>
+    </div>
+    <hr class="footer-rule">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Microsite Studio. All rights reserved.</span>
+      <span class="footer-built">Built with intent. Delivered with speed.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+const hamburger=document.getElementById('hamburger');
+const overlay=document.getElementById('mobileOverlay');
+hamburger.addEventListener('click',()=>document.body.classList.toggle('menu-open'));
+overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+reveals.forEach(el=>obs.observe(el));
+setTimeout(()=>{document.querySelector('.hero .reveal')?.classList.add('visible');},300);
+</script>
+</body>
+</html>

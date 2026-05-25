@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsite Studio — Launch & Growth Infrastructure for Founders</title>
+<meta name="description" content="Microsite Studio builds complete launch and growth infrastructure for early-stage founders. Positioning, website, funnels, ads, automation. One partner. No handoffs.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Microsite Studio">
+<meta property="og:image" content="/og-image.png">
+<link rel="canonical" href="https://micrositestudio.in/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="brand-shell.css">
+
+<style>
+/* ════════════════════════════════
+   RESET & BASE
+════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:#080808;
+  color:#F0EDE6;
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+em{font-family:'Instrument Serif',serif;font-style:italic;}
+
+/* ════════════════════════════════
+   TOKENS
+════════════════════════════════ */
+:root{
+  --red:         #C8281E;
+  --red2:        #A8201A;
+  --red-dim:     rgba(200,40,30,0.5);
+  --red-faint:   rgba(200,40,30,0.07);
+  --red-border:  rgba(200,40,30,0.2);
+  --bg:          #080808;
+  --bg-card:     #111111;
+  --bg-card2:    #141414;
+  --bg-light:    #F5F2EB;
+  --border-dark: rgba(255,255,255,0.07);
+  --border-light:#E0DDD8;
+  --text-light:  #0A0A0A;
+  --text-muted:  #888888;
+  --wrap:        1100px;
+  --px:          48px;
+}
+@media(max-width:1024px){:root{--px:32px;}}
+@media(max-width:768px){:root{--px:24px;}}
+
+/* ════════════════════════════════
+   GLOBAL GEOMETRY SYSTEM
+════════════════════════════════ */
+.geo{position:absolute;pointer-events:none;}
+
+.geo-bracket{width:36px;height:36px;}
+.geo-bracket.tl{top:28px;left:36px;border-top:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.tr{top:28px;right:36px;border-top:1.5px solid;border-right:1.5px solid;}
+.geo-bracket.bl{bottom:28px;left:36px;border-bottom:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.br{bottom:28px;right:36px;border-bottom:1.5px solid;border-right:1.5px solid;}
+
+.dark-geo .geo-bracket.tl,.dark-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.22);}
+.dark-geo .geo-bracket.bl,.dark-geo .geo-bracket.br{border-color:rgba(200,40,30,0.1);}
+.light-geo .geo-bracket.tl,.light-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.28);}
+.light-geo .geo-bracket.bl,.light-geo .geo-bracket.br{border-color:rgba(200,40,30,0.14);}
+
+.geo-dots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+.geo-dot{width:3px;height:3px;border-radius:50%;}
+.dark-geo .geo-dot{background:rgba(200,40,30,0.4);}
+.dark-geo .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.3);}
+.light-geo .geo-dot{background:rgba(200,40,30,0.38);}
+.light-geo .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.28);}
+
+.geo-cross{width:12px;height:12px;}
+.geo-cross::before,.geo-cross::after{content:'';position:absolute;}
+.geo-cross::before{width:1.5px;height:100%;left:calc(50% - 0.75px);}
+.geo-cross::after{height:1.5px;width:100%;top:calc(50% - 0.75px);}
+.dark-geo .geo-cross::before,.dark-geo .geo-cross::after{background:rgba(200,40,30,0.38);}
+.light-geo .geo-cross::before,.light-geo .geo-cross::after{background:rgba(200,40,30,0.32);}
+
+.geo-ring{border-radius:50%;}
+.dark-geo .geo-ring{border:1.5px solid rgba(200,40,30,0.18);}
+.dark-geo .geo-ring.dashed{border:1.5px dashed rgba(200,40,30,0.1);}
+.light-geo .geo-ring{border:1.5px solid rgba(200,40,30,0.2);}
+.light-geo .geo-ring.dashed{border:1.5px dashed rgba(200,40,30,0.12);}
+
+.geo-diamond{transform:rotate(45deg);}
+.dark-geo .geo-diamond{border:1.5px solid rgba(200,40,30,0.2);}
+.light-geo .geo-diamond{border:1.5px solid rgba(200,40,30,0.22);}
+
+.geo-stamp{
+  font-family:'DM Mono',monospace;
+  font-size:8px;letter-spacing:0.22em;text-transform:uppercase;
+  position:absolute;white-space:nowrap;
+}
+.dark-geo .geo-stamp{color:rgba(200,40,30,0.16);}
+.light-geo .geo-stamp{color:rgba(200,40,30,0.18);}
+
+/* SVG ruler lines top/bottom of sections */
+.geo-ruler{position:absolute;left:0;right:0;width:100%;pointer-events:none;opacity:0.6;}
+.geo-ruler.top{top:0;height:40px;}
+.geo-ruler.bot{bottom:0;height:40px;}
+
+/* ════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════ */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:0.1s;}
+.delay-2{transition-delay:0.2s;}
+.delay-3{transition-delay:0.3s;}
+
+/* ════════════════════════════════
+   NAV
+════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:transparent;border-bottom:1px solid transparent;
+  transition:background 0.3s,border-color 0.3s;
+}
+.nav.scrolled{
+  background:rgba(8,8,8,0.93);
+  border-bottom-color:var(--border-dark);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.nav-inner{
+  max-width:var(--wrap);margin:0 auto;padding:0 var(--px);
+  display:flex;justify-content:space-between;align-items:center;height:64px;
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;
+  color:#F0EDE6;
+}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;
+  color:rgba(240,237,230,0.4);transition:color 0.2s;
+}
+.nav-links a:hover,.nav-links a.active{color:#F0EDE6;}
+.nav-cta{
+  background:var(--red);color:#000;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  padding:10px 20px;border-radius:4px;border:none;cursor:pointer;
+  transition:background 0.2s,transform 0.2s;
+}
+.nav-cta:hover{background:var(--red2);transform:translateY(-1px);}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#F0EDE6;transition:0.3s;}
+@media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+
+/* Mobile overlay */
+.mobile-overlay{
+  position:fixed;inset:0;background:#080808;z-index:99;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.menu-open .mobile-overlay{opacity:1;pointer-events:all;}
+.mobile-overlay ul{display:flex;flex-direction:column;align-items:center;gap:40px;}
+.mobile-overlay a{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,8vw,48px);color:#F0EDE6;letter-spacing:0.04em;}
+.mobile-overlay a:hover{color:var(--red);}
+.menu-open .nav-hamburger span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.menu-open .nav-hamburger span:nth-child(2){opacity:0;}
+
+/* ════════════════════════════════
+   HERO
+════════════════════════════════ */
+.hero{
+  background:var(--bg);
+  padding:148px var(--px) 72px;
+  position:relative;overflow:hidden;
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+}
+
+.hero-media{
+  position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:saturate(0.9) contrast(1.05) brightness(0.38);
+  transform:scale(1.02);
+  }
+.hero-media video{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  filter:saturate(0.9) contrast(1.05) brightness(0.5);
+  transform:scale(1.02);
+}
+.hero-media::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(200,40,30,0.126), transparent 35%),
+    linear-gradient(135deg, rgba(8,8,8,0.126) 0%, rgba(8,8,8,0.392) 56%, rgba(8,8,8,0.56) 100%);
+}
+
+/* Dot grid bg */
+.hero-dotgrid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+
+/* Geo accents */
+.hero .geo-bracket.tl{top:80px;left:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.tr{top:80px;right:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.bl{bottom:40px;left:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero .geo-bracket.br{bottom:40px;right:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero-ring-1{width:220px;height:220px;top:40px;right:-70px;border:1px solid rgba(200,40,30,0.05);border-radius:50%;}
+.hero-ring-2{width:110px;height:110px;bottom:120px;left:-30px;border:1px dashed rgba(200,40,30,0.06);border-radius:50%;}
+.hero-cross-1{top:108px;left:calc(var(--px) + 56px);}
+.hero-cross-1::before,.hero-cross-1::after{background:rgba(200,40,30,0.24);}
+.hero-cross-2{bottom:64px;right:calc(var(--px) + 76px);}
+.hero-cross-2::before,.hero-cross-2::after{background:rgba(200,40,30,0.18);}
+.hero-stamp{top:32px;left:50%;transform:translateX(-50%);color:rgba(200,40,30,0.12);}
+.hero-dots-1{top:100px;right:140px;}
+.hero-dots-1 .geo-dot{background:rgba(200,40,30,0.3);}
+.hero-dots-1 .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.22);}
+
+/* Diagonal faint line */
+.hero-diag{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+
+.hero-inner{
+  max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr;justify-items:center;gap:60px;align-items:center;
+}
+.hero-left{
+  max-width:760px;position:relative;overflow:visible;isolation:isolate;
+  min-height:540px;padding:0;border:none;border-radius:0;background:transparent;
+  text-align:center;display:flex;flex-direction:column;align-items:center;
+}
+.hero-copy{position:relative;z-index:2;}
+
+/* Announce pill */
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red-faint);border:1px solid var(--red-border);
+  border-radius:100px;padding:5px 16px 5px 10px;
+  margin-bottom:32px;
+}
+.pill-dot{
+  width:6px;height:6px;background:var(--red);border-radius:50%;
+  animation:pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.75);}}
+.pill-text{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:400;color:rgba(240,237,230,0.5);}
+.pill-text strong{color:var(--red);font-weight:500;}
+
+/* H1 */
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,10vw,144px);
+  line-height:0.92;letter-spacing:0.01em;
+  color:#F0EDE6;margin-bottom:28px;
+}
+.hero-h1 em{color:var(--red);}
+
+.hero-sub{
+  font-size:17px;font-weight:300;color:rgba(240,237,230,0.45);
+  line-height:1.8;margin-bottom:40px;max-width:620px;margin-left:auto;margin-right:auto;
+}
+.hero-sub strong{color:rgba(240,237,230,0.72);font-weight:500;}
+
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{
+  background:var(--red);color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  padding:14px 28px;border-radius:4px;border:none;cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background 0.2s,transform 0.2s;
+}
+.btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
+.btn-ghost{
+  background:rgba(255,255,255,0.04);color:rgba(240,237,230,0.5);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;
+  padding:14px 28px;border-radius:4px;
+  border:1px solid rgba(255,255,255,0.1);cursor:pointer;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:border-color 0.2s,color 0.2s,transform 0.2s;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,0.22);color:#F0EDE6;transform:translateY(-1px);}
+
+/* Hero right — stat cards */
+.hero-stats{display:flex;flex-direction:column;gap:2px;min-width:160px;}
+.stat-card{
+  padding:20px 24px;border:1px solid var(--border-dark);
+  border-radius:4px;background:var(--bg-card);
+}
+.stat-card.featured{background:var(--red);border-color:var(--red);}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;
+  line-height:1;letter-spacing:0.02em;color:#F0EDE6;
+}
+.stat-card.featured .stat-num{color:#fff;}
+.stat-lbl{
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:400;
+  color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;
+}
+.stat-card.featured .stat-lbl{color:rgba(255,255,255,0.65);}
+
+/* ════════════════════════════════
+   TRUST STRIP (inside hero, below content)
+════════════════════════════════ */
+.trust-strip{
+  margin-top:64px;position:relative;z-index:2;
+}
+.trust-label{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;
+  text-transform:uppercase;color:rgba(240,237,230,0.2);
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.trust-label::before,.trust-label::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(to right,transparent,rgba(200,40,30,0.18));
+}
+.trust-label::after{
+  background:linear-gradient(to left,transparent,rgba(200,40,30,0.18));
+}
+.trust-wrap{overflow:hidden;position:relative;}
+.trust-wrap::before,.trust-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none;
+}
+.trust-wrap::before{left:0;background:linear-gradient(to right,#080808 20%,transparent);}
+.trust-wrap::after{right:0;background:linear-gradient(to left,#080808 20%,transparent);}
+.trust-track{
+  display:flex;gap:0;width:max-content;
+  animation:trustscroll 32s linear infinite;
+}
+.trust-wrap:hover .trust-track{animation-play-state:paused;}
+@keyframes trustscroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+.trust-card{
+  width:240px;height:156px;flex-shrink:0;
+  border-right:1px solid var(--border-dark);
+  padding:20px;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:background 0.3s;
+}
+.trust-card:hover{background:rgba(255,255,255,0.02);}
+.trust-card-front{
+  position:absolute;inset:0;padding:20px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:opacity 0.3s,transform 0.35s;
+}
+.trust-card:hover .trust-card-front{opacity:0;transform:translateY(-8px);}
+.trust-card-back{
+  position:absolute;inset:0;padding:20px;
+  display:flex;flex-direction:column;justify-content:center;
+  background:rgba(10,10,10,0.96);
+  opacity:0;transform:translateY(10px);
+  transition:opacity 0.3s,transform 0.35s;
+}
+.trust-card:hover .trust-card-back{opacity:1;transform:translateY(0);}
+
+.tc-sector{
+  font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.16em;
+  color:var(--red-dim);text-transform:uppercase;
+}
+.tc-name{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;
+  color:#F0EDE6;letter-spacing:0.03em;line-height:1.2;margin-top:4px;
+}
+.tc-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:10px;border-top:1px solid var(--border-dark);
+}
+.tc-metric{font-family:'DM Mono',monospace;font-size:9px;color:rgba(240,237,230,0.25);letter-spacing:0.06em;}
+.tc-metric strong{color:var(--red);}
+.tc-arrow{font-size:11px;color:rgba(240,237,230,0.18);}
+
+.tc-back-num{
+  font-family:'Bebas Neue',sans-serif;font-size:40px;
+  color:#F0EDE6;letter-spacing:0.02em;line-height:1;margin-bottom:6px;
+}
+.tc-back-num em{color:var(--red);font-size:0.65em;font-family:'Bebas Neue',sans-serif;font-style:normal;}
+.tc-back-lbl{
+  font-family:'DM Mono',monospace;font-size:9px;
+  color:rgba(240,237,230,0.28);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;
+}
+.tc-back-name{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:300;color:rgba(240,237,230,0.35);}
+
+/* ════════════════════════════════
+   TICKER STRIP (below hero, outcomes)
+════════════════════════════════ */
+.ticker-section{
+  background:#0c0c0c;
+  border-top:1px solid var(--border-dark);
+  border-bottom:1px solid var(--border-dark);
+  overflow:hidden;position:relative;
+}
+.ticker-section::before,.ticker-section::after{
+  content:'';position:absolute;top:0;bottom:0;width:100px;z-index:2;pointer-events:none;
+}
+.ticker-section::before{left:0;background:linear-gradient(to right,#0c0c0c,transparent);}
+.ticker-section::after{right:0;background:linear-gradient(to left,#0c0c0c,transparent);}
+.ticker-track{
+  display:flex;width:max-content;
+  animation:tickermove 26s linear infinite;
+}
+@keyframes tickermove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ticker-item{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 32px;border-right:1px solid var(--border-dark);
+  white-space:nowrap;min-width:280px;
+}
+.ti-tag{
+  font-size:10px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--red);background:rgba(200,40,30,0.1);
+  padding:3px 8px;border-radius:2px;flex-shrink:0;
+}
+.ti-text{font-size:13px;font-weight:300;color:var(--text-muted);}
+.ti-metric{
+  font-family:'Bebas Neue',sans-serif;font-size:18px;
+  color:#F0EDE6;margin-left:auto;padding-left:16px;
+}
+
+/* ════════════════════════════════
+   THE PROBLEM
+════════════════════════════════ */
+.problem-section{
+  background:#0c0c0c;
+  padding:100px var(--px);
+  border-bottom:1px solid var(--border-dark);
+  position:relative;overflow:hidden;
+}
+.problem-section .geo-bracket.tl{border-color:rgba(200,40,30,0.18);}
+.problem-section .geo-bracket.tr{border-color:rgba(200,40,30,0.18);}
+.problem-section .geo-bracket.bl{border-color:rgba(200,40,30,0.08);}
+.problem-section .geo-bracket.br{border-color:rgba(200,40,30,0.08);}
+.prob-cross-1{top:44px;left:calc(50% - 60px);}
+.prob-cross-1::before,.prob-cross-1::after{background:rgba(200,40,30,0.28);}
+.prob-ring-1{width:40px;height:40px;top:40px;right:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);}
+.prob-stamp{top:30px;left:50%;transform:translateX(-50%);}
+
+.problem-inner{max-width:820px;margin:0 auto;position:relative;z-index:2;}
+.eyebrow-label{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--red-dim);margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow-label::before{content:'';width:20px;height:1px;background:var(--red);}
+.problem-pull{
+  font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:clamp(22px,3vw,34px);color:#F0EDE6;
+  line-height:1.45;margin-bottom:28px;
+}
+.problem-body{
+  font-size:17px;font-weight:300;color:rgba(240,237,230,0.42);
+  line-height:1.85;margin-bottom:16px;
+}
+.problem-red{
+  font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.04em;
+  color:var(--red);margin-top:36px;
+}
+
+/* ════════════════════════════════
+   FOUR LAYERS
+════════════════════════════════ */
+.layers-section{
+  background:var(--bg);
+  padding:100px var(--px);
+  position:relative;overflow:hidden;
+}
+.layers-section .geo-bracket.tl{border-color:rgba(200,40,30,0.2);}
+.layers-section .geo-bracket.tr{border-color:rgba(200,40,30,0.2);}
+.layers-section .geo-bracket.bl{border-color:rgba(200,40,30,0.09);}
+.layers-section .geo-bracket.br{border-color:rgba(200,40,30,0.09);}
+.lay-cross-1{top:42px;left:calc(50% - 70px);}
+.lay-cross-1::before,.lay-cross-1::after{background:rgba(200,40,30,0.3);}
+.lay-ring-1{width:28px;height:28px;top:48px;left:calc(50% + 55px);border-radius:50%;border:1.5px solid rgba(200,40,30,0.16);}
+.lay-dots-1{bottom:52px;right:100px;}
+.lay-dots-1 .geo-dot{background:rgba(200,40,30,0.35);}
+.lay-dots-1 .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.28);}
+.lay-stamp{top:30px;left:50%;transform:translateX(-50%);}
+
+.layers-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.section-header{margin-bottom:56px;}
+.section-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,5.5vw,72px);
+  line-height:1;letter-spacing:0.01em;color:#F0EDE6;margin-top:12px;
+}
+.section-h em{color:var(--red);}
+.section-h.light{color:var(--text-light);}
+
+.layers-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--border-dark);
+  border:1px solid var(--border-dark);border-radius:8px;overflow:hidden;
+}
+.layer-card{
+  background:var(--bg-card);padding:44px;position:relative;overflow:hidden;
+  transition:background 0.2s;cursor:default;
+}
+.layer-card:hover{background:#161616;}
+.layer-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--red);transform:scaleX(0);transform-origin:left;
+  transition:transform 0.35s ease;
+}
+.layer-card:hover::after{transform:scaleX(1);}
+/* expanding ring from corner */
+.layer-card::before{
+  content:'';position:absolute;bottom:-28px;right:-28px;
+  width:100px;height:100px;border-radius:50%;
+  border:1.5px solid rgba(200,40,30,0);
+  transition:border-color 0.4s,transform 0.45s;transform:scale(0.7);
+}
+.layer-card:hover::before{border-color:rgba(200,40,30,0.1);transform:scale(1.6);}
+
+.lc-num{
+  font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;
+  color:rgba(255,255,255,0.04);letter-spacing:0.02em;margin-bottom:10px;
+  transition:color 0.3s;
+}
+.layer-card:hover .lc-num{color:rgba(200,40,30,0.08);}
+.lc-title{
+  font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:0.04em;
+  color:#F0EDE6;margin-bottom:12px;
+}
+.lc-body{font-size:14px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.75;margin-bottom:22px;}
+.lc-link{
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;color:rgba(240,237,230,0.3);
+  display:inline-flex;align-items:center;gap:6px;
+  transition:color 0.2s,gap 0.2s;
+}
+.layer-card:hover .lc-link{color:var(--red);gap:10px;}
+
+/* ════════════════════════════════
+   WHY US — light section
+════════════════════════════════ */
+.why-section{
+  background:var(--bg-light);
+  padding:100px var(--px);
+  border-top:1px solid var(--border-light);
+  border-bottom:1px solid var(--border-light);
+  position:relative;overflow:hidden;
+}
+.why-section .geo-bracket.tl{border-color:rgba(200,40,30,0.26);}
+.why-section .geo-bracket.tr{border-color:rgba(200,40,30,0.26);}
+.why-section .geo-bracket.bl{border-color:rgba(200,40,30,0.13);}
+.why-section .geo-bracket.br{border-color:rgba(200,40,30,0.13);}
+.why-cross-1{top:42px;left:calc(50% - 70px);}
+.why-cross-1::before,.why-cross-1::after{background:rgba(200,40,30,0.28);}
+.why-ring-1{width:30px;height:30px;top:46px;right:110px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.2);}
+.why-ring-2{width:48px;height:48px;bottom:50px;left:20px;border-radius:50%;border:1px dashed rgba(200,40,30,0.13);}
+.why-dots-1{bottom:52px;right:90px;}
+.why-dots-1 .geo-dot{background:rgba(200,40,30,0.36);}
+.why-dots-1 .geo-dot.empty{background:transparent;border:1px solid rgba(200,40,30,0.28);}
+.why-stamp{top:30px;left:50%;transform:translateX(-50%);}
+
+.why-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:52px;}
+.why-copy p{font-size:16px;font-weight:300;color:#666;line-height:1.85;margin-bottom:20px;}
+
+.why-metrics{
+  display:flex;flex-direction:column;gap:1px;
+  background:#d8d5ce;border-radius:6px;overflow:hidden;
+}
+.why-metric{
+  background:var(--bg-light);padding:26px 32px;
+  display:flex;align-items:baseline;gap:16px;
+  transition:background 0.2s;
+}
+.why-metric:hover{background:#eee8df;}
+.wm-num{font-family:'Bebas Neue',sans-serif;font-size:56px;color:#0a0a0a;line-height:1;letter-spacing:0.01em;}
+.wm-lbl{font-size:13px;font-weight:300;color:#888;line-height:1.5;max-width:190px;}
+
+/* ════════════════════════════════
+   OFFER TABLE
+════════════════════════════════ */
+.offers-section{
+  background:#080808;
+  padding:100px var(--px);
+  position:relative;overflow:hidden;
+}
+.offers-section .geo-bracket.tl{border-color:rgba(200,40,30,0.16);}
+.offers-section .geo-bracket.tr{border-color:rgba(200,40,30,0.16);}
+.offers-section .geo-bracket.bl{border-color:rgba(200,40,30,0.08);}
+.offers-section .geo-bracket.br{border-color:rgba(200,40,30,0.08);}
+.off-cross-1{top:42px;right:160px;}
+.off-cross-1::before,.off-cross-1::after{background:rgba(200,40,30,0.28);}
+.off-stamp{top:30px;left:50%;transform:translateX(-50%);}
+
+.offers-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.offer-table{
+  border:1px solid var(--border-dark);border-radius:6px;overflow:hidden;margin-top:52px;
+}
+.offer-row{
+  display:grid;grid-template-columns:1fr 120px 220px;
+  align-items:center;padding:22px 32px;
+  border-bottom:1px solid var(--border-dark);
+  transition:background 0.15s;gap:16px;
+}
+.offer-row:last-child{border-bottom:none;}
+.offer-row:hover{background:#0f0f0f;}
+.or-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.03em;color:#F0EDE6;}
+.or-desc{font-size:13px;color:var(--text-muted);font-weight:300;margin-top:3px;}
+.or-type{
+  font-family:'DM Mono',monospace;font-size:9px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);
+}
+.or-right{display:flex;align-items:center;justify-content:flex-end;gap:16px;}
+.or-price{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#F0EDE6;letter-spacing:0.02em;}
+.or-arrow{color:var(--text-muted);font-size:15px;transition:transform 0.2s,color 0.2s;}
+.offer-row:hover .or-arrow{transform:translateX(5px);color:var(--red);}
+
+/* ════════════════════════════════
+   CLOSING CTA
+════════════════════════════════ */
+.cta-section{
+  background:#0c0c0c;
+  padding:120px var(--px);
+  border-top:1px solid var(--border-dark);
+  position:relative;overflow:hidden;text-align:center;
+}
+.cta-section .geo-bracket.tl{border-color:rgba(200,40,30,0.14);}
+.cta-section .geo-bracket.tr{border-color:rgba(200,40,30,0.14);}
+.cta-section .geo-bracket.bl{border-color:rgba(200,40,30,0.07);}
+.cta-section .geo-bracket.br{border-color:rgba(200,40,30,0.07);}
+.cta-ring-1{width:80px;height:80px;top:40px;right:80px;border-radius:50%;border:1px solid rgba(200,40,30,0.08);}
+.cta-ring-2{width:120px;height:120px;bottom:40px;left:60px;border-radius:50%;border:1px dashed rgba(200,40,30,0.06);}
+.cta-cross-1{top:52px;left:calc(50% + 20px);}
+.cta-cross-1::before,.cta-cross-1::after{background:rgba(200,40,30,0.22);}
+.cta-stamp{bottom:28px;left:50%;transform:translateX(-50%);}
+
+.cta-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.cta-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,7.5vw,108px);
+  line-height:0.93;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:24px;
+}
+.cta-h em{color:var(--red);}
+.cta-sub{
+  font-size:16px;font-weight:300;color:rgba(240,237,230,0.38);
+  max-width:480px;margin:0 auto 40px;line-height:1.8;
+}
+.cta-note{font-size:12px;color:rgba(240,237,230,0.22);margin-top:16px;letter-spacing:0.04em;}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+.footer{
+  background:#0a0a0a;border-top:1px solid var(--border-dark);
+  padding:64px var(--px) 48px;
+  position:relative;overflow:hidden;
+}
+.footer .geo-bracket.tl{border-color:rgba(200,40,30,0.1);}
+.footer .geo-bracket.tr{border-color:rgba(200,40,30,0.1);}
+.footer-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.footer-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:48px;flex-wrap:wrap;gap:24px;
+}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.footer-nav{display:flex;gap:32px;flex-wrap:wrap;}
+.footer-nav a{
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;
+  color:rgba(240,237,230,0.35);transition:color 0.15s;
+}
+.footer-nav a:hover{color:#F0EDE6;}
+.footer-mid{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:32px;flex-wrap:wrap;gap:16px;
+}
+.footer-tagline{font-size:14px;font-weight:300;color:rgba(240,237,230,0.3);max-width:400px;}
+.footer-social a{font-size:13px;font-weight:400;color:rgba(240,237,230,0.3);transition:color 0.15s;}
+.footer-social a:hover{color:#F0EDE6;}
+.footer-rule{border:none;border-top:1px solid var(--border-dark);margin-bottom:28px;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.footer-copy{font-size:12px;color:rgba(240,237,230,0.2);}
+.footer-built{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;
+  text-transform:uppercase;color:rgba(240,237,230,0.18);
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-stats{flex-direction:row;min-width:auto;}
+  .stat-card{flex:1;}
+  .why-grid{grid-template-columns:1fr;}
+  .layers-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .hero-h1{font-size:clamp(60px,14vw,90px);}
+  .hero-left{min-height:460px;padding:0;border-radius:0;}
+  .hero-sub{max-width:none;}
+  .offer-row{grid-template-columns:1fr 1fr;row-gap:4px;}
+  .or-type{display:none;}
+  .trust-card{width:200px;height:140px;}
+  .footer-top{flex-direction:column;}
+  .footer-mid{flex-direction:column;align-items:flex-start;}
+}
+</style>
+<script src="brand-shell.js" defer></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Microsite Studio</a>
+    <ul class="nav-links">
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Start a Project</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Start a Project</a></li>
+  </ul>
+</div>
+
+<!-- ════ HERO ════ -->
+<section class="hero dark-geo">
+  <!-- Dot grid -->
+  <svg class="hero-dotgrid" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="dg" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.032)"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#dg)"/>
+  </svg>
+  <!-- Diagonal accent -->
+  <svg class="hero-diag" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="100%" x2="100%" y2="0" stroke="rgba(200,40,30,0.04)" stroke-width="1"/></svg>
+
+  <!-- Geo accents -->
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div>
+  <div class="geo geo-bracket br"></div>
+  <div class="geo geo-ring hero-ring-1"></div>
+  <div class="geo geo-ring dashed hero-ring-2"></div>
+  <div class="geo geo-cross hero-cross-1"></div>
+  <div class="geo geo-cross hero-cross-2"></div>
+  <div class="geo geo-stamp hero-stamp">MICROSITE STUDIO · LAUNCH & GROWTH INFRASTRUCTURE</div>
+  <div class="geo geo-dots hero-dots-1">
+    <div class="geo-dot"></div><div class="geo-dot empty"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div>
+    <div class="geo-dot"></div><div class="geo-dot"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div>
+  </div>
+
+  <!-- SVG ruler top -->
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+
+  <div class="hero-media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="video11.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-left reveal">
+      <!-- Announce pill -->
+      <div class="hero-pill">
+        <div class="pill-dot"></div>
+        <span class="pill-text">Now taking on <strong>Q3 2026</strong> clients</span>
+      </div>
+
+      <h1 class="hero-h1">
+        Your first<br>
+        100 days<br>
+        <em>decide</em><br>
+        everything.
+      </h1>
+      <p class="hero-sub">
+        We build the complete launch infrastructure for early-stage founders —
+        <strong>positioning, website, funnels, ads, automation</strong> —
+        and stay on to grow it. One partner. No handoffs.
+      </p>
+      <div class="hero-btns">
+        <a href="contact.html" class="btn-primary">Start a Project &nbsp;→</a>
+        <a href="work.html" class="btn-ghost">See our work &nbsp;→</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip" style="max-width:var(--wrap);margin-left:auto;margin-right:auto;position:relative;z-index:2;">
+    <div class="trust-label">Trusted by businesses across India &amp; UAE</div>
+    <div class="trust-wrap">
+      <div class="trust-track" id="trustTrack">
+        <!-- Card 1 -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">EdTech · Delhi</div><div class="tc-name">APEX Exam Centre</div></div>
+            <div class="tc-bottom"><span class="tc-metric">4 → <strong>9+</strong> global contracts</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">9<em>+</em></div>
+            <div class="tc-back-lbl">Global contracts won</div>
+            <div class="tc-back-name">APEX Exam Centre · Delhi</div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Real Estate · Bangalore</div><div class="tc-name">BridgeKeys × MSN Realty</div></div>
+            <div class="tc-bottom"><span class="tc-metric"><strong>100+</strong> leads captured</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">100<em>+</em></div>
+            <div class="tc-back-lbl">Leads captured</div>
+            <div class="tc-back-name">BridgeKeys × MSN Realty</div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Sustainable Goods · Mumbai</div><div class="tc-name">Nabhas</div></div>
+            <div class="tc-bottom"><span class="tc-metric">Rebrand + <strong>e-com</strong> mandate</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">2<em>x</em></div>
+            <div class="tc-back-lbl">Brand evolution + e-commerce</div>
+            <div class="tc-back-name">Nabhas · Mumbai</div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">B2B SaaS · Gurugram</div><div class="tc-name">HRStack</div></div>
+            <div class="tc-bottom"><span class="tc-metric">Seed <strong>term sheet</strong> in 6 wks</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">6<em>wk</em></div>
+            <div class="tc-back-lbl">To seed term sheet</div>
+            <div class="tc-back-name">HRStack · Gurugram</div>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Property · NCR</div><div class="tc-name">Meridian Properties</div></div>
+            <div class="tc-bottom"><span class="tc-metric"><strong>40+</strong> leads in 45 days</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">40<em>+</em></div>
+            <div class="tc-back-lbl">Qualified leads, 45 days</div>
+            <div class="tc-back-name">Meridian Properties · NCR</div>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Consultancy · Dubai</div><div class="tc-name">Vertex Advisory</div></div>
+            <div class="tc-bottom"><span class="tc-metric">First enterprise <strong>RFP</strong> in 3 wks</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">3<em>wk</em></div>
+            <div class="tc-back-lbl">To first enterprise RFP</div>
+            <div class="tc-back-name">Vertex Advisory · Dubai</div>
+          </div>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">EdTech · Delhi</div><div class="tc-name">APEX Exam Centre</div></div>
+            <div class="tc-bottom"><span class="tc-metric">4 → <strong>9+</strong> global contracts</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">9<em>+</em></div>
+            <div class="tc-back-lbl">Global contracts won</div>
+            <div class="tc-back-name">APEX Exam Centre · Delhi</div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Real Estate · Bangalore</div><div class="tc-name">BridgeKeys × MSN Realty</div></div>
+            <div class="tc-bottom"><span class="tc-metric"><strong>100+</strong> leads captured</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">100<em>+</em></div>
+            <div class="tc-back-lbl">Leads captured</div>
+            <div class="tc-back-name">BridgeKeys × MSN Realty</div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Sustainable Goods · Mumbai</div><div class="tc-name">Nabhas</div></div>
+            <div class="tc-bottom"><span class="tc-metric">Rebrand + <strong>e-com</strong> mandate</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">2<em>x</em></div>
+            <div class="tc-back-lbl">Brand evolution + e-commerce</div>
+            <div class="tc-back-name">Nabhas · Mumbai</div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">B2B SaaS · Gurugram</div><div class="tc-name">HRStack</div></div>
+            <div class="tc-bottom"><span class="tc-metric">Seed <strong>term sheet</strong> in 6 wks</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">6<em>wk</em></div>
+            <div class="tc-back-lbl">To seed term sheet</div>
+            <div class="tc-back-name">HRStack · Gurugram</div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Property · NCR</div><div class="tc-name">Meridian Properties</div></div>
+            <div class="tc-bottom"><span class="tc-metric"><strong>40+</strong> leads in 45 days</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">40<em>+</em></div>
+            <div class="tc-back-lbl">Qualified leads, 45 days</div>
+            <div class="tc-back-name">Meridian Properties · NCR</div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-front">
+            <div><div class="tc-sector">Consultancy · Dubai</div><div class="tc-name">Vertex Advisory</div></div>
+            <div class="tc-bottom"><span class="tc-metric">First enterprise <strong>RFP</strong> in 3 wks</span><span class="tc-arrow">↗</span></div>
+          </div>
+          <div class="trust-card-back">
+            <div class="tc-back-num">3<em>wk</em></div>
+            <div class="tc-back-lbl">To first enterprise RFP</div>
+            <div class="tc-back-name">Vertex Advisory · Dubai</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ TICKER STRIP ════ -->
+<div class="ticker-section">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ti-tag">B2B SaaS</span><span class="ti-text">HR startup repositioned for seed round</span><span class="ti-metric">Term sheet in 6 wks</span></div>
+    <div class="ticker-item"><span class="ti-tag">Consultancy</span><span class="ti-text">Zero online presence → enterprise pipeline</span><span class="ti-metric">1st call in 3 wks</span></div>
+    <div class="ticker-item"><span class="ti-tag">Real Estate</span><span class="ti-text">Full brand + Google Ads launch, NCR</span><span class="ti-metric">40+ leads in 45 days</span></div>
+    <div class="ticker-item"><span class="ti-tag">D2C</span><span class="ti-text">Launch Sprint + CRM + automation</span><span class="ti-metric">10-day build</span></div>
+    <div class="ticker-item"><span class="ti-tag">Logistics</span><span class="ti-text">Tier 2 market entry strategy &amp; GTM</span><span class="ti-metric">GTM in 2 weeks</span></div>
+    <div class="ticker-item"><span class="ti-tag">EdTech</span><span class="ti-text">4 → 9+ global exam body contracts</span><span class="ti-metric">7-day sprint</span></div>
+    <div class="ticker-item"><span class="ti-tag">B2B SaaS</span><span class="ti-text">HR startup repositioned for seed round</span><span class="ti-metric">Term sheet in 6 wks</span></div>
+    <div class="ticker-item"><span class="ti-tag">Consultancy</span><span class="ti-text">Zero online presence → enterprise pipeline</span><span class="ti-metric">1st call in 3 wks</span></div>
+    <div class="ticker-item"><span class="ti-tag">Real Estate</span><span class="ti-text">Full brand + Google Ads launch, NCR</span><span class="ti-metric">40+ leads in 45 days</span></div>
+    <div class="ticker-item"><span class="ti-tag">D2C</span><span class="ti-text">Launch Sprint + CRM + automation</span><span class="ti-metric">10-day build</span></div>
+    <div class="ticker-item"><span class="ti-tag">Logistics</span><span class="ti-text">Tier 2 market entry strategy &amp; GTM</span><span class="ti-metric">GTM in 2 weeks</span></div>
+    <div class="ticker-item"><span class="ti-tag">EdTech</span><span class="ti-text">4 → 9+ global exam body contracts</span><span class="ti-metric">7-day sprint</span></div>
+  </div>
+</div>
+
+<!-- ════ THE PROBLEM ════ -->
+<section class="problem-section dark-geo">
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div>
+  <div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross prob-cross-1"></div>
+  <div class="geo geo-ring prob-ring-1"></div>
+  <div class="geo geo-stamp prob-stamp">THE GAP · WHY FOUNDERS STALL</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.18)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.28)"/>
+    <circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.28)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="problem-inner">
+    <div class="eyebrow-label reveal">The Gap</div>
+    <p class="problem-pull reveal delay-1">"Most founders launch late, look unready, and spend the first 6 months stitching together vendors who don't talk to each other."</p>
+    <p class="problem-body reveal delay-1">One agency for the website. Another for ads. A freelancer for the CRM. A designer for the brand. None of them know your GTM strategy. None of them are accountable for your revenue.</p>
+    <p class="problem-body reveal delay-2">By the time the dust settles, three months are gone. Your first investor meeting is next week. And your website still says 'coming soon.'</p>
+    <div class="problem-red reveal delay-2">We fix this. One team. One retainer. Full execution.</div>
+  </div>
+</section>
+
+<!-- ════ FOUR LAYERS ════ -->
+<section class="layers-section dark-geo">
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div>
+  <div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross lay-cross-1"></div>
+  <div class="geo geo-ring lay-ring-1"></div>
+  <div class="geo geo-dots lay-dots-1">
+    <div class="geo-dot"></div><div class="geo-dot empty"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div>
+    <div class="geo-dot"></div><div class="geo-dot"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div>
+  </div>
+  <div class="geo geo-stamp lay-stamp">SERVICES · 01 — 02 — 03 — 04</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.15)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.25)"/>
+    <circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.25)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <line x1="360" y1="1" x2="360" y2="9" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="12" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <line x1="1080" y1="1" x2="1080" y2="9" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+  <div class="layers-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow-label">What We Do</div>
+      <div class="section-h">Four layers.<br><em>One journey.</em></div>
+    </div>
+    <div class="layers-grid reveal delay-1">
+      <div class="layer-card">
+        <div class="lc-num">01</div>
+        <div class="lc-title">Diagnose</div>
+        <p class="lc-body">Before you spend, you need clarity. We audit your current situation and hand you a prioritised action plan. 5 working days.</p>
+        <a href="diagnose.html" class="lc-link">Learn more →</a>
+      </div>
+      <div class="layer-card">
+        <div class="lc-num">02</div>
+        <div class="lc-title">Launch</div>
+        <p class="lc-body">Brand, website, funnel, CRM, ads setup. Full launch infrastructure. Built from scratch and ready to convert. 10 working days.</p>
+        <a href="launch.html" class="lc-link">Learn more →</a>
+      </div>
+      <div class="layer-card">
+        <div class="lc-num">03</div>
+        <div class="lc-title">Grow</div>
+        <p class="lc-body">Monthly retainer. We run your digital engine — ads, funnels, analytics, automation — while you run your company.</p>
+        <a href="grow.html" class="lc-link">Learn more →</a>
+      </div>
+      <div class="layer-card">
+        <div class="lc-num">04</div>
+        <div class="lc-title">Advise</div>
+        <p class="lc-body">GTM strategy. Market entry. Positioning. For founders who need the right thinking before they spend money.</p>
+        <a href="advise.html" class="lc-link">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHY US ════ -->
+<section class="why-section light-geo">
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div>
+  <div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross why-cross-1"></div>
+  <div class="geo geo-ring why-ring-1"></div>
+  <div class="geo geo-ring dashed why-ring-2"></div>
+  <div class="geo geo-dots why-dots-1">
+    <div class="geo-dot"></div><div class="geo-dot empty"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div>
+    <div class="geo-dot"></div><div class="geo-dot"></div>
+    <div class="geo-dot empty"></div><div class="geo-dot"></div>
+  </div>
+  <div class="geo geo-stamp why-stamp">WHY US · OPERATORS FIRST</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.2)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.3)"/>
+    <circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.3)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.16)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.16)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="12" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+  </svg>
+  <div class="why-inner">
+    <div class="reveal">
+      <div class="eyebrow-label" style="color:rgba(200,40,30,0.6);">Why Us</div>
+      <div class="section-h light">We think in unit<br><em>economics,</em><br>not just pixels.</div>
+    </div>
+    <div class="why-grid">
+      <div class="why-copy reveal delay-1">
+        <p>Most agencies hand you a website and disappear. We're operators first. Our background — engineering and economics — means we approach your growth the way a co-founder would: with accountability, systems thinking, and obsession over what actually moves your numbers.</p>
+        <p>We use AI-assisted workflows to deliver in days what agencies take weeks to build. That speed isn't a party trick. It's how we stay lean, keep costs founder-friendly, and iterate faster than your competition.</p>
+      </div>
+      <div class="why-metrics reveal delay-2">
+        <div class="why-metric">
+          <div class="wm-num">10</div>
+          <div class="wm-lbl">Days average<br>Launch Sprint delivery</div>
+        </div>
+        <div class="why-metric">
+          <div class="wm-num">4</div>
+          <div class="wm-lbl">Layers from strategy<br>to full execution</div>
+        </div>
+        <div class="why-metric">
+          <div class="wm-num">₹10K</div>
+          <div class="wm-lbl">Lowest engagement<br>to get started</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ OFFER TABLE ════ -->
+<section class="offers-section dark-geo">
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div>
+  <div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross off-cross-1"></div>
+  <div class="geo geo-stamp off-stamp">ENGAGEMENT OPTIONS · CHOOSE YOUR STARTING POINT</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+  <div class="offers-inner">
+    <div class="section-header reveal">
+      <div class="eyebrow-label">Engagement Options</div>
+      <div class="section-h">Choose your<br><em>starting point.</em></div>
+    </div>
+    <div class="offer-table reveal delay-1">
+      <div class="offer-row"><div><div class="or-name">Growth Diagnostic</div><div class="or-desc">Clarity before commitment — 5 working days</div></div><div class="or-type">One-time</div><div class="or-right"><div class="or-price">₹10,000</div><span class="or-arrow">→</span></div></div>
+      <div class="offer-row"><div><div class="or-name">Brand Foundation</div><div class="or-desc">Identity and positioning — 7 working days</div></div><div class="or-type">One-time</div><div class="or-right"><div class="or-price">₹20,000</div><span class="or-arrow">→</span></div></div>
+      <div class="offer-row"><div><div class="or-name">Launch Sprint</div><div class="or-desc">Full launch infrastructure — 10 working days</div></div><div class="or-type">One-time</div><div class="or-right"><div class="or-price">₹40,000</div><span class="or-arrow">→</span></div></div>
+      <div class="offer-row"><div><div class="or-name">GTM Advisory</div><div class="or-desc">Strategic go-to-market — 2–3 weeks</div></div><div class="or-type">Project</div><div class="or-right"><div class="or-price">₹70,000</div><span class="or-arrow">→</span></div></div>
+      <div class="offer-row"><div><div class="or-name">Growth Retainer</div><div class="or-desc">Ongoing execution partner — rolling monthly</div></div><div class="or-type">Monthly</div><div class="or-right"><div class="or-price">from ₹25K/mo</div><span class="or-arrow">→</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CLOSING CTA ════ -->
+<section class="cta-section dark-geo">
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div>
+  <div class="geo geo-bracket br"></div>
+  <div class="geo geo-ring cta-ring-1"></div>
+  <div class="geo geo-ring dashed cta-ring-2"></div>
+  <div class="geo geo-cross cta-cross-1"></div>
+  <div class="geo geo-stamp cta-stamp">MICROSITE STUDIO · IDEAS INTO INFRASTRUCTURE</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.18)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.28)"/>
+    <circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.28)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="12" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+  </svg>
+  <div class="cta-inner reveal">
+    <div class="cta-h">Ready to build<br>something that<br><em>works?</em></div>
+    <p class="cta-sub">Most founders wait too long to get the fundamentals right. The earlier you build the infrastructure, the faster everything else moves.</p>
+    <a href="contact.html" class="btn-primary" style="font-size:16px;padding:16px 36px;">Start a Project &nbsp;→</a>
+    <p class="cta-note">We take on a limited number of new clients each month.</p>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer dark-geo">
+  <div class="geo geo-bracket tl"></div>
+  <div class="geo geo-bracket tr"></div>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="footer-logo">Microsite Studio</a>
+      <nav class="footer-nav">
+        <a href="work.html">Work</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-mid">
+      <p class="footer-tagline">Launch & Growth Infrastructure for Ambitious Founders.</p>
+      <div class="footer-social"><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn →</a></div>
+    </div>
+    <hr class="footer-rule">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Microsite Studio. All rights reserved.</span>
+      <span class="footer-built">Built with intent. Delivered with speed.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive:true});
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const overlay = document.getElementById('mobileOverlay');
+hamburger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, {threshold: 0.1});
+reveals.forEach(el => obs.observe(el));
+
+// Hero immediate reveal
+setTimeout(() => {
+  document.querySelector('.hero .reveal')?.classList.add('visible');
+}, 300);
+</script>
+</body>
+</html>

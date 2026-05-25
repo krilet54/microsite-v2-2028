@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Microsite Studio</title>
+<meta name="description" content="Four engagement layers for early-stage founders: Diagnose, Launch, Grow, Advise. Plus individual services — websites, landing pages, UI/UX, logo work, and custom builds.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Microsite Studio">
+<meta property="og:image" content="/og-image.png">
+<link rel="canonical" href="https://micrositestudio.in/services.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#080808;color:#F0EDE6;font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+em{font-family:'Instrument Serif',serif;font-style:italic;}
+:root{
+  --red:#C8281E;--red2:#A8201A;--red-faint:rgba(200,40,30,0.07);--red-border:rgba(200,40,30,0.2);
+  --bg:#080808;--bg-card:#111111;--bg-light:#F5F2EB;
+  --border-dark:rgba(255,255,255,0.07);--text-muted:#888888;
+  --wrap:1100px;--px:48px;
+}
+@media(max-width:1024px){:root{--px:32px;}}
+@media(max-width:768px){:root{--px:24px;}}
+
+/* GEO */
+.geo{position:absolute;pointer-events:none;}
+.geo-bracket{width:36px;height:36px;}
+.geo-bracket.tl{top:28px;left:36px;border-top:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.tr{top:28px;right:36px;border-top:1.5px solid;border-right:1.5px solid;}
+.geo-bracket.bl{bottom:28px;left:36px;border-bottom:1.5px solid;border-left:1.5px solid;}
+.geo-bracket.br{bottom:28px;right:36px;border-bottom:1.5px solid;border-right:1.5px solid;}
+.dark-geo .geo-bracket.tl,.dark-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.22);}
+.dark-geo .geo-bracket.bl,.dark-geo .geo-bracket.br{border-color:rgba(200,40,30,0.10);}
+.light-geo .geo-bracket.tl,.light-geo .geo-bracket.tr{border-color:rgba(200,40,30,0.28);}
+.light-geo .geo-bracket.bl,.light-geo .geo-bracket.br{border-color:rgba(200,40,30,0.14);}
+.geo-cross{width:12px;height:12px;}
+.geo-cross::before,.geo-cross::after{content:'';position:absolute;}
+.geo-cross::before{width:1.5px;height:100%;left:calc(50% - 0.75px);}
+.geo-cross::after{height:1.5px;width:100%;top:calc(50% - 0.75px);}
+.dark-geo .geo-cross::before,.dark-geo .geo-cross::after{background:rgba(200,40,30,0.35);}
+.geo-ring{border-radius:50%;}
+.dark-geo .geo-ring{border:1.5px solid rgba(200,40,30,0.16);}
+.dark-geo .geo-ring.dashed{border:1.5px dashed rgba(200,40,30,0.09);}
+.geo-stamp{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;position:absolute;white-space:nowrap;}
+.dark-geo .geo-stamp{color:rgba(200,40,30,0.14);}
+.geo-ruler{position:absolute;left:0;right:0;width:100%;pointer-events:none;opacity:0.6;}
+.geo-ruler.top{top:0;height:40px;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;border-bottom:1px solid transparent;transition:background 0.3s,border-color 0.3s;}
+.nav.scrolled{background:rgba(8,8,8,0.93);border-bottom-color:var(--border-dark);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.nav-inner{max-width:var(--wrap);margin:0 auto;padding:0 var(--px);display:flex;justify-content:space-between;align-items:center;height:64px;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;color:rgba(240,237,230,0.4);transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#F0EDE6;}
+.nav-cta{background:var(--red);color:#fff!important;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:10px 20px;border-radius:4px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--red2)!important;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#F0EDE6;transition:0.3s;}
+@media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+.mobile-overlay{position:fixed;inset:0;background:#080808;z-index:99;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.menu-open .mobile-overlay{opacity:1;pointer-events:all;}
+.mobile-overlay ul{display:flex;flex-direction:column;align-items:center;gap:40px;}
+.mobile-overlay a{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,8vw,48px);color:#F0EDE6;letter-spacing:0.04em;}
+.mobile-overlay a:hover{color:var(--red);}
+.menu-open .nav-hamburger span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.menu-open .nav-hamburger span:nth-child(2){opacity:0;}
+
+/* HERO */
+.hero{background:var(--bg);padding:148px var(--px) 80px;position:relative;overflow:hidden;min-height:50vh;display:flex;align-items:center;}
+.hero-dotgrid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero .geo-bracket.tl{top:80px;left:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.tr{top:80px;right:var(--px);border-color:rgba(200,40,30,0.14);}
+.hero .geo-bracket.bl{bottom:40px;left:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero .geo-bracket.br{bottom:40px;right:var(--px);border-color:rgba(200,40,30,0.07);}
+.hero-cross{top:108px;left:calc(var(--px) + 56px);}
+.hero-cross::before,.hero-cross::after{background:rgba(200,40,30,0.22);}
+.hero-ring{width:28px;height:28px;top:112px;right:180px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);}
+.hero-stamp{top:32px;left:50%;transform:translateX(-50%);color:rgba(200,40,30,0.12);}
+.hero-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;width:100%;}
+.eyebrow-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.6);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.eyebrow-label::before{content:'';width:20px;height:1px;background:var(--red);flex-shrink:0;}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,112px);line-height:0.93;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:20px;}
+.hero-sub{font-size:17px;font-weight:300;color:rgba(240,237,230,0.42);line-height:1.8;max-width:560px;}
+
+/* TWO-PATH SELECTOR */
+.path-selector{padding:0 var(--px) 72px;background:var(--bg);}
+.path-inner{max-width:var(--wrap);margin:0 auto;}
+.path-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-dark);border:1px solid var(--border-dark);border-radius:8px;overflow:hidden;}
+.path-card{background:#111;padding:48px 44px;position:relative;overflow:hidden;transition:background 0.2s;}
+.path-card:hover{background:#161616;}
+.path-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
+.path-card:hover::after{transform:scaleX(1);}
+.path-card__num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,40,30,0.4);margin-bottom:16px;}
+.path-card__title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,52px);letter-spacing:0.02em;color:#F0EDE6;margin-bottom:14px;line-height:1;}
+.path-card__body{font-size:15px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.75;margin-bottom:28px;max-width:360px;}
+.path-card__cta{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:rgba(240,237,230,0.3);display:inline-flex;align-items:center;gap:6px;transition:color 0.2s,gap 0.2s;cursor:pointer;background:none;border:none;}
+.path-card:hover .path-card__cta{color:var(--red);gap:10px;}
+@media(max-width:768px){.path-grid{grid-template-columns:1fr;}}
+
+/* SECTION WRAPPER */
+.section{padding:80px var(--px);position:relative;overflow:hidden;}
+.section--dark{background:#0c0c0c;}
+.section-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+
+/* JOURNEY DIAGRAM */
+.journey-wrap{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;margin-top:48px;}
+.journey-node{display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;text-decoration:none;}
+.journey-node__circle{width:76px;height:76px;border-radius:50%;border:1px solid var(--border-dark);background:#111;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);transition:border-color 0.2s,color 0.2s,background 0.2s;}
+.journey-node:hover .journey-node__circle{border-color:rgba(200,40,30,0.5);color:var(--red);background:rgba(200,40,30,0.06);}
+.journey-node__name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.04em;color:#F0EDE6;}
+.journey-node__desc{font-size:11px;font-weight:300;color:var(--text-muted);text-align:center;max-width:90px;font-family:'DM Mono',monospace;letter-spacing:0.06em;}
+.journey-connector{width:60px;height:1px;background:var(--border-dark);flex-shrink:0;margin:0 8px;margin-bottom:52px;}
+@media(max-width:768px){.journey-wrap{flex-direction:column;gap:20px;}.journey-connector{width:1px;height:24px;margin:0;margin-bottom:0;}}
+
+/* LAYER ROWS */
+.layer-row{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
+@media(max-width:900px){.layer-row{grid-template-columns:1fr;gap:36px;}}
+.layer-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,40,30,0.55);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.layer-eyebrow::before{content:'';width:16px;height:1px;background:var(--red);flex-shrink:0;}
+.layer-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,44px);letter-spacing:0.01em;color:#F0EDE6;margin-bottom:12px;line-height:1.05;}
+.layer-body{font-size:14px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.75;margin-bottom:20px;}
+.ghost-link{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(240,237,230,0.28);display:inline-flex;align-items:center;gap:6px;transition:color 0.2s,gap 0.2s;}
+.ghost-link:hover{color:var(--red);gap:10px;}
+
+/* OFFER TABLE */
+.offer-table{border:1px solid var(--border-dark);border-radius:6px;overflow:hidden;}
+.offer-row{display:grid;grid-template-columns:1fr 110px 200px;align-items:center;padding:20px 28px;border-bottom:1px solid var(--border-dark);transition:background 0.15s;gap:16px;}
+.offer-row:last-child{border-bottom:none;}
+.offer-row:hover{background:#0f0f0f;}
+.or-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.03em;color:#F0EDE6;}
+.or-desc{font-size:12px;color:var(--text-muted);font-weight:300;margin-top:3px;}
+.or-type{font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);}
+.or-right{display:flex;align-items:center;justify-content:flex-end;gap:14px;}
+.or-price{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#F0EDE6;letter-spacing:0.02em;}
+.or-arrow{color:var(--text-muted);font-size:14px;transition:transform 0.2s,color 0.2s;}
+.offer-row:hover .or-arrow{transform:translateX(4px);color:var(--red);}
+@media(max-width:768px){.offer-row{grid-template-columns:1fr 1fr;}.or-type{display:none;}}
+
+/* DIVIDER */
+.rule{border:none;border-top:1px solid var(--border-dark);}
+
+/* INDIVIDUAL SERVICES MINI TABLE */
+.individual-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-dark);border:1px solid var(--border-dark);border-radius:6px;overflow:hidden;margin-top:0;}
+.ind-row{background:#111;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;transition:background 0.15s;gap:12px;}
+.ind-row:hover{background:#161616;}
+.ind-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.03em;color:#F0EDE6;}
+.ind-right{display:flex;align-items:center;gap:10px;}
+.ind-price{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(240,237,230,0.5);letter-spacing:0.02em;}
+.ind-arrow{color:var(--text-muted);font-size:13px;transition:transform 0.2s,color 0.2s;}
+.ind-row:hover .ind-arrow{transform:translateX(4px);color:var(--red);}
+@media(max-width:768px){.individual-grid{grid-template-columns:1fr;}}
+
+/* SECTION HEADER */
+.section-header{margin-bottom:48px;}
+.section-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,64px);line-height:1;letter-spacing:0.01em;color:#F0EDE6;margin-top:10px;}
+.section-h em{color:var(--red);}
+.section-body{font-size:15px;font-weight:300;color:rgba(240,237,230,0.4);line-height:1.8;margin-bottom:32px;max-width:580px;}
+
+/* CLOSING CTA */
+.closing{background:#0c0c0c;border-top:1px solid var(--border-dark);text-align:center;padding:100px var(--px);position:relative;overflow:hidden;}
+.closing .geo-bracket.tl,.closing .geo-bracket.tr{border-color:rgba(200,40,30,0.14);}
+.closing .geo-bracket.bl,.closing .geo-bracket.br{border-color:rgba(200,40,30,0.07);}
+.closing-ring-1{width:70px;height:70px;top:36px;right:80px;border-radius:50%;border:1px solid rgba(200,40,30,0.08);}
+.closing-cross{top:52px;left:calc(50% + 20px);}
+.closing-cross::before,.closing-cross::after{background:rgba(200,40,30,0.2);}
+.closing-stamp{bottom:28px;left:50%;transform:translateX(-50%);color:rgba(200,40,30,0.12);}
+.closing-inner{max-width:var(--wrap);margin:0 auto;position:relative;z-index:2;}
+.closing-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,6.5vw,88px);line-height:0.95;letter-spacing:0.01em;color:#F0EDE6;margin-bottom:20px;}
+.closing-h em{color:var(--red);}
+.closing-sub{font-size:16px;font-weight:300;color:rgba(240,237,230,0.35);max-width:440px;margin:0 auto 36px;line-height:1.8;}
+.closing-note{font-size:11px;color:rgba(240,237,230,0.2);margin-top:14px;letter-spacing:0.04em;font-family:'DM Mono',monospace;}
+.btn-primary{background:var(--red);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:14px 28px;border-radius:4px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.2s;text-decoration:none;}
+.btn-primary:hover{background:var(--red2);transform:translateY(-1px);}
+
+/* FOOTER */
+.footer{background:#0a0a0a;border-top:1px solid var(--border-dark);padding:64px var(--px) 48px;}
+.footer-inner{max-width:var(--wrap);margin:0 auto;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;flex-wrap:wrap;gap:20px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.06em;color:#F0EDE6;}
+.footer-nav{display:flex;gap:28px;flex-wrap:wrap;}
+.footer-nav a{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(240,237,230,0.35);transition:color 0.15s;}
+.footer-nav a:hover{color:#F0EDE6;}
+.footer-mid{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.footer-tagline{font-size:14px;font-weight:300;color:rgba(240,237,230,0.28);}
+.footer-social a{font-size:13px;color:rgba(240,237,230,0.28);transition:color 0.15s;}
+.footer-social a:hover{color:#F0EDE6;}
+.footer-rule{border:none;border-top:1px solid var(--border-dark);margin-bottom:24px;}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.footer-copy{font-size:11px;color:rgba(240,237,230,0.18);font-family:'DM Mono',monospace;}
+.footer-built{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,237,230,0.15);}
+</style>
+<link rel="stylesheet" href="brand-shell.css">
+<script src="brand-shell.js" defer></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Microsite Studio</a>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Start a Project</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-overlay" id="mobileOverlay">
+  <ul>
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Start a Project</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero dark-geo">
+  <svg class="hero-dotgrid" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="dg" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.03)"/></pattern></defs>
+    <rect width="100%" height="100%" fill="url(#dg)"/>
+  </svg>
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross hero-cross"></div>
+  <div class="geo geo-ring hero-ring"></div>
+  <div class="geo geo-stamp hero-stamp">SERVICES · 01 — 02 — 03 — 04 — 05</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="288" y1="1" x2="288" y2="8" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+    <line x1="576" y1="1" x2="576" y2="8" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="864" y1="1" x2="864" y2="8" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+    <line x1="1152" y1="1" x2="1152" y2="8" stroke="rgba(200,40,30,0.07)" stroke-width="1"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow-label reveal">Services</div>
+    <h1 class="hero-h1 reveal">An infrastructure<br>stack built for <em>founders.</em></h1>
+    <p class="hero-sub reveal delay-1">Two ways to work with us — engagement layers for founders building end-to-end, or individual services when you know exactly what you need.</p>
+  </div>
+</section>
+
+<!-- TWO-PATH SELECTOR -->
+<div class="path-selector dark-geo" style="position:relative;overflow:hidden;">
+  <div class="geo geo-bracket tl" style="border-color:rgba(200,40,30,0.14);"></div>
+  <div class="geo geo-bracket tr" style="border-color:rgba(200,40,30,0.14);"></div>
+  <div class="geo geo-stamp" style="top:16px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.12);white-space:nowrap;position:absolute;">CHOOSE YOUR PATH</div>
+  <div class="path-inner">
+    <div class="path-grid reveal">
+      <!-- Path A -->
+      <div class="path-card">
+        <div class="path-card__num">Path A</div>
+        <div class="path-card__title">I need a partner</div>
+        <p class="path-card__body">Not sure where to start? We'll figure it out together. Strategy, execution, and everything in between — one team, no handoffs.</p>
+        <button class="path-card__cta" onclick="document.getElementById('engagement-layers').scrollIntoView({behavior:'smooth'})">
+          Explore engagement layers →
+        </button>
+      </div>
+      <!-- Path B -->
+      <div class="path-card">
+        <div class="path-card__num">Path B</div>
+        <div class="path-card__title">I know what I need</div>
+        <p class="path-card__body">Just need something built, fast and right. No packages, no strategy layer — clean execution on the specific thing you need.</p>
+        <a href="individual-services.html" class="path-card__cta">
+          See individual services →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY DIAGRAM -->
+<section class="section section--dark dark-geo" id="engagement-layers" style="border-top:1px solid var(--border-dark);">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-cross" style="top:44px;left:calc(50% - 60px);"></div>
+  <div class="geo geo-cross::before" style="background:rgba(200,40,30,0.3);"></div>
+  <div class="geo geo-ring" style="width:26px;height:26px;top:48px;right:140px;border-radius:50%;border:1.5px solid rgba(200,40,30,0.14);"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.14);white-space:nowrap;position:absolute;">THE JOURNEY · DIAGNOSE — LAUNCH — GROW — ADVISE</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.15)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.24)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.24)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <line x1="360" y1="1" x2="360" y2="9" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="12" stroke="rgba(200,40,30,0.12)" stroke-width="1"/>
+    <line x1="1080" y1="1" x2="1080" y2="9" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="section-header section-header--center reveal" style="text-align:center;">
+      <div class="eyebrow-label" style="justify-content:center;">The Journey</div>
+      <div class="section-h">Where are you <em>right now?</em></div>
+    </div>
+    <div class="journey-wrap reveal delay-1">
+      <a href="diagnose.html" class="journey-node">
+        <div class="journey-node__circle">01</div>
+        <div class="journey-node__name">Diagnose</div>
+        <div class="journey-node__desc">Before you commit</div>
+      </a>
+      <div class="journey-connector"></div>
+      <a href="launch.html" class="journey-node">
+        <div class="journey-node__circle">02</div>
+        <div class="journey-node__name">Launch</div>
+        <div class="journey-node__desc">Build the foundation</div>
+      </a>
+      <div class="journey-connector"></div>
+      <a href="grow.html" class="journey-node">
+        <div class="journey-node__circle">03</div>
+        <div class="journey-node__name">Grow</div>
+        <div class="journey-node__desc">Scale the engine</div>
+      </a>
+      <div class="journey-connector"></div>
+      <a href="advise.html" class="journey-node">
+        <div class="journey-node__circle">04</div>
+        <div class="journey-node__name">Advise</div>
+        <div class="journey-node__desc">Strategic inflection points</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- LAYER 1: DIAGNOSE -->
+<section class="section dark-geo" id="diagnose" style="background:#080808;">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.12);white-space:nowrap;position:absolute;">01 — DIAGNOSE · CLARITY BEFORE COMMITMENT</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.18)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.18)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="layer-row">
+      <div class="reveal">
+        <div class="layer-eyebrow">01 — Diagnose</div>
+        <div class="layer-h">Clarity before you spend a rupee.</div>
+        <p class="layer-body">Before strategy, before execution — you need an honest picture of where you stand and what to do first.</p>
+        <a href="diagnose.html" class="ghost-link">Explore this layer →</a>
+      </div>
+      <div class="reveal delay-1">
+        <div class="offer-table">
+          <div class="offer-row">
+            <div><div class="or-name">Growth Diagnostic</div><div class="or-desc">90-min discovery · competitive analysis · 90-day action plan · 5 working days</div></div>
+            <div class="or-type">One-time</div>
+            <div class="or-right"><div class="or-price">₹10,000</div><span class="or-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- LAYER 2: LAUNCH -->
+<section class="section section--dark dark-geo" id="launch">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.12);white-space:nowrap;position:absolute;">02 — LAUNCH · FROM ZERO IN TEN DAYS</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="layer-row">
+      <div class="reveal">
+        <div class="layer-eyebrow">02 — Launch</div>
+        <div class="layer-h">From zero to launch-ready. In 10 days.</div>
+        <p class="layer-body">The complete digital infrastructure for a founder going live — built fast, built right, built to grow.</p>
+        <a href="launch.html" class="ghost-link">Explore this layer →</a>
+      </div>
+      <div class="reveal delay-1">
+        <div class="offer-table">
+          <div class="offer-row">
+            <div><div class="or-name">Brand Foundation</div><div class="or-desc">Logo · identity system · brand guidelines · collateral kit · 7 working days</div></div>
+            <div class="or-type">One-time</div>
+            <div class="or-right"><div class="or-price">₹20,000</div><span class="or-arrow">→</span></div>
+          </div>
+          <div class="offer-row">
+            <div><div class="or-name">Launch Sprint</div><div class="or-desc">Website · funnel · CRM · ads setup · analytics · email sequence · 10 working days</div></div>
+            <div class="or-type">One-time</div>
+            <div class="or-right"><div class="or-price">₹40,000</div><span class="or-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- LAYER 3: GROW -->
+<section class="section dark-geo" id="grow" style="background:#080808;">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.12);white-space:nowrap;position:absolute;">03 — GROW · YOUR GROWTH ENGINE MANAGED</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.11)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.18)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.18)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.09)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="layer-row">
+      <div class="reveal">
+        <div class="layer-eyebrow">03 — Grow</div>
+        <div class="layer-h">Your growth infrastructure. Fully managed.</div>
+        <p class="layer-body">Monthly retainer. We run the digital engine while you run your company.</p>
+        <a href="grow.html" class="ghost-link">Explore this layer →</a>
+      </div>
+      <div class="reveal delay-1">
+        <div class="offer-table">
+          <div class="offer-row">
+            <div><div class="or-name">Foundations</div><div class="or-desc">One channel · funnel monitoring · monthly report · 2 strategy calls</div></div>
+            <div class="or-type">Monthly</div>
+            <div class="or-right"><div class="or-price">₹25,000/mo</div><span class="or-arrow">→</span></div>
+          </div>
+          <div class="offer-row">
+            <div><div class="or-name">Scale</div><div class="or-desc">Both channels · SEO · competitor monitoring · 4 strategy calls</div></div>
+            <div class="or-type">Monthly</div>
+            <div class="or-right"><div class="or-price">₹50,000/mo</div><span class="or-arrow">→</span></div>
+          </div>
+          <div class="offer-row">
+            <div><div class="or-name">Operations</div><div class="or-desc">Fractional growth team · Slack access · automation builds · investor deck</div></div>
+            <div class="or-type">Monthly</div>
+            <div class="or-right"><div class="or-price">₹85,000/mo</div><span class="or-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- LAYER 4: ADVISE -->
+<section class="section section--dark dark-geo" id="advise">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.12);white-space:nowrap;position:absolute;">04 — ADVISE · STRATEGY BEFORE EXECUTION</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.13)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.2)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.2)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="layer-row">
+      <div class="reveal">
+        <div class="layer-eyebrow">04 — Advise</div>
+        <div class="layer-h">Before you execute, you need the right strategy.</div>
+        <p class="layer-body">For founders at an inflection point who need rigorous strategic thinking, not more output.</p>
+        <a href="advise.html" class="ghost-link">Explore this layer →</a>
+      </div>
+      <div class="reveal delay-1">
+        <div class="offer-table">
+          <div class="offer-row">
+            <div><div class="or-name">GTM Advisory</div><div class="or-desc">3 deep-dive sessions · GTM strategy document · 30-day async support · 2–3 weeks</div></div>
+            <div class="or-type">Project</div>
+            <div class="or-right"><div class="or-price">₹70,000</div><span class="or-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- LAYER 5: INDIVIDUAL SERVICES -->
+<section class="section dark-geo" id="individual" style="background:#080808;">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-stamp" style="top:30px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(200,40,30,0.12);white-space:nowrap;position:absolute;">05 — INDIVIDUAL SERVICES · PICK EXACTLY WHAT YOU NEED</div>
+  <svg class="geo-ruler top" viewBox="0 0 1440 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="1" x2="1440" y2="1" stroke="rgba(200,40,30,0.14)" stroke-width="1"/>
+    <circle cx="72" cy="1" r="2" fill="rgba(200,40,30,0.22)"/><circle cx="1368" cy="1" r="2" fill="rgba(200,40,30,0.22)"/>
+    <line x1="72" y1="1" x2="72" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="1368" y1="1" x2="1368" y2="14" stroke="rgba(200,40,30,0.1)" stroke-width="1"/>
+    <line x1="720" y1="1" x2="720" y2="10" stroke="rgba(200,40,30,0.08)" stroke-width="1"/>
+  </svg>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="layer-eyebrow">05 — Individual Services</div>
+      <div class="layer-h" style="font-size:clamp(28px,4vw,52px);">Know exactly what you need?<br>Pick it, we build it.</div>
+    </div>
+    <p class="reveal" style="font-size:14px;font-weight:300;color:rgba(240,237,230,0.38);line-height:1.75;margin-bottom:32px;max-width:560px;">No strategy layer, no packages. Just clean execution on the specific thing you need.</p>
+    <div class="individual-grid reveal delay-1">
+      <a href="individual-services.html#website" class="ind-row">
+        <div class="ind-name">Website</div>
+        <div class="ind-right"><div class="ind-price">from ₹1,500</div><span class="ind-arrow">→</span></div>
+      </a>
+      <a href="individual-services.html#landing-page" class="ind-row">
+        <div class="ind-name">Landing Page for Ads</div>
+        <div class="ind-right"><div class="ind-price">₹4,500</div><span class="ind-arrow">→</span></div>
+      </a>
+      <a href="individual-services.html#uiux" class="ind-row">
+        <div class="ind-name">UI/UX Design</div>
+        <div class="ind-right"><div class="ind-price">from ₹6,000</div><span class="ind-arrow">→</span></div>
+      </a>
+      <a href="individual-services.html#logo" class="ind-row">
+        <div class="ind-name">Logo & Brand Work</div>
+        <div class="ind-right"><div class="ind-price">₹4,000</div><span class="ind-arrow">→</span></div>
+      </a>
+      <a href="individual-services.html#engineering" class="ind-row" style="grid-column: span 2;">
+        <div class="ind-name">Web Engineering / Custom Build</div>
+        <div class="ind-right"><div class="ind-price">Quote-based</div><span class="ind-arrow">→</span></div>
+      </a>
+    </div>
+    <div class="reveal" style="margin-top:28px;">
+      <a href="individual-services.html" class="ghost-link">See full details and pricing →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="closing dark-geo">
+  <div class="geo geo-bracket tl"></div><div class="geo geo-bracket tr"></div>
+  <div class="geo geo-bracket bl"></div><div class="geo geo-bracket br"></div>
+  <div class="geo geo-ring closing-ring-1"></div>
+  <div class="geo geo-cross closing-cross"></div>
+  <div class="geo geo-stamp closing-stamp">START YOUR JOURNEY · MICROSITE STUDIO</div>
+  <div class="closing-inner reveal">
+    <div class="closing-h">Not sure which<br><em>layer you need?</em></div>
+    <p class="closing-sub">Start with a conversation. We'll tell you exactly where to begin — and what to expect.</p>
+    <a href="contact.html" class="btn-primary" style="font-size:16px;padding:16px 36px;">Start a Project &nbsp;→</a>
+    <p class="closing-note">We take on a limited number of new clients each month.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <a href="index.html" class="footer-logo">Microsite Studio</a>
+      <nav class="footer-nav">
+        <a href="work.html">Work</a><a href="services.html">Services</a>
+        <a href="about.html">About</a><a href="contact.html">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-mid">
+      <p class="footer-tagline">Launch & Growth Infrastructure for Ambitious Founders.</p>
+      <div class="footer-social"><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn →</a></div>
+    </div>
+    <hr class="footer-rule">
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Microsite Studio. All rights reserved.</span>
+      <span class="footer-built">Built with intent. Delivered with speed.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+const hamburger=document.getElementById('hamburger');
+const overlay=document.getElementById('mobileOverlay');
+hamburger.addEventListener('click',()=>document.body.classList.toggle('menu-open'));
+overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+reveals.forEach(el=>obs.observe(el));
+setTimeout(()=>{document.querySelector('.hero .reveal')?.classList.add('visible');},300);
+</script>
+</body>
+</html>
