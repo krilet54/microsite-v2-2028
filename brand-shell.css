@@ -55,6 +55,10 @@
   opacity: 0.72;
 }
 
+.nav-studio {
+  color: #C8281E;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
