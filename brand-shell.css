@@ -55,7 +55,8 @@
   opacity: 0.72;
 }
 
-.nav-logo .nav-studio {
+.nav-logo .nav-studio,
+.nav-logo .brand-studio {
   color: #C8281E !important;
   font-weight: inherit;
 }
