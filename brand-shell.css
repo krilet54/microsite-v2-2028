@@ -1,73 +1,169 @@
-@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,700,800&display=swap');
-
 :root {
   --black: #0A0A0A;
   --red: #C8281E;
+  --red2: #A8201A;
   --off-white: #F0EDE6;
   --surface: #0D0D0D;
   --border: rgba(255, 255, 255, 0.06);
+  --border-dark: rgba(255,255,255,0.07);
+  --wrap: 1100px;
+  --px: 48px;
+  --bg: #080808;
+  --bg-card: #111111;
 }
 
-.nav,
-.nav--scrolled,
+/* ════════════════════════════════
+   GLOBAL NAVBAR (used on all pages)
+════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+
 .nav.scrolled {
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(8, 8, 8, 0.93);
+  border-bottom-color: var(--border-dark);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.nav-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.nav-logo {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 20px;
-  letter-spacing: 0.08em;
-  color: var(--off-white);
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  letter-spacing: 0.06em;
+  color: #F0EDE6;
+  transition: opacity 0.2s;
 }
 
-.brand-wordmark {
-  color: var(--off-white);
-}
-
-.brand-studio {
-  color: var(--red);
-}
-
-.nav-logo:hover,
-.nav__logo:hover {
+.nav-logo:hover {
   opacity: 0.72;
 }
 
-.nav-links,
-.nav__links {
+.nav-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 32px;
 }
 
-.nav-links a,
-.nav__links a {
-  font-family: 'Cabinet Grotesk', 'DM Sans', sans-serif;
-  font-size: 12px;
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(240, 237, 230, 0.4);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #F0EDE6;
+}
+
+.nav-cta {
+  background: var(--red);
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(240, 237, 230, 0.42);
-  position: relative;
-  transition: color 0.2s ease;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  text-decoration: none;
 }
 
-.nav-links a::after,
-.nav__links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  width: 100%;
+.nav-cta:hover {
+  background: var(--red2) !important;
+  transform: translateY(-1px);
+}
+
+.nav-hamburger {
+  display: none;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
   background: none;
   border: none;
-    position: relative;
-    isolation: isolate;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #F0EDE6;
+  transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
   }
+
+  .nav-hamburger {
+    display: flex;
+  }
+}
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: #080808;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.menu-open .mobile-overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-overlay ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.mobile-overlay a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 8vw, 48px);
+  color: #F0EDE6;
+  letter-spacing: 0.04em;
+}
+
+.mobile-overlay a:hover {
+  color: var(--red);
+}
+
+.menu-open .nav-hamburger span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.menu-open .nav-hamburger span:nth-child(2) {
+  opacity: 0;
+}
 
   .footer__info::before,
   .footer__info::after {
