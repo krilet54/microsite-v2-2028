@@ -212,3 +212,92 @@
   
 
 })();
+
+/* ── 10. COHORT MODAL: show application popup after 11s ───────── */
+(function(){
+  'use strict';
+  const COHORT_KEY = 'microsite_cohort_shown_v1';
+  // don't show if already submitted or recently shown
+  if (localStorage.getItem(COHORT_KEY)) return;
+
+  function buildModal() {
+    const overlay = document.createElement('div');
+    overlay.id = 'cohortOverlay';
+    overlay.style.position = 'fixed';
+    overlay.style.inset = '0';
+    overlay.style.background = 'rgba(0,0,0,0.6)';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = '9999';
+
+    const modal = document.createElement('div');
+    modal.style.maxWidth = '720px';
+    modal.style.width = '92%';
+    modal.style.background = '#0f0f0f';
+    modal.style.border = '1px solid rgba(255,255,255,0.06)';
+    modal.style.borderRadius = '12px';
+    modal.style.padding = '22px';
+    modal.style.color = '#fff';
+    modal.style.boxShadow = '0 12px 40px rgba(0,0,0,0.6)';
+    modal.innerHTML = `
+      <div style="text-align:left;">
+        <h2 style="font-family: 'Bebas Neue', sans-serif; margin:0 0 8px 0; font-size:28px">Apply: Ongoing Cohort — Limited Seats</h2>
+        <p style="margin:0 0 12px;color:rgba(255,255,255,0.8);">Selected applicants receive 25–50% off and a build partnership with Microsite Studio. Tell us about your business to apply.</p>
+        <form id="cohortForm" action="https://formsubmit.co/kirpesh54@gmail.com" method="POST" style="display:grid;gap:8px;">
+          <input type="hidden" name="_subject" value="Microsite Studio — Cohort application">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://micro-site.studio/thank-you.html">
+          <input type="hidden" name="cohort" value="1">
+          <input name="business" id="co_business" placeholder="Business name" required style="padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff;">
+          <input name="phone" id="co_phone" placeholder="Phone (WhatsApp preferred)" required style="padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff;">
+          <input name="email" id="co_email" type="email" placeholder="Email" required style="padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff;">
+          <input name="cause" id="co_cause" placeholder="What does your business solve? (one line)" required style="padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff;">
+          <textarea name="about" id="co_about" placeholder="Briefly describe your business in ~50 words" maxlength="500" required style="padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:#0b0b0b;color:#fff;min-height:100px"></textarea>
+          <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px;">
+            <button type="button" id="co_close" style="background:transparent;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:10px 14px;border-radius:6px">Close</button>
+            <button type="submit" style="background:#C8281E;border:none;color:#fff;padding:10px 14px;border-radius:6px">Apply</button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    overlay.appendChild(modal);
+    return {overlay, modal};
+  }
+
+  function showModal() {
+    const {overlay} = buildModal();
+    document.body.appendChild(overlay);
+
+    const form = document.getElementById('cohortForm');
+    const close = document.getElementById('co_close');
+
+    close.addEventListener('click', () => {
+      document.body.removeChild(overlay);
+      localStorage.setItem(COHORT_KEY, Date.now().toString());
+    });
+
+    form.addEventListener('submit', (e) => {
+      // basic validation: let browser handle validity UI; block submit if missing
+      const business = document.getElementById('co_business').value.trim();
+      const phone = document.getElementById('co_phone').value.trim();
+      const email = document.getElementById('co_email').value.trim();
+      if (!business || !phone || !email) {
+        e.preventDefault();
+        return;
+      }
+      // mark as shown/submitted so modal won't reappear
+      localStorage.setItem(COHORT_KEY, Date.now().toString());
+      // allow normal form submission to FormSubmit which will redirect to _next
+    });
+  }
+
+  // show after 11 seconds if not on thank-you page
+  if (!/thank-?you/i.test(window.location.pathname)) {
+    setTimeout(() => {
+      showModal();
+    }, 11000);
+  }
+})();

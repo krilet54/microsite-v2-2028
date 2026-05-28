@@ -10,11 +10,11 @@
 <meta property="og:site_name" content="Microsite Studio">
 <meta property="og:title" content="Thank You — Microsite Studio">
 <meta property="og:description" content="Your project request has been received. Microsite Studio will reply within 1 business day.">
-<meta property="og:image" content="https://micrositestudio.in/og-image.png">
+<meta property="og:image" content="https://micro-site.studio/assets/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Thank You — Microsite Studio">
 <meta name="twitter:description" content="Your project request has been received. Microsite Studio will reply within 1 business day.">
-<link rel="canonical" href="https://micrositestudio.in/thank-you.html">
+<link rel="canonical" href="https://micro-site.studio/thank-you.html">
 <link rel="icon" type="image/png" href="MICROSITE%20red%20logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,20 +42,72 @@ p{font-size:18px;line-height:1.85;color:rgba(240,237,230,0.42);max-width:600px;m
 .btn-secondary:hover{border-color:rgba(255,255,255,0.2);transform:translateY(-1px);}
 .note{margin-top:18px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.08em;color:rgba(240,237,230,0.2);text-transform:uppercase;}
 @media (max-width:640px){.shell{padding:42px 18px;}p{font-size:16px;}.actions{flex-direction:column;align-items:stretch;}.btn{width:100%;}}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta -->
+  <title>Thank You — Microsite Studio</title>
+  <meta name="description" content="Your project request is in. We’ll read it carefully and reply within 1 business day with the next sensible step.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="Microsite Studio">
+  <meta name="language" content="English">
+  <link rel="canonical" href="https://micro-site.studio/thank-you.html">
+
+  <!-- Open Graph (Social Sharing) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Microsite Studio">
+  <meta property="og:title" content="Thank You — Microsite Studio">
+  <meta property="og:description" content="Your project request is in. We’ll read it carefully and reply within 1 business day with the next sensible step.">
+  <meta property="og:image" content="https://micro-site.studio/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thank You — Microsite Studio">
+  <meta name="twitter:description" content="Your project request is in. We’ll read it carefully and reply within 1 business day with the next sensible step.">
+  <meta name="twitter:image" content="https://micro-site.studio/assets/og-image.png">
+
+  <!-- Geo Tags (local SEO) -->
+  <meta name="geo.region" content="IN-DL">
+  <meta name="geo.placename" content="New Delhi">
+  <meta name="geo.position" content="28.6139;77.2090">
+  <meta name="ICBM" content="28.6139, 77.2090">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Resource hints -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap">
+  <link rel="preload" as="style" href="/style.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Defer non-critical script -->
+  <script src="/script.js" defer></script>
 </head>
-<body>
-  <main class="shell">
-    <section class="card">
-      <div class="kicker">Submission received</div>
-      <h1>Thank you.</h1>
-      <p>Your project request is in. We’ll read it carefully and reply within 1 business day with the next sensible step.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="contact.html">Back to form</a>
-        <a class="btn btn-secondary" href="index.html">Go to home</a>
-      </div>
-      <div class="note">If you do not hear from us, check spam or message kirpesh54@gmail.com directly.</div>
-    </section>
-  </main>
+        if (params.get('cohort') === '1'){
+          const h1 = document.querySelector('h1');
+          const p = document.querySelector('p');
+          if (h1) h1.textContent = 'Application received.';
+          if (p) p.textContent = 'Thanks — we received your cohort application. Selected applicants will receive 25–50% off and a follow-up within 2 business days.';
+          // update note
+          const note = document.querySelector('.note');
+          if (note) note.textContent = 'You will hear from us within 2 business days. If urgent, email kirpesh54@gmail.com';
+        }
+      })();
+    </script>
 </body>
 </html>
