@@ -87,10 +87,26 @@
           '<td>' +
             '<a href="/admin/post-editor.html?id=' + post.id + '" style="color:var(--red);margin-right:10px;">Edit</a>' +
             '<a href="/blog-post.html?slug=' + encodeURIComponent(post.slug) + '&preview=true" target="_blank" style="color:var(--red);margin-right:10px;">Preview</a>' +
-            '<a href="#" style="color:#e07068;" onclick="deletePost(\'' + post.id + '\', \'' + escapeHtml(post.title).replace(/'/g, "\\'") + '\');return false;">Delete</a>' +
+            '<button type="button" class="delete-post-btn" data-post-id="' + post.id + '" data-post-title="' + escapeHtml(post.title) + '" style="border:none;background:none;color:#e07068;padding:0;cursor:pointer;">Delete</button>' +
           '</td>' +
           '</tr>';
       }).join('');
+    }
+
+    async function deletePost(id, title) {
+      if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
+
+      const response = await supabase.from('blog_posts').delete().eq('id', id);
+      if (response.error) {
+        console.error(response.error);
+        alert('Delete failed: ' + response.error.message);
+        return;
+      }
+
+      allPosts = allPosts.filter(function (post) {
+        return post.id !== id;
+      });
+      renderRows();
     }
 
     async function loadPosts() {
@@ -117,6 +133,12 @@
         filter = button.dataset.filter;
         renderRows();
       });
+    });
+
+    document.getElementById('posts-body').addEventListener('click', function (event) {
+      const button = event.target.closest('.delete-post-btn');
+      if (!button) return;
+      deletePost(button.dataset.postId, button.dataset.postTitle || 'this post');
     });
 
     document.getElementById('search').addEventListener('input', renderRows);

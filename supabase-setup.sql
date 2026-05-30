@@ -58,6 +58,10 @@ create policy "Authenticated users have full access to posts"
   on blog_posts for all
   using (auth.role() = 'authenticated');
 
+create policy "Authenticated users can delete posts"
+  on blog_posts for delete
+  using (auth.role() = 'authenticated');
+
 create policy "Authenticated users can upload blog images"
   on storage.objects for insert
   with check (bucket_id = 'blog-images' and auth.role() = 'authenticated');
