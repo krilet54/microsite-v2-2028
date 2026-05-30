@@ -35,10 +35,23 @@
     setMetaTag('name', 'description', description);
     setMetaTag('property', 'og:title', post.seo_title || post.title);
     setMetaTag('property', 'og:description', description);
-    setMetaTag('property', 'og:image', post.og_image_url || post.cover_image_url || '');
+    setMetaTag('property', 'og:image', resolveAssetUrl(post.og_image_url || post.cover_image_url || ''));
     setMetaTag('name', 'twitter:title', post.seo_title || post.title);
     setMetaTag('name', 'twitter:description', description);
-    setMetaTag('name', 'twitter:image', post.og_image_url || post.cover_image_url || '');
+    setMetaTag('name', 'twitter:image', resolveAssetUrl(post.og_image_url || post.cover_image_url || ''));
+  }
+  
+  function resolveAssetUrl(url) {
+    if (!url) return '';
+    // absolute URL already
+    if (/^https?:\/\//i.test(url)) return url;
+    // leading slash: convert to origin-based URL when served over http(s),
+    // otherwise (file://) return a relative path without the leading slash
+    if (url.charAt(0) === '/') {
+      if (location.protocol === 'file:') return url.replace(/^\//, '');
+      return (location.origin && location.origin !== 'null') ? (location.origin + url) : url.replace(/^\//, '');
+    }
+    return url;
   }
 
   function setMetaTag(type, key, value) {
@@ -103,7 +116,7 @@
       return (
         '<article class="blog-card">' +
         '  <a class="blog-card-link" href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '">' +
-        '    <img class="blog-card-cover" loading="lazy" src="' + (post.cover_image_url || '') + '" alt="' + escapeHtml(post.title) + '">' +
+          '    <img class="blog-card-cover" loading="lazy" src="' + (resolveAssetUrl(post.cover_image_url || '')) + '" alt="' + escapeHtml(post.title) + '">' +
         '    <div class="blog-card-body">' +
         '      <span class="blog-tag">' + escapeHtml(category) + '</span>' +
         '      <h3 class="blog-card-title">' + escapeHtml(post.title) + '</h3>' +

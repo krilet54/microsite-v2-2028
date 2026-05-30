@@ -15,6 +15,17 @@
 html { scroll-behavior: smooth; }
 body { background: var(--color-black); color: var(--color-text-primary); font-family: 'DM Sans', sans-serif; font-weight: 400; line-height: 1.7; -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; }
+
+/* Ensure article cover images display as hero-like banners and don't collapse
+   If an editor swaps the src, this makes changes visible immediately. */
+.container--narrow article > img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  margin: 20px 0 28px 0;
+  display: block;
+}
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
