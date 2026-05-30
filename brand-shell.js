@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const nav = document.getElementById('nav');
-  if (nav) {
+  if (nav && nav.children.length === 0) {
     nav.innerHTML = `
       <div class="nav-inner">
         <a href="index.html" class="nav-logo"><span class="brand-wordmark">Microsite.</span><span class="brand-studio">Studio</span></a>
@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="footer__label">COMPANY</div>
           <nav class="footer__link-list" aria-label="Company">
             <a href="work.html">Work</a>
+            <a href="blog.html">Blog</a>
+            <a href="/admin/index.html">Admin</a>
             <a href="about.html">About</a>
             <a href="contact.html">Contact</a>
             <a href="contact.html">Start a Project</a>

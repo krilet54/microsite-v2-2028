@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post — Microsite Studio</title>
+  <meta name="description" content="Insights from Microsite Studio.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Blog Post — Microsite Studio">
+  <meta property="og:description" content="Insights from Microsite Studio.">
+  <meta property="og:url" content="https://micro-site.studio/blog-post.html">
+  <meta property="og:image" content="https://micro-site.studio/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog Post — Microsite Studio">
+  <meta name="twitter:description" content="Insights from Microsite Studio.">
+  <meta name="twitter:image" content="https://micro-site.studio/assets/og-image.png">
+  <link rel="canonical" href="https://micro-site.studio/blog-post.html">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/brand-shell.css">
+  <link rel="stylesheet" href="/assets/blog.css">
+  <script src="/brand-shell.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/supabase-config.js" defer></script>
+  <script src="/assets/blog-post.js" defer></script>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Microsite <span class="nav-studio">Studio</span></a>
+      <ul class="nav-links">
+        <li><a href="work.html">Work</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="nav-cta">Start a Project</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-overlay" id="mobileOverlay">
+    <ul>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Start a Project</a></li>
+    </ul>
+  </div>
+
+  <main class="container article-shell">
+    <article>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a> → <a href="blog.html">Blog</a> → <span id="breadcrumb-post">Loading</span>
+      </nav>
+
+      <span id="article-tag" class="blog-tag">Loading</span>
+      <h1 id="article-title" class="article-title">Loading...</h1>
+      <p id="article-excerpt" class="article-subtitle"></p>
+      <p id="article-meta" class="article-meta"></p>
+      <img id="article-cover" class="article-cover" src="" alt="">
+
+      <div class="article-body-wrap">
+        <div id="article-body" class="article-body"></div>
+      </div>
+
+      <section class="author-card">
+        <div class="author-mark">MS</div>
+        <div>
+          <h3 style="margin-bottom:6px;">Written by Microsite Studio</h3>
+          <p style="color:var(--color-text-secondary);">Launch and growth operators helping founders build practical systems that compound.</p>
+          <a href="contact.html" style="display:inline-block;margin-top:8px;color:var(--color-red);">Work with us →</a>
+        </div>
+      </section>
+
+      <section class="related-wrap">
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:46px;margin-bottom:14px;">Related Posts</h2>
+        <div id="related-grid" class="related-grid"></div>
+      </section>
+
+      <section class="closing-cta">
+        <h3>Ready to build something that works?</h3>
+        <a href="contact.html">Start a Project →</a>
+      </section>
+    </article>
+  </main>
+
+  <footer></footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('mobileOverlay');
+    hamburger.addEventListener('click', () => document.body.classList.toggle('menu-open'));
+    overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
+  </script>
+</body>
+</html>

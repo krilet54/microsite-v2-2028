@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Submissions — Microsite Studio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin-style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/supabase-config.js" defer></script>
+  <script src="/admin/admin-script.js" defer></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">Microsite Studio<span>Admin</span></div>
+      <a class="admin-nav-link" href="/admin/dashboard.html">Dashboard</a>
+      <a class="admin-nav-link" href="/admin/posts.html">Blog Posts</a>
+      <a class="admin-nav-link" href="/admin/post-editor.html">New Post</a>
+      <a class="admin-nav-link active" href="/admin/submissions.html">Submissions <span class="admin-nav-badge" id="submissions-badge" style="display:none"></span></a>
+      <a class="admin-nav-link" href="#">Settings</a>
+      <a class="admin-nav-link" href="#" onclick="signOut();return false;" style="margin-top:auto;">Sign Out</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-toolbar">
+        <div class="admin-filters">
+          <button class="admin-pill active" data-filter="all" type="button">All</button>
+          <button class="admin-pill" data-filter="new" type="button">New</button>
+          <button class="admin-pill" data-filter="read" type="button">Read</button>
+          <button class="admin-pill" data-filter="replied" type="button">Replied</button>
+          <button class="admin-pill" data-filter="archived" type="button">Archived</button>
+          <input id="search" class="admin-input" style="width:240px;" placeholder="Search name/email">
+        </div>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Stage</th>
+            <th>Services</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="submissions-body"></tbody>
+      </table>
+    </main>
+  </div>
+
+  <div id="drawer-overlay" class="admin-overlay"></div>
+  <aside id="drawer" class="admin-drawer"></aside>
+
+  <script>
+    let allSubmissions = [];
+    let filter = 'all';
+    let currentSubmission = null;
+
+    async function updateSubmissionStatus(id, status) {
+      await supabase.from('contact_submissions').update({ status: status }).eq('id', id);
+    }
+
+    async function saveSubmissionNotes(id, notes) {
+      await supabase.from('contact_submissions').update({ notes: notes }).eq('id', id);
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawer').classList.remove('open');
+      document.getElementById('drawer-overlay').classList.remove('open');
+    }
+
+    function renderDrawer(item) {
+      currentSubmission = item;
+      const drawer = document.getElementById('drawer');
+      const services = Array.isArray(item.services) ? item.services : [];
+
+      drawer.innerHTML =
+        '<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start;">' +
+        '  <div>' +
+        '    <h3 style="font-size:18px;">' + escapeHtml(item.name) + '</h3>' +
+        '    <p style="color:var(--gray2);">' + escapeHtml(item.email) + ' · ' + formatDate(item.created_at) + '</p>' +
+        '  </div>' +
+        '  <button class="admin-btn-secondary" onclick="closeDrawer()">X</button>' +
+        '</div>' +
+        '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">' +
+
+        '<p><strong>Stage:</strong> ' + escapeHtml(item.stage || '-') + '</p>' +
+        '<p style="margin-top:8px;"><strong>Services:</strong> ' + services.map(escapeHtml).join(', ') + '</p>' +
+        '<p style="margin-top:8px;"><strong>Challenge:</strong></p>' +
+        '<blockquote style="border-left:2px solid var(--red);padding:10px;color:var(--gray2);margin-top:6px;">' + escapeHtml(item.challenge || '-') + '</blockquote>' +
+        '<p style="margin-top:8px;"><strong>Phone:</strong> ' + escapeHtml(item.phone || '-') + '</p>' +
+        '<p style="margin-top:8px;"><strong>Company:</strong> ' + escapeHtml(item.company || '-') + '</p>' +
+        '<p style="margin-top:8px;"><strong>Source:</strong> ' + escapeHtml(item.source || '-') + '</p>' +
+
+        '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">' +
+        '<label class="admin-label">Status</label>' +
+        '<select id="drawer-status" class="admin-select">' +
+        '  <option value="new">New</option>' +
+        '  <option value="read">Read</option>' +
+        '  <option value="replied">Replied</option>' +
+        '  <option value="archived">Archived</option>' +
+        '</select>' +
+        '<button id="update-status-btn" class="admin-btn-primary" style="margin-top:8px;">Update Status</button>' +
+
+        '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">' +
+        '<label class="admin-label">Internal Notes</label>' +
+        '<textarea id="drawer-notes" class="admin-textarea" placeholder="Internal notes (not visible to submitter)">' + escapeHtml(item.notes || '') + '</textarea>' +
+        '<button id="save-notes-btn" class="admin-btn-secondary" style="margin-top:8px;">Save Notes</button>' +
+
+        '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0;">' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+        '  <a class="admin-btn-secondary" href="mailto:' + encodeURIComponent(item.email) + '?subject=Re:%20Your%20Microsite%20Studio%20enquiry">Reply via Email</a>' +
+        '  <button id="copy-email-btn" class="admin-btn-secondary" type="button">Copy Email</button>' +
+        '</div>';
+
+      document.getElementById('drawer-status').value = item.status || 'new';
+
+      document.getElementById('update-status-btn').addEventListener('click', async function () {
+        const nextStatus = document.getElementById('drawer-status').value;
+        await updateSubmissionStatus(item.id, nextStatus);
+        item.status = nextStatus;
+        renderRows();
+        await renderSidebarBadge();
+      });
+
+      document.getElementById('save-notes-btn').addEventListener('click', async function () {
+        const notes = document.getElementById('drawer-notes').value;
+        await saveSubmissionNotes(item.id, notes);
+        item.notes = notes;
+      });
+
+      document.getElementById('copy-email-btn').addEventListener('click', async function () {
+        await navigator.clipboard.writeText(item.email || '');
+      });
+
+      document.getElementById('drawer').classList.add('open');
+      document.getElementById('drawer-overlay').classList.add('open');
+    }
+
+    async function quickStatus(id, status) {
+      await updateSubmissionStatus(id, status);
+      const hit = allSubmissions.find(function (item) { return item.id === id; });
+      if (hit) hit.status = status;
+      renderRows();
+      await renderSidebarBadge();
+    }
+
+    function renderRows() {
+      const query = document.getElementById('search').value.trim().toLowerCase();
+      const body = document.getElementById('submissions-body');
+
+      const filtered = allSubmissions.filter(function (item) {
+        const statusMatch = filter === 'all' ? true : item.status === filter;
+        const text = (item.name + ' ' + item.email).toLowerCase();
+        const searchMatch = text.includes(query);
+        return statusMatch && searchMatch;
+      });
+
+      body.innerHTML = filtered.map(function (item) {
+        const services = Array.isArray(item.services) ? item.services.join(', ') : '-';
+        return '<tr>' +
+          '<td>' + formatDate(item.created_at) + '</td>' +
+          '<td>' + escapeHtml(item.name) + '</td>' +
+          '<td>' + escapeHtml(item.email) + '</td>' +
+          '<td>' + escapeHtml(item.stage || '-') + '</td>' +
+          '<td>' + escapeHtml(services) + '</td>' +
+          '<td><span class="' + statusBadgeClass(item.status) + '">' + escapeHtml(item.status) + '</span></td>' +
+          '<td>' +
+            '<a href="#" onclick="openSubmission(\'' + item.id + '\');return false;" style="color:var(--red);margin-right:8px;">View</a>' +
+            '<a href="#" onclick="quickStatus(\'' + item.id + '\', \"read\");return false;" style="color:var(--red);margin-right:8px;">Mark Read</a>' +
+            '<a href="#" onclick="quickStatus(\'' + item.id + '\', \"replied\");return false;" style="color:var(--red);margin-right:8px;">Mark Replied</a>' +
+            '<a href="#" onclick="quickStatus(\'' + item.id + '\', \"archived\");return false;" style="color:#e07068;">Archive</a>' +
+          '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    function openSubmission(id) {
+      const item = allSubmissions.find(function (entry) { return entry.id === id; });
+      if (item) renderDrawer(item);
+    }
+
+    async function loadSubmissions() {
+      const session = await requireAuth();
+      if (!session) return;
+      await renderSidebarBadge();
+
+      const response = await supabase
+        .from('contact_submissions')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      allSubmissions = response.data || [];
+      renderRows();
+
+      const idParam = new URLSearchParams(window.location.search).get('id');
+      if (idParam) {
+        const matched = allSubmissions.find(function (item) { return item.id === idParam; });
+        if (matched) renderDrawer(matched);
+      }
+    }
+
+    document.querySelectorAll('.admin-pill').forEach(function (button) {
+      button.addEventListener('click', function () {
+        document.querySelectorAll('.admin-pill').forEach(function (pill) { pill.classList.remove('active'); });
+        button.classList.add('active');
+        filter = button.dataset.filter;
+        renderRows();
+      });
+    });
+
+    document.getElementById('search').addEventListener('input', renderRows);
+    document.getElementById('drawer-overlay').addEventListener('click', closeDrawer);
+
+    window.openSubmission = openSubmission;
+    window.quickStatus = quickStatus;
+    window.closeDrawer = closeDrawer;
+
+    window.addEventListener('DOMContentLoaded', loadSubmissions);
+  </script>
+</body>
+</html>

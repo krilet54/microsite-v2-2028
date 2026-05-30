@@ -183,6 +183,8 @@ em{font-family:'Instrument Serif',serif;font-style:italic;}
 .footer-built{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(240,237,230,0.15);}
 </style>
 <script src="brand-shell.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="/assets/supabase-config.js" defer></script>
 </head>
 <body>
 <nav class="nav" id="nav">
@@ -293,6 +295,17 @@ em{font-family:'Instrument Serif',serif;font-style:italic;}
             <div class="form-success__title">We've got it.</div>
             <p class="form-success__body">We'll read your submission and reply within 1 business day — with either a call invite or a clarifying question.</p>
           </div>
+          <div id="form-success" style="display:none;" class="form-success">
+            <div class="section-tag">Received</div>
+            <h3 style="font-family:'Bebas Neue';font-size:36px;margin-bottom:12px;">
+              We'll be in touch within 1 business day.
+            </h3>
+            <p style="color:var(--gray2);font-size:15px;font-weight:300;">
+              In the meantime, explore our
+              <a href="services.html" style="color:var(--red)">services</a> or
+              <a href="work.html" style="color:var(--red)">our work</a>.
+            </p>
+          </div>
         </div>
         <div class="aside-stack">
           <div class="aside-card reveal delay-1">
@@ -344,6 +357,8 @@ em{font-family:'Instrument Serif',serif;font-style:italic;}
       <a href="index.html" class="footer-logo">Microsite Studio</a>
       <nav class="footer-nav">
         <a href="work.html">Work</a>
+        <a href="blog.html">Blog</a>
+        <a href="/admin/index.html">Admin</a>
         <a href="services.html">Services</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -389,8 +404,55 @@ if(form){
     input.addEventListener('change',syncSelectedEngagements);
   });
   syncSelectedEngagements();
-  form.addEventListener('submit',()=>{
+  form.addEventListener('submit', async (event)=>{
+    event.preventDefault();
     syncSelectedEngagements();
+    const submitBtn=form.querySelector('[type="submit"]');
+    const originalText=submitBtn?.textContent||'Send →';
+    if(submitBtn){
+      submitBtn.textContent='Sending...';
+      submitBtn.disabled=true;
+    }
+
+    const services=Array.from(form.querySelectorAll('input[name="engagement"]:checked')).map(el=>el.value);
+    const formData={
+      name:form.querySelector('[name="name"]')?.value||'',
+      email:form.querySelector('[name="email"]')?.value||'',
+      phone:form.querySelector('[name="phone"]')?.value||null,
+      company:form.querySelector('[name="company"]')?.value||null,
+      stage:form.querySelector('[name="stage"]:checked')?.value||null,
+      challenge:form.querySelector('[name="challenge"]')?.value||'',
+      services,
+      source:'contact_page'
+    };
+
+    try {
+      const { error } = await supabase.from('contact_submissions').insert([formData]);
+      if (error) console.error('Supabase insert error:', error);
+    } catch (e) {
+      console.error('Supabase insert exception:', e);
+    }
+
+    try {
+      await fetch(form.action, {
+        method:'POST',
+        body:new FormData(form),
+        headers:{ 'Accept':'application/json' }
+      });
+    } catch (e) {
+      console.error('FormSubmit error:', e);
+    }
+
+    form.style.display='none';
+    const successPrimary=document.getElementById('form-success');
+    const successLegacy=document.getElementById('formSuccess');
+    if(successPrimary) successPrimary.style.display='block';
+    else if(successLegacy) successLegacy.style.display='block';
+
+    if(submitBtn){
+      submitBtn.textContent=originalText;
+      submitBtn.disabled=false;
+    }
   });
 }
 </script>

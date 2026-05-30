@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dashboard — Microsite Studio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin-style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/supabase-config.js" defer></script>
+  <script src="/admin/admin-script.js" defer></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">Microsite Studio<span>Admin</span></div>
+      <a class="admin-nav-link active" href="/admin/dashboard.html">Dashboard</a>
+      <a class="admin-nav-link" href="/admin/posts.html">Blog Posts</a>
+      <a class="admin-nav-link" href="/admin/post-editor.html">New Post</a>
+      <a class="admin-nav-link" href="/admin/submissions.html">Submissions <span class="admin-nav-badge" id="submissions-badge" style="display:none"></span></a>
+      <a class="admin-nav-link" href="#">Settings</a>
+      <a class="admin-nav-link" href="#" onclick="signOut();return false;" style="margin-top:auto;">Sign Out</a>
+    </aside>
+
+    <main class="admin-main">
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:.02em;margin-bottom:14px;">Dashboard</h1>
+
+      <section class="admin-stat-grid">
+        <article class="admin-stat-card"><div id="stat-published" class="admin-stat-num">0</div><div class="admin-stat-label">Published Posts</div></article>
+        <article class="admin-stat-card"><div id="stat-drafts" class="admin-stat-num">0</div><div class="admin-stat-label">Draft Posts</div></article>
+        <article class="admin-stat-card"><div id="stat-new" class="admin-stat-num">0</div><div class="admin-stat-label">New Submissions</div></article>
+        <article class="admin-stat-card"><div id="stat-total" class="admin-stat-num">0</div><div class="admin-stat-label">Total Submissions</div></article>
+      </section>
+
+      <section class="admin-panel-grid">
+        <article class="admin-panel">
+          <h2 style="margin-bottom:10px;font-size:16px;">Recent Posts</h2>
+          <table class="admin-table">
+            <thead><tr><th>Title</th><th>Status</th><th>Date</th><th></th></tr></thead>
+            <tbody id="recent-posts"></tbody>
+          </table>
+        </article>
+
+        <article class="admin-panel">
+          <h2 style="margin-bottom:10px;font-size:16px;">Recent Submissions</h2>
+          <table class="admin-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Date</th><th></th></tr></thead>
+            <tbody id="recent-submissions"></tbody>
+          </table>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    async function countRows(table, status) {
+      let query = supabase.from(table).select('*', { count: 'exact', head: true });
+      if (status) query = query.eq('status', status);
+      const res = await query;
+      return res.count || 0;
+    }
+
+    async function loadDashboard() {
+      const session = await requireAuth();
+      if (!session) return;
+
+      await renderSidebarBadge();
+
+      const [published, drafts, newSubs, totalSubs] = await Promise.all([
+        countRows('blog_posts', 'published'),
+        countRows('blog_posts', 'draft'),
+        countRows('contact_submissions', 'new'),
+        countRows('contact_submissions')
+      ]);
+
+      document.getElementById('stat-published').textContent = published;
+      document.getElementById('stat-drafts').textContent = drafts;
+      document.getElementById('stat-new').textContent = newSubs;
+      document.getElementById('stat-total').textContent = totalSubs;
+
+      const postsRes = await supabase
+        .from('blog_posts')
+        .select('id, title, status, published_at, created_at')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      const submissionsRes = await supabase
+        .from('contact_submissions')
+        .select('id, name, email, status, created_at')
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      const postsBody = document.getElementById('recent-posts');
+      const submissionsBody = document.getElementById('recent-submissions');
+
+      postsBody.innerHTML = (postsRes.data || []).map(function (item) {
+        return '<tr>' +
+          '<td>' + escapeHtml(item.title) + '</td>' +
+          '<td><span class="' + statusBadgeClass(item.status) + '">' + escapeHtml(item.status) + '</span></td>' +
+          '<td>' + formatDate(item.published_at || item.created_at) + '</td>' +
+          '<td><a href="/admin/post-editor.html?id=' + item.id + '" style="color:var(--red)">Edit</a></td>' +
+          '</tr>';
+      }).join('');
+
+      submissionsBody.innerHTML = (submissionsRes.data || []).map(function (item) {
+        return '<tr>' +
+          '<td>' + escapeHtml(item.name) + '</td>' +
+          '<td>' + escapeHtml(item.email) + '</td>' +
+          '<td><span class="' + statusBadgeClass(item.status) + '">' + escapeHtml(item.status) + '</span></td>' +
+          '<td>' + formatDate(item.created_at) + '</td>' +
+          '<td><a href="/admin/submissions.html?id=' + item.id + '" style="color:var(--red)">View</a></td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', loadDashboard);
+  </script>
+</body>
+</html>

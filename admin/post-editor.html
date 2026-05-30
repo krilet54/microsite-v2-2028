@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Post Editor — Microsite Studio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin-style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js" defer></script>
+  <script src="/assets/supabase-config.js" defer></script>
+  <script src="/admin/admin-script.js" defer></script>
+</head>
+<body>
+  <header class="editor-topbar">
+    <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+      <a href="/admin/posts.html" class="admin-btn-secondary" style="padding:6px 10px;">← Back</a>
+      <input id="post-title" class="admin-input" placeholder="Untitled post" style="font-size:22px;font-family:'Bebas Neue',sans-serif;letter-spacing:.03em;border:none;background:transparent;padding:0;max-width:520px;">
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <label for="status-top" class="admin-label" style="margin:0;">Status</label>
+      <select id="status-top" class="admin-select" style="width:130px;">
+        <option value="draft">Draft</option>
+        <option value="published">Published</option>
+      </select>
+      <button id="save-btn" class="admin-btn-primary" type="button">Save</button>
+      <button id="preview-btn" class="admin-btn-secondary" type="button">Preview</button>
+      <span id="autosave-indicator" style="font-size:12px;color:var(--gray2);"></span>
+    </div>
+  </header>
+
+  <main class="editor-page">
+    <div class="editor-layout">
+      <section class="editor-main">
+        <div id="editor-container"></div>
+      </section>
+
+      <aside class="editor-side">
+        <section>
+          <h2 style="font-size:16px;margin-bottom:10px;">Post Details</h2>
+
+          <label class="admin-label" for="cover-file">Cover Image</label>
+          <input id="cover-file" class="admin-input" type="file" accept="image/*">
+          <img id="cover-preview" alt="Cover preview" style="margin-top:8px;width:100%;border-radius:8px;display:none;">
+
+          <label class="admin-label" for="cover-alt" style="margin-top:10px;">Cover Alt Text</label>
+          <input id="cover-alt" class="admin-input" type="text" placeholder="Describe the image">
+
+          <label class="admin-label" for="excerpt" style="margin-top:10px;">Excerpt</label>
+          <textarea id="excerpt" class="admin-textarea" maxlength="160" rows="3"></textarea>
+          <div id="excerpt-count" class="admin-char-count">0 / 160</div>
+          <p style="font-size:12px;color:var(--gray2);margin-top:4px;">Shown on blog index and in search results.</p>
+
+          <label class="admin-label" for="author" style="margin-top:10px;">Author</label>
+          <input id="author" class="admin-input" type="text" value="Microsite Studio">
+
+          <label class="admin-label" for="read-time" style="margin-top:10px;">Read Time (minutes)</label>
+          <div style="display:flex;gap:8px;">
+            <input id="read-time" class="admin-input" type="number" min="1" step="1" value="5">
+            <button id="calc-read-time" class="admin-btn-secondary" type="button">Auto-calc</button>
+          </div>
+
+          <label class="admin-label" for="published-at" style="margin-top:10px;">Published Date</label>
+          <input id="published-at" class="admin-input" type="datetime-local">
+        </section>
+
+        <section style="margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+          <button id="seo-toggle" type="button" style="display:flex;justify-content:space-between;align-items:center;width:100%;color:var(--off-white);font-weight:700;">
+            SEO Settings <span id="seo-chevron" style="color:var(--red);">▾</span>
+          </button>
+
+          <div id="seo-section" style="display:none;margin-top:12px;">
+            <label class="admin-label" for="seo-title">SEO Title</label>
+            <input id="seo-title" class="admin-input" maxlength="60" type="text">
+            <div id="seo-title-count" class="admin-char-count">0 / 60</div>
+            <p style="font-size:12px;color:var(--gray2);margin-top:4px;">Shown in Google search results.</p>
+
+            <label class="admin-label" for="seo-desc" style="margin-top:10px;">SEO Description</label>
+            <textarea id="seo-desc" class="admin-textarea" maxlength="160" rows="3"></textarea>
+            <div id="seo-desc-count" class="admin-char-count">0 / 160</div>
+
+            <label class="admin-label" for="slug" style="margin-top:10px;">URL Slug</label>
+            <div style="display:flex;gap:8px;">
+              <input id="slug" class="admin-input" type="text">
+              <button id="regen-slug" class="admin-btn-secondary" type="button">Auto</button>
+            </div>
+
+            <label class="admin-label" for="seo-keywords" style="margin-top:10px;">SEO Keywords</label>
+            <input id="seo-keywords" class="admin-input" type="text" placeholder="Comma-separated keywords">
+
+            <label class="admin-label" for="og-file" style="margin-top:10px;">OG Image</label>
+            <input id="og-file" class="admin-input" type="file" accept="image/*">
+            <img id="og-preview" alt="OG preview" style="margin-top:8px;width:100%;border-radius:8px;display:none;">
+            <p style="font-size:12px;color:var(--gray2);margin-top:4px;">Recommended size: 1200x630px.</p>
+
+            <div style="margin-top:12px;padding:10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);">
+              <p id="snippet-title" style="color:#7ea6ff;margin-bottom:2px;font-size:14px;"></p>
+              <p id="snippet-url" style="color:#5bae68;margin-bottom:2px;font-size:12px;"></p>
+              <p id="snippet-desc" style="color:var(--gray2);font-size:12px;"></p>
+            </div>
+          </div>
+        </section>
+
+        <section style="margin-top:16px;border-top:1px solid var(--border);padding-top:16px;">
+          <h3 style="font-size:15px;margin-bottom:8px;">Status</h3>
+          <select id="status-side" class="admin-select">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    let quill;
+    let postId = null;
+    let currentCoverImageUrl = '';
+    let currentOgImageUrl = '';
+    let currentStatus = 'draft';
+    let isDirty = false;
+
+    function slugify(value) {
+      return String(value || '')
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+    }
+
+    function syncStatus(value) {
+      currentStatus = value;
+      document.getElementById('status-top').value = value;
+      document.getElementById('status-side').value = value;
+      isDirty = true;
+    }
+
+    function updateCounter(id, max) {
+      const input = document.getElementById(id);
+      const counter = document.getElementById(id + '-count');
+      const value = input.value.length;
+      counter.textContent = value + ' / ' + max;
+      counter.classList.toggle('over', value > max);
+    }
+
+    function updateSnippet() {
+      const seoTitle = document.getElementById('seo-title').value || document.getElementById('post-title').value || 'Untitled post';
+      const slug = document.getElementById('slug').value || 'post-slug';
+      const seoDesc = document.getElementById('seo-desc').value || document.getElementById('excerpt').value || 'Post summary...';
+
+      document.getElementById('snippet-title').textContent = seoTitle;
+      document.getElementById('snippet-url').textContent = 'micro-site.studio/blog/' + slug;
+      document.getElementById('snippet-desc').textContent = seoDesc;
+    }
+
+    async function uploadImage(file, pathPrefix) {
+      const fileExt = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const fileName = pathPrefix + '-' + Date.now() + '.' + fileExt;
+
+      const uploadRes = await supabase.storage
+        .from('blog-images')
+        .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+      if (uploadRes.error) throw uploadRes.error;
+
+      const publicRes = supabase.storage.from('blog-images').getPublicUrl(fileName);
+      return publicRes.data.publicUrl;
+    }
+
+    async function savePost(silent) {
+      const saveBtn = document.getElementById('save-btn');
+      if (!silent) saveBtn.textContent = 'Saving...';
+
+      const postData = {
+        title: document.getElementById('post-title').value.trim(),
+        slug: document.getElementById('slug').value.trim(),
+        content: quill.root.innerHTML,
+        excerpt: document.getElementById('excerpt').value.trim(),
+        cover_image_url: currentCoverImageUrl || null,
+        og_image_url: currentOgImageUrl || currentCoverImageUrl || null,
+        author: document.getElementById('author').value.trim() || 'Microsite Studio',
+        read_time: parseInt(document.getElementById('read-time').value || '5', 10),
+        status: currentStatus,
+        seo_title: document.getElementById('seo-title').value.trim() || null,
+        seo_description: document.getElementById('seo-desc').value.trim() || null,
+        seo_keywords: document.getElementById('seo-keywords').value.trim() || null,
+        published_at: currentStatus === 'published'
+          ? (document.getElementById('published-at').value
+            ? new Date(document.getElementById('published-at').value).toISOString()
+            : new Date().toISOString())
+          : null
+      };
+
+      if (!postData.title || !postData.slug) {
+        if (!silent) saveBtn.textContent = 'Title + Slug required';
+        return;
+      }
+
+      let error = null;
+
+      if (postId) {
+        const updateRes = await supabase.from('blog_posts').update(postData).eq('id', postId);
+        error = updateRes.error;
+      } else {
+        const insertRes = await supabase.from('blog_posts').insert([postData]).select().single();
+        error = insertRes.error;
+        if (insertRes.data) {
+          postId = insertRes.data.id;
+          window.history.replaceState({}, '', '/admin/post-editor.html?id=' + postId);
+        }
+      }
+
+      if (error) {
+        console.error(error);
+        if (!silent) saveBtn.textContent = 'Error - Try Again';
+        return;
+      }
+
+      isDirty = false;
+      const nowLabel = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('autosave-indicator').textContent = 'Auto-saved ' + nowLabel;
+
+      if (!silent) {
+        saveBtn.textContent = 'Saved ✓';
+        setTimeout(function () { saveBtn.textContent = 'Save'; }, 1800);
+      }
+    }
+
+    async function loadExistingPost() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      if (!id) return;
+
+      postId = id;
+      const response = await supabase.from('blog_posts').select('*').eq('id', id).single();
+      if (response.error || !response.data) return;
+
+      const post = response.data;
+      document.getElementById('post-title').value = post.title || '';
+      document.getElementById('slug').value = post.slug || '';
+      document.getElementById('excerpt').value = post.excerpt || '';
+      document.getElementById('author').value = post.author || 'Microsite Studio';
+      document.getElementById('read-time').value = post.read_time || 5;
+      document.getElementById('seo-title').value = post.seo_title || '';
+      document.getElementById('seo-desc').value = post.seo_description || '';
+      document.getElementById('seo-keywords').value = post.seo_keywords || '';
+      if (post.published_at) {
+        document.getElementById('published-at').value = new Date(post.published_at).toISOString().slice(0, 16);
+      }
+
+      currentCoverImageUrl = post.cover_image_url || '';
+      currentOgImageUrl = post.og_image_url || '';
+
+      if (currentCoverImageUrl) {
+        const cover = document.getElementById('cover-preview');
+        cover.src = currentCoverImageUrl;
+        cover.style.display = 'block';
+      }
+      if (currentOgImageUrl) {
+        const og = document.getElementById('og-preview');
+        og.src = currentOgImageUrl;
+        og.style.display = 'block';
+      }
+
+      syncStatus(post.status || 'draft');
+      quill.clipboard.dangerouslyPasteHTML(post.content || '<p></p>');
+      isDirty = false;
+      updateCounter('excerpt', 160);
+      updateCounter('seo-title', 60);
+      updateCounter('seo-desc', 160);
+      updateSnippet();
+    }
+
+    async function init() {
+      const session = await requireAuth();
+      if (!session) return;
+
+      quill = new Quill('#editor-container', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ header: [2, 3, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'blockquote', 'code-block'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['image'],
+            ['clean']
+          ]
+        }
+      });
+
+      quill.on('text-change', function () {
+        isDirty = true;
+      });
+
+      document.getElementById('status-top').addEventListener('change', function (e) { syncStatus(e.target.value); });
+      document.getElementById('status-side').addEventListener('change', function (e) { syncStatus(e.target.value); });
+
+      document.getElementById('post-title').addEventListener('input', function (e) {
+        if (!document.getElementById('slug').dataset.touched) {
+          document.getElementById('slug').value = slugify(e.target.value);
+        }
+        isDirty = true;
+        updateSnippet();
+      });
+
+      document.getElementById('slug').addEventListener('input', function () {
+        document.getElementById('slug').dataset.touched = '1';
+        isDirty = true;
+        updateSnippet();
+      });
+
+      document.getElementById('regen-slug').addEventListener('click', function () {
+        document.getElementById('slug').value = slugify(document.getElementById('post-title').value);
+        document.getElementById('slug').dataset.touched = '';
+        isDirty = true;
+        updateSnippet();
+      });
+
+      ['excerpt', 'seo-title', 'seo-desc'].forEach(function (id) {
+        const limit = id === 'seo-title' ? 60 : 160;
+        document.getElementById(id).addEventListener('input', function () {
+          updateCounter(id, limit);
+          isDirty = true;
+          updateSnippet();
+        });
+      });
+
+      ['author', 'read-time', 'seo-keywords', 'published-at', 'cover-alt'].forEach(function (id) {
+        document.getElementById(id).addEventListener('input', function () { isDirty = true; });
+      });
+
+      document.getElementById('calc-read-time').addEventListener('click', function () {
+        const text = quill.getText().trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        const mins = Math.max(1, Math.ceil(words / 200));
+        document.getElementById('read-time').value = mins;
+        isDirty = true;
+      });
+
+      document.getElementById('seo-toggle').addEventListener('click', function () {
+        const panel = document.getElementById('seo-section');
+        const open = panel.style.display === 'block';
+        panel.style.display = open ? 'none' : 'block';
+        document.getElementById('seo-chevron').textContent = open ? '▾' : '▴';
+      });
+
+      document.getElementById('cover-file').addEventListener('change', async function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const url = await uploadImage(file, 'cover');
+        currentCoverImageUrl = url;
+        const img = document.getElementById('cover-preview');
+        img.src = url;
+        img.style.display = 'block';
+        isDirty = true;
+      });
+
+      document.getElementById('og-file').addEventListener('change', async function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const url = await uploadImage(file, 'og');
+        currentOgImageUrl = url;
+        const img = document.getElementById('og-preview');
+        img.src = url;
+        img.style.display = 'block';
+        isDirty = true;
+      });
+
+      document.getElementById('save-btn').addEventListener('click', function () { savePost(false); });
+
+      document.getElementById('preview-btn').addEventListener('click', function () {
+        const slug = document.getElementById('slug').value;
+        if (!slug) return;
+        window.open('/blog-post.html?slug=' + encodeURIComponent(slug) + '&preview=true', '_blank');
+      });
+
+      await loadExistingPost();
+      updateCounter('excerpt', 160);
+      updateCounter('seo-title', 60);
+      updateCounter('seo-desc', 160);
+      updateSnippet();
+
+      setInterval(function () {
+        if (isDirty) {
+          savePost(true);
+        }
+      }, 60000);
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin Login — Microsite Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin-style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/supabase-config.js" defer></script>
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="auth-card">
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Microsite Studio°</h1>
+      <p style="color:var(--gray2);margin-top:2px;">Admin Portal</p>
+      <hr style="border:none;border-top:1px solid var(--border);margin:14px 0 18px;">
+
+      <form id="login-form">
+        <label class="admin-label" for="email">Email</label>
+        <input id="email" class="admin-input" type="email" required>
+
+        <label class="admin-label" for="password" style="margin-top:12px;">Password</label>
+        <input id="password" class="admin-input" type="password" required>
+
+        <button class="admin-btn-primary" style="width:100%;margin-top:16px;">Sign In</button>
+        <p id="login-error" style="display:none;color:#e07068;margin-top:12px;"></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    async function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorEl = document.getElementById('login-error');
+
+      const response = await supabase.auth.signInWithPassword({ email: email, password: password });
+      if (response.error) {
+        errorEl.textContent = 'Invalid credentials. Try again.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      window.location.href = '/admin/dashboard.html';
+    }
+
+    document.getElementById('login-form').addEventListener('submit', handleLogin);
+  </script>
+</body>
+</html>

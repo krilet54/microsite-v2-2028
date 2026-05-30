@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Posts — Microsite Studio Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin-style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/supabase-config.js" defer></script>
+  <script src="/admin/admin-script.js" defer></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">Microsite Studio<span>Admin</span></div>
+      <a class="admin-nav-link" href="/admin/dashboard.html">Dashboard</a>
+      <a class="admin-nav-link active" href="/admin/posts.html">Blog Posts</a>
+      <a class="admin-nav-link" href="/admin/post-editor.html">New Post</a>
+      <a class="admin-nav-link" href="/admin/submissions.html">Submissions <span class="admin-nav-badge" id="submissions-badge" style="display:none"></span></a>
+      <a class="admin-nav-link" href="#">Settings</a>
+      <a class="admin-nav-link" href="#" onclick="signOut();return false;" style="margin-top:auto;">Sign Out</a>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-toolbar">
+        <div class="admin-filters">
+          <button class="admin-pill active" data-filter="all" type="button">All</button>
+          <button class="admin-pill" data-filter="published" type="button">Published</button>
+          <button class="admin-pill" data-filter="draft" type="button">Drafts</button>
+          <input id="search" class="admin-input" placeholder="Search title" style="width:240px;">
+        </div>
+
+        <a class="admin-btn-primary" href="/admin/post-editor.html">New Post</a>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Cover</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Published</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="posts-body"></tbody>
+      </table>
+    </main>
+  </div>
+
+  <script>
+    let allPosts = [];
+    let filter = 'all';
+
+    async function deletePost(id, title) {
+      if (!confirm('Delete "' + title + '"? This cannot be undone.')) return;
+      const response = await supabase.from('blog_posts').delete().eq('id', id);
+      if (!response.error) {
+        window.location.reload();
+      }
+    }
+
+    function renderRows() {
+      const query = document.getElementById('search').value.trim().toLowerCase();
+      const body = document.getElementById('posts-body');
+      const filtered = allPosts.filter(function (post) {
+        const byStatus = filter === 'all' ? true : post.status === filter;
+        const bySearch = post.title.toLowerCase().includes(query);
+        return byStatus && bySearch;
+      });
+
+      body.innerHTML = filtered.map(function (post) {
+        const thumb = post.cover_image_url
+          ? '<img src="' + post.cover_image_url + '" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:4px;">'
+          : '<div style="width:48px;height:48px;border-radius:4px;background:var(--surface);"></div>';
+
+        return '<tr>' +
+          '<td>' + thumb + '</td>' +
+          '<td>' + escapeHtml(post.title) + '</td>' +
+          '<td><span class="' + statusBadgeClass(post.status) + '">' + escapeHtml(post.status) + '</span></td>' +
+          '<td>' + formatDate(post.published_at) + '</td>' +
+          '<td>' +
+            '<a href="/admin/post-editor.html?id=' + post.id + '" style="color:var(--red);margin-right:10px;">Edit</a>' +
+            '<a href="/blog-post.html?slug=' + encodeURIComponent(post.slug) + '&preview=true" target="_blank" style="color:var(--red);margin-right:10px;">Preview</a>' +
+            '<a href="#" style="color:#e07068;" onclick="deletePost(\'' + post.id + '\', \'' + escapeHtml(post.title).replace(/'/g, "\\'") + '\');return false;">Delete</a>' +
+          '</td>' +
+          '</tr>';
+      }).join('');
+    }
+
+    async function loadPosts() {
+      const session = await requireAuth();
+      if (!session) return;
+
+      await renderSidebarBadge();
+
+      const response = await supabase
+        .from('blog_posts')
+        .select('id,title,slug,status,published_at,cover_image_url')
+        .order('updated_at', { ascending: false });
+
+      allPosts = response.data || [];
+      renderRows();
+    }
+
+    document.querySelectorAll('.admin-pill').forEach(function (button) {
+      button.addEventListener('click', function () {
+        document.querySelectorAll('.admin-pill').forEach(function (pill) {
+          pill.classList.remove('active');
+        });
+        button.classList.add('active');
+        filter = button.dataset.filter;
+        renderRows();
+      });
+    });
+
+    document.getElementById('search').addEventListener('input', renderRows);
+    window.addEventListener('DOMContentLoaded', loadPosts);
+  </script>
+</body>
+</html>
