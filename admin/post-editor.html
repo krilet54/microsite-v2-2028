@@ -174,6 +174,19 @@
       }
     }
 
+    function fileToDataUrl(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          resolve(String(reader.result || ''));
+        };
+        reader.onerror = function () {
+          reject(reader.error || new Error('Failed to read image file'));
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
     async function uploadImage(file, pathPrefix) {
       const fileExt = (file.name.split('.').pop() || 'jpg').toLowerCase();
       const fileId = window.crypto && crypto.randomUUID
@@ -183,14 +196,25 @@
 
       pendingImageUploads += 1;
       try {
-        const uploadRes = await supabase.storage
-          .from('blog-images')
-          .upload(fileName, file, { cacheControl: '3600', upsert: false });
+        if (supabase && supabase.storage) {
+          const uploadRes = await supabase.storage
+            .from('blog-images')
+            .upload(fileName, file, { cacheControl: '3600', upsert: false });
 
-        if (uploadRes.error) throw uploadRes.error;
+          if (!uploadRes.error) {
+            const publicRes = supabase.storage.from('blog-images').getPublicUrl(fileName);
+            if (publicRes.data && publicRes.data.publicUrl) {
+              return publicRes.data.publicUrl;
+            }
+          } else {
+            console.warn('Storage upload failed, falling back to embedded data URL:', uploadRes.error);
+          }
+        }
 
-        const publicRes = supabase.storage.from('blog-images').getPublicUrl(fileName);
-        return publicRes.data.publicUrl;
+        return await fileToDataUrl(file);
+      } catch (error) {
+        console.warn('Image upload fallback used:', error);
+        return await fileToDataUrl(file);
       } finally {
         pendingImageUploads = Math.max(0, pendingImageUploads - 1);
         flushUploadWaiters();
