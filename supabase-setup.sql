@@ -18,6 +18,12 @@ create table if not exists blog_posts (
   published_at timestamp with time zone
 );
 
+insert into storage.buckets (id, name, public)
+values ('blog-images', 'blog-images', true)
+on conflict (id) do update
+set public = excluded.public,
+    name = excluded.name;
+
 -- CONTACT FORM SUBMISSIONS TABLE
 create table if not exists contact_submissions (
   id uuid default gen_random_uuid() primary key,
@@ -51,6 +57,18 @@ create policy "Public can read published posts"
 create policy "Authenticated users have full access to posts"
   on blog_posts for all
   using (auth.role() = 'authenticated');
+
+create policy "Authenticated users can upload blog images"
+  on storage.objects for insert
+  with check (bucket_id = 'blog-images' and auth.role() = 'authenticated');
+
+create policy "Authenticated users can update blog images"
+  on storage.objects for update
+  using (bucket_id = 'blog-images' and auth.role() = 'authenticated');
+
+create policy "Authenticated users can delete blog images"
+  on storage.objects for delete
+  using (bucket_id = 'blog-images' and auth.role() = 'authenticated');
 
 alter table contact_submissions enable row level security;
 

@@ -74,8 +74,9 @@
       });
 
       body.innerHTML = filtered.map(function (post) {
-        const thumb = post.cover_image_url
-          ? '<img src="' + post.cover_image_url + '" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:4px;">'
+        const thumbUrl = post.cover_image_url || post.og_image_url || '';
+        const thumb = thumbUrl
+          ? '<img src="' + thumbUrl + '" alt="" style="width:48px;height:48px;object-fit:cover;border-radius:4px;">'
           : '<div style="width:48px;height:48px;border-radius:4px;background:var(--surface);"></div>';
 
         return '<tr>' +
@@ -100,7 +101,7 @@
 
       const response = await supabase
         .from('blog_posts')
-        .select('id,title,slug,status,published_at,cover_image_url')
+        .select('id,title,slug,status,published_at,cover_image_url,og_image_url')
         .order('updated_at', { ascending: false });
 
       allPosts = response.data || [];

@@ -123,6 +123,8 @@
     let currentOgImageUrl = '';
     let currentStatus = 'draft';
     let isDirty = false;
+    let pendingImageUploads = 0;
+    let pendingUploadResolvers = [];
 
     function slugify(value) {
       return String(value || '')
@@ -158,23 +160,56 @@
       document.getElementById('snippet-desc').textContent = seoDesc;
     }
 
+    function waitForImageUploads() {
+      if (pendingImageUploads === 0) return Promise.resolve();
+      return new Promise(function (resolve) {
+        pendingUploadResolvers.push(resolve);
+      });
+    }
+
+    function flushUploadWaiters() {
+      if (pendingImageUploads !== 0) return;
+      while (pendingUploadResolvers.length) {
+        pendingUploadResolvers.shift()();
+      }
+    }
+
     async function uploadImage(file, pathPrefix) {
       const fileExt = (file.name.split('.').pop() || 'jpg').toLowerCase();
-      const fileName = pathPrefix + '-' + Date.now() + '.' + fileExt;
+      const fileId = window.crypto && crypto.randomUUID
+        ? crypto.randomUUID()
+        : (Date.now() + '-' + Math.random().toString(16).slice(2));
+      const fileName = pathPrefix + '/' + fileId + '.' + fileExt;
 
-      const uploadRes = await supabase.storage
-        .from('blog-images')
-        .upload(fileName, file, { cacheControl: '3600', upsert: false });
+      pendingImageUploads += 1;
+      try {
+        const uploadRes = await supabase.storage
+          .from('blog-images')
+          .upload(fileName, file, { cacheControl: '3600', upsert: false });
 
-      if (uploadRes.error) throw uploadRes.error;
+        if (uploadRes.error) throw uploadRes.error;
 
-      const publicRes = supabase.storage.from('blog-images').getPublicUrl(fileName);
-      return publicRes.data.publicUrl;
+        const publicRes = supabase.storage.from('blog-images').getPublicUrl(fileName);
+        return publicRes.data.publicUrl;
+      } finally {
+        pendingImageUploads = Math.max(0, pendingImageUploads - 1);
+        flushUploadWaiters();
+      }
+    }
+
+    async function insertEditorImage(file) {
+      const url = await uploadImage(file, 'content');
+      const range = quill.getSelection(true) || { index: quill.getLength() };
+      quill.insertEmbed(range.index, 'image', url, 'user');
+      quill.setSelection(range.index + 1, 0, 'silent');
+      isDirty = true;
     }
 
     async function savePost(silent) {
       const saveBtn = document.getElementById('save-btn');
       if (!silent) saveBtn.textContent = 'Saving...';
+
+      await waitForImageUploads();
 
       const postData = {
         title: document.getElementById('post-title').value.trim(),
@@ -218,7 +253,7 @@
       if (error) {
         console.error(error);
         if (!silent) saveBtn.textContent = 'Error - Try Again';
-        return;
+        return false;
       }
 
       isDirty = false;
@@ -229,6 +264,8 @@
         saveBtn.textContent = 'Saved ✓';
         setTimeout(function () { saveBtn.textContent = 'Save'; }, 1800);
       }
+
+      return true;
     }
 
     async function loadExistingPost() {
@@ -292,6 +329,26 @@
             ['clean']
           ]
         }
+      });
+
+      quill.getModule('toolbar').addHandler('image', function () {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.style.display = 'none';
+        input.addEventListener('change', async function () {
+          const file = input.files && input.files[0];
+          input.remove();
+          if (!file) return;
+          try {
+            await insertEditorImage(file);
+          } catch (error) {
+            console.error('Inline image upload failed:', error);
+            alert('Image upload failed. Please try again.');
+          }
+        }, { once: true });
+        document.body.appendChild(input);
+        input.click();
       });
 
       quill.on('text-change', function () {
@@ -374,9 +431,11 @@
 
       document.getElementById('save-btn').addEventListener('click', function () { savePost(false); });
 
-      document.getElementById('preview-btn').addEventListener('click', function () {
+      document.getElementById('preview-btn').addEventListener('click', async function () {
         const slug = document.getElementById('slug').value;
         if (!slug) return;
+        const saved = await savePost(true);
+        if (!saved) return;
         window.open('/blog-post.html?slug=' + encodeURIComponent(slug) + '&preview=true', '_blank');
       });
 

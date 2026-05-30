@@ -13,6 +13,8 @@
   const coverEl = document.getElementById('article-cover');
   const breadcrumbPostEl = document.getElementById('breadcrumb-post');
   const relatedGrid = document.getElementById('related-grid');
+  const FALLBACK_COVER =
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 675'%3E%3Crect width='1200' height='675' fill='%23161616'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23888' font-size='42' font-family='sans-serif'%3EMicrosite Studio%3C/text%3E%3C/svg%3E";
 
   function formatDate(value) {
     if (!value) return 'Unscheduled';
@@ -52,6 +54,10 @@
       return (location.origin && location.origin !== 'null') ? (location.origin + url) : url.replace(/^\//, '');
     }
     return url;
+  }
+
+  function getPostImageUrl(post) {
+    return resolveAssetUrl(post.cover_image_url || post.og_image_url || FALLBACK_COVER);
   }
 
   function setMetaTag(type, key, value) {
@@ -96,7 +102,7 @@
   async function fetchRelated(currentId) {
     const response = await supabase
       .from('blog_posts')
-      .select('id, title, slug, excerpt, cover_image_url, published_at, read_time, seo_keywords')
+      .select('id, title, slug, excerpt, cover_image_url, og_image_url, published_at, read_time, seo_keywords')
       .eq('status', 'published')
       .neq('id', currentId)
       .order('published_at', { ascending: false })
@@ -116,7 +122,7 @@
       return (
         '<article class="blog-card">' +
         '  <a class="blog-card-link" href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '">' +
-          '    <img class="blog-card-cover" loading="lazy" src="' + (resolveAssetUrl(post.cover_image_url || '')) + '" alt="' + escapeHtml(post.title) + '">' +
+          '    <img class="blog-card-cover" loading="lazy" src="' + getPostImageUrl(post) + '" alt="' + escapeHtml(post.title) + '">' +
         '    <div class="blog-card-body">' +
         '      <span class="blog-tag">' + escapeHtml(category) + '</span>' +
         '      <h3 class="blog-card-title">' + escapeHtml(post.title) + '</h3>' +
@@ -160,7 +166,7 @@
     excerptEl.textContent = post.excerpt || '';
     breadcrumbPostEl.textContent = post.title;
     heroTagEl.textContent = category;
-    coverEl.src = post.cover_image_url || '';
+    coverEl.src = getPostImageUrl(post);
     coverEl.alt = post.title;
 
     const publishedDate = formatDate(post.published_at || post.created_at);

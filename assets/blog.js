@@ -43,6 +43,16 @@
     });
   }
 
+  function resolveAssetUrl(url) {
+    if (!url) return '';
+    if (/^https?:\/\//i.test(url)) return url;
+    if (url.charAt(0) === '/') {
+      if (location.protocol === 'file:') return url.replace(/^\//, '');
+      return (location.origin && location.origin !== 'null') ? (location.origin + url) : url.replace(/^\//, '');
+    }
+    return url;
+  }
+
   function renderPosts() {
     const filtered = activeCategory === 'All'
       ? loadedPosts
@@ -64,7 +74,7 @@
         return (
           '<article class="blog-card">' +
           '  <a class="blog-card-link" href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '">' +
-          '    <img class="blog-card-cover" loading="lazy" src="' + (post.cover_image_url || FALLBACK_COVER) + '" alt="' + escapeHtml(post.title) + '">' +
+          '    <img class="blog-card-cover" loading="lazy" src="' + resolveAssetUrl(post.cover_image_url || post.og_image_url || FALLBACK_COVER) + '" alt="' + escapeHtml(post.title) + '">' +
           '    <div class="blog-card-body">' +
           '      <span class="blog-tag">' + escapeHtml(post.category) + '</span>' +
           '      <h3 class="blog-card-title">' + escapeHtml(post.title) + '</h3>' +
@@ -98,7 +108,7 @@
   async function fetchPosts(currentOffset) {
     const response = await supabase
       .from('blog_posts')
-      .select('id, title, slug, excerpt, cover_image_url, published_at, read_time, seo_keywords')
+      .select('id, title, slug, excerpt, cover_image_url, og_image_url, published_at, read_time, seo_keywords')
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .range(currentOffset, currentOffset + (PAGE_SIZE - 1));
