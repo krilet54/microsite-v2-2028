@@ -60,6 +60,10 @@
     return resolveAssetUrl(post.cover_image_url || post.og_image_url || FALLBACK_COVER);
   }
 
+  function getArticlePageUrl(slug) {
+    return '/articles/' + encodeURIComponent(slug) + '.html';
+  }
+
   function setMetaTag(type, key, value) {
     const selector = 'meta[' + type + '="' + key + '"]';
     let tag = document.querySelector(selector);
@@ -121,7 +125,7 @@
       const category = getCategoryFromKeywords(post.seo_keywords);
       return (
         '<article class="blog-card">' +
-        '  <a class="blog-card-link" href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+        '  <a class="blog-card-link" href="' + getArticlePageUrl(post.slug) + '">' +
           '    <img class="blog-card-cover" loading="lazy" src="' + getPostImageUrl(post) + '" alt="' + escapeHtml(post.title) + '">' +
         '    <div class="blog-card-body">' +
         '      <span class="blog-tag">' + escapeHtml(category) + '</span>' +

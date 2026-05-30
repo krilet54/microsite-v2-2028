@@ -53,6 +53,10 @@
     return url;
   }
 
+  function getArticlePageUrl(slug) {
+    return '/articles/' + encodeURIComponent(slug) + '.html';
+  }
+
   function renderPosts() {
     const filtered = activeCategory === 'All'
       ? loadedPosts
@@ -73,7 +77,7 @@
         const readTime = post.read_time ? post.read_time + ' min read' : '5 min read';
         return (
           '<article class="blog-card">' +
-          '  <a class="blog-card-link" href="blog-post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+          '  <a class="blog-card-link" href="' + getArticlePageUrl(post.slug) + '">' +
           '    <img class="blog-card-cover" loading="lazy" src="' + resolveAssetUrl(post.cover_image_url || post.og_image_url || FALLBACK_COVER) + '" alt="' + escapeHtml(post.title) + '">' +
           '    <div class="blog-card-body">' +
           '      <span class="blog-tag">' + escapeHtml(post.category) + '</span>' +
