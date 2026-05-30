@@ -61,7 +61,7 @@
   }
 
   function getArticlePageUrl(slug) {
-    return '/articles/' + encodeURIComponent(slug) + '.html';
+    return '/blog-post.html?slug=' + encodeURIComponent(slug);
   }
 
   function setMetaTag(type, key, value) {

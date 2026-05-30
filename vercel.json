@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/blog-post.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug"
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "preview"
+        }
+      ],
+      "destination": "/api/blog-preview"
+    }
+  ]
+}
